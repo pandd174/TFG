@@ -61,10 +61,35 @@ export class App {
 		this.app.root.addChild(cube);
 		this.addTweenEntity(cube,"rotate")
 
-		//Add entity coche
-		const coche = this.addPlayCanvasCoche();
-		this.app.root.addChild(coche);
-		this.addTweenEntity(coche,"rotate")
+		// //Add entity coche
+		// const coche = this.addPlayCanvasCoche();
+		// this.app.root.addChild(coche);
+		// this.addTweenEntity(coche,"rotate")
+		// //var entities = coche.find('name', 'Scene');
+		// var ruedas = coche.children[0].children[2].find(function (node) {
+		// 	// abajo habria que poner el nombre de las partes a manejar
+		// 	return node.name.includes("R");
+		// });
+		// console.log("Coche: " + coche.children[0].children[2].children[0].children.push.name);
+		// ruedas.forEach( element => {
+		// 	element.setLocalPosition(10,0.5,10);
+		// 	var aux = element as any;
+		// 	//this.addTweenEntity(aux,"rotate 60")
+
+		// })
+		// //coche.children[0].children[2].children[0] es la rueda FL (Frontal Left)
+
+		//Add entity casa
+		const casa = this.addPlayCanvasCasa();
+		this.app.root.addChild(casa);
+		var tejados = casa.children[0].find(function (node) {
+			// abajo habria que poner el nombre de las partes a manejar
+			return node.name.toLowerCase().includes("roof");
+		});
+		tejados.forEach( element => {
+			element.setLocalPosition(element.getLocalPosition().x,element.getLocalPosition().y+10,element.getLocalPosition().z)
+			console.log("Casa: " + element.name);
+		})
     }
 
 
@@ -180,6 +205,19 @@ export class App {
 	}
 
 
+	addPlayCanvasCasa(){
+		var asset:pc.Asset = this.app.assets.find("casa");
+		const entity = new pc.Entity("playCanvasCube");
+		entity.addComponent("model", {
+			type: "asset",
+			asset: asset.resource.model,
+			castShadows: true
+		});
+		entity.setLocalPosition(0,0,0);
+		return entity;
+	}
+
+
 	addTweenEntity(entity:pc.Entity, animationName:string){
 		if(animationName == "rotate"){
 			const pca = pc as any;
@@ -187,6 +225,16 @@ export class App {
 			entitya
 			.tween(entity.getLocalRotation())
 			.rotate(new pc.Vec3(180, 0, 180), 5.0, pca.Linear)
+			.loop(true)
+			.yoyo(true)
+			.start();
+		}
+		if(animationName == "rotate 60"){
+			const pca = pc as any;
+			const entitya = entity as any;
+			entitya
+			.tween(entity.getLocalRotation())
+			.rotate(new pc.Vec3(30, 0, 0), 5.0, pca.Linear)
 			.loop(true)
 			.yoyo(true)
 			.start();
