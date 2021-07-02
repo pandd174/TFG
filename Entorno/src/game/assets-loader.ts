@@ -18,7 +18,10 @@ const assetsDesc:AssetDesc[] = [
         { id:"cube", type:"container", url:"./objects/cube.glb", tag:"init"},   
         { id:"coche", type:"container", url:"./objects/uploads_files_2792345_Koenigsegg.glb", tag:"init"},   
         { id:"casa", type:"container", url:"./objects/ejemplo_2.glb", tag:"init"},
-		{ id:"orbitCamera", type:"script", url:"./cameras/orbit-camera.js", tag:"init"}
+		{ id:"orbitCamera", type:"script", url:"./cameras/orbit-camera.js", tag:"init"},
+		{ id:"flyCamera", type:"script", url:"./cameras/fly-camera.js", tag:"init"},
+		{ id:"characterController", type:"script", url:"./cameras/first-person-camera.js", tag:"init"},
+		{ id:"firstPersonCamera", type:"script", url:"./cameras/first-person-camera.js", tag:"init"}
 	];
 
 

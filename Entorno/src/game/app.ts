@@ -6,6 +6,7 @@ import {AssetsLoader} from './assets-loader'
 export class App {
     public app:pc.Application
     private canvas:HTMLCanvasElement
+	private assets: { font: pc.Asset }
 
 
     public get App(): pc.Application {
@@ -24,7 +25,7 @@ export class App {
 
         this.app = new pc.Application(this.canvas, {
             mouse: new pc.Mouse(this.canvas),
-            touch: new pc.TouchDevice(this.canvas),
+            // touch: new pc.TouchDevice(this.canvas),
             keyboard: new pc.Keyboard(window)
 		});
 
@@ -47,19 +48,22 @@ export class App {
         Lights.addAmbientLight(this.app);
         Lights.createSimpleDirectionalShadowLight(this.app, true);
 		//BOX
-		this.createBox();
+		//this.createBox();
         //Environmet
         Lights.addSkyBox(this.app, 0, 'background');
 		//Ground
-		const ground =this.createGround(new pc.Color().fromString('#ffaa00'));
-		this.app.root.addChild(ground);
+		// const ground =this.createGround(new pc.Color().fromString('#ffaa00'));
+		// this.app.root.addChild(ground);
 		//camera
-		this.createOrbitCamera(ground);
+		//this.createOrbitCamera(ground);
+		const camera = this.createFlyCamera();
+		const text = this.createText();
+		// camera.addChild(text);
 
 		//Add entity
-		const cube = this.addPlayCanvasCube();
-		this.app.root.addChild(cube);
-		this.addTweenEntity(cube,"rotate")
+		// const cube = this.addPlayCanvasCube();
+		// this.app.root.addChild(cube);
+		// this.addTweenEntity(cube,"rotate")
 
 		// //Add entity coche
 		// const coche = this.addPlayCanvasCoche();
@@ -82,14 +86,6 @@ export class App {
 		//Add entity casa
 		const casa = this.addPlayCanvasCasa();
 		this.app.root.addChild(casa);
-		var tejados = casa.children[0].find(function (node) {
-			// abajo habria que poner el nombre de las partes a manejar
-			return node.name.toLowerCase().includes("roof");
-		});
-		tejados.forEach( element => {
-			element.setLocalPosition(element.getLocalPosition().x,element.getLocalPosition().y+10,element.getLocalPosition().z)
-			console.log("Casa: " + element.name);
-		})
     }
 
 
@@ -120,7 +116,7 @@ export class App {
 		// Add the new Entities to the hierarchy
 		this.app.root.addChild(camera);
 		// Move the camera 10m along the z-axis
-		camera.translate(0, 0, 10);
+		camera.translate(5, 10, 5);
 	}
 
 
@@ -147,6 +143,106 @@ export class App {
 		
 	}
 
+	private createFlyCamera(){
+		const camera = new pc.Entity();
+		camera.addComponent("camera", {
+			clearColor: new pc.Color(0.5, 0.5, 0.8),
+			nearClip: 0.3,
+			farClip: 30
+		});
+	
+		// add the fly camera script to the camera
+		camera.addComponent("script");
+		if(camera.script){
+			camera.script.create("flyCamera", {
+				attributes: {
+					mode: 1
+				}
+			})
+		}
+		console.log("cameraScript",camera.script);
+		this.app.root.addChild(camera);
+		camera.translate(5, 10, 5);
+		//const text = this.createText();
+		//camera.addChild(text);
+		return camera;
+	}
+
+	private createFirstPersonCamera(){
+		// Create a camera that will be driven by the character controller
+		const camera = new pc.Entity();
+		camera.addComponent("camera", {
+			clearColor: new pc.Color(0.4, 0.45, 0.5),
+			farClip: 100,
+			fov: 65,
+			nearClip: 0.1
+		});
+		camera.setLocalPosition(0, 1, 0);
+
+		// Create a physical character controller
+		const characterController = new pc.Entity();
+		characterController.addComponent("collision", {
+			axis: 0,
+			height: 2,
+			radius: 0.5,
+			type: "capsule"
+		});
+		characterController.addComponent("rigidbody", {
+			angularDamping: 0,
+			angularFactor: pc.Vec3.ZERO,
+			friction: 0.3,
+			linearDamping: 0,
+			linearFactor: pc.Vec3.ONE,
+			mass: 80,
+			restitution: 0,
+			type: "dynamic"
+		});
+		characterController.addComponent("script");
+		if (characterController.script) {
+			characterController.script.create("characterController");
+			characterController.script.create("firstPersonCamera", {
+				attributes: {
+					camera: camera
+				}
+			});
+			characterController.script.create("gamePadInput");
+			characterController.script.create("keyboardInput");
+			characterController.script.create("mouseInput");
+			characterController.script.create("touchInput");
+		}
+		characterController.setLocalPosition(0, 1, 10);
+
+		// Add the character controll and camera to the hierarchy
+		this.app.root.addChild(characterController);
+		characterController.addChild(camera);
+	}
+
+	private createText(){
+		// Create a 2D screen
+		const screen = new pc.Entity();
+		screen.addComponent("screen", {
+			referenceResolution: new pc.Vec2(1280, 720),
+			scaleBlend: 0.5,
+			scaleMode: pc.SCALEMODE_BLEND,
+			screenSpace: true
+		});
+		this.app.root.addChild(screen);
+		// Create a basic text element
+		const text = new pc.Entity();
+		text.addComponent("element", {
+			anchor: new pc.Vec4(0.1, 0.1, 0.5, 0.5),
+			fontAsset: this.app.assets.find("font"),
+			fontSize: 28,
+			color: pc.Color.BLACK,
+			pivot: new pc.Vec2(0.5, 0.1),
+			text: "Aqui iria la seleccion",
+			type: pc.ELEMENTTYPE_TEXT,
+			alignment: pc.Vec2.ZERO
+		});
+		screen.addChild(text);
+		console.log(text.element?.text);
+		return text;
+	}
 
 
 	private createGround(color:pc.Color):pc.Entity{
@@ -214,6 +310,20 @@ export class App {
 			castShadows: true
 		});
 		entity.setLocalPosition(0,0,0);
+
+		// Tejados
+		// entity.model?.meshInstances
+		// Bounding box
+		// model->meshInstance->AABB
+		// intersectsRay(ray, intersection)
+		var tejados = entity.children[0].find(function (node) {
+			// abajo habria que poner el nombre de las partes a manejar
+			return node.name.toLowerCase().includes("roof") || node.name.toLowerCase().includes("tejado");
+		});
+		tejados.forEach( element => {
+			element.setLocalPosition(element.getLocalPosition().x,element.getLocalPosition().y+10,element.getLocalPosition().z)
+			console.log("Casa: " + element.name);
+		})
 		return entity;
 	}
 
