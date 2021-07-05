@@ -61,6 +61,19 @@ export class App {
 		const camera = Cameras.prototype.createFlyCamera();
 		this.app.root.addChild(camera);
 		const text = this.createText();
+		console.log('En app.ts ', camera.script?.get('flyCamera'))
+
+		var onTextChange = function() {
+			if (camera.script && text.script && text.script.get('element')) {
+				console.log('En app.ts ', text.script.get('element'))
+				// text.on('attr:text', function (value, prev) {
+				// 	text: camera.script.get('flyCamera');
+				// });
+			}
+		};
+	
+		// listen for the player:move event
+		this.app.on('camera:text', onTextChange);   
 		// camera.addChild(text);
 
 		//Add entity

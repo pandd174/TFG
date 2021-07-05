@@ -78,6 +78,11 @@ FlyCamera.attributes.add('mode', {
     }]
 });
 
+FlyCamera.attributes.add('text', {
+    type: 'string',
+    default: 'Aqui va la seleccion'
+});
+
 FlyCamera.prototype.initialize = function () {
     // Camera euler angle rotation around x and y axes
     var eulers = this.entity.getLocalEulerAngles();
@@ -229,6 +234,7 @@ FlyCamera.prototype.doRaycast = function (x, y) {
     if (result) {
         var hitEntity = result.entity;
         console.log('You selected ' + hitEntity.name);
+        this.text = hitEntity.name;
     }    
     return result;
 };
