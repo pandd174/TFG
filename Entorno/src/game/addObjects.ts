@@ -1,9 +1,11 @@
 import {Lights} from './lights'
 import * as pc from 'playcanvas'
+import {AssetsLoader} from './assets-loader'
 
 
 export class Objects {
     public app:pc.Application
+	private assets: { font: pc.Asset }
 
 
 	createBox(){
@@ -11,7 +13,6 @@ export class Objects {
         box.addComponent("model", {
             type: "box"
         });
-		this.app.root.addChild(box);
 	}
 
 
@@ -32,8 +33,8 @@ export class Objects {
 		return ground;
 	}
 
-	addPlayCanvasCube(){
-		var asset:pc.Asset = this.app.assets.find("cube");
+	addPlayCanvasCube(appAux:pc.Application){
+		var asset:pc.Asset = appAux.assets.find("cube");
 		const entity = new pc.Entity("playCanvasCube");
 		entity.addComponent("model", {
 			type: "asset",
@@ -45,8 +46,8 @@ export class Objects {
 	}
 
 
-	addPlayCanvasCoche(){
-		var asset:pc.Asset = this.app.assets.find("coche");
+	addPlayCanvasCoche(appAux:pc.Application){
+		var asset:pc.Asset = appAux.assets.find("coche");
 		const entity = new pc.Entity("playCanvasCube");
 		entity.addComponent("model", {
 			type: "asset",
@@ -58,8 +59,8 @@ export class Objects {
 	}
 
 
-	addPlayCanvasCasa(){
-		var asset:pc.Asset = this.app.assets.find("casa");
+	addPlayCanvasCasa(appAux:pc.Application){
+		var asset:pc.Asset = appAux.assets.find("casa");
 		const entity = new pc.Entity("playCanvasCube");
 		entity.addComponent("model", {
 			type: "asset",
@@ -145,7 +146,7 @@ export class Objects {
 	}
 
 	
-	private createPhysicalShape(type: string, x: number, y: number, z: number, material?: pc.Material) {
+	private createPhysicalShape(type: string, x: number, y: number, z: number, height: number, rigidbodyType?:string|"static", material?: pc.Material) {
 		const e = new pc.Entity();
 
 		// Have to set the position of the entity before adding the static rigidbody
@@ -164,11 +165,11 @@ export class Objects {
             });
         }
 		e.addComponent("rigidbody", {
-			type: "static"
+			type: rigidbodyType
 		});
 		e.addComponent("collision", {
 			type: type,
-			height: type === 'capsule' ? 2 : 1
+			height: height
 		});
 
 		return e;

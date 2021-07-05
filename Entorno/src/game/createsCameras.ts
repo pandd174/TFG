@@ -37,7 +37,6 @@ export class Cameras {
 			camera.script.create("orbitCameraInputTouch");
 		}
 		console.log("cameraScript",camera.script);
-		this.app.root.addChild(camera);
 		return camera;
 		
 	}
@@ -60,7 +59,6 @@ export class Cameras {
 			})
 		}
 		console.log("cameraScript",camera.script);
-		this.app.root.addChild(camera);
 		camera.translate(5, 10, 5);
 		//camera.translate(0, 0, 0);
 		//const text = this.createText();
@@ -113,7 +111,8 @@ export class Cameras {
 		characterController.setLocalPosition(0, 1, 10);
 
 		// Add the character controll and camera to the hierarchy
-		this.app.root.addChild(characterController);
+		//this.app.root.addChild(characterController);
 		characterController.addChild(camera);
+        return characterController;
 	}
 }

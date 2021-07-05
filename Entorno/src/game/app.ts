@@ -59,6 +59,7 @@ export class App {
 		//camera
 		//Cameras.prototype.createOrbitCamera(ground);
 		const camera = Cameras.prototype.createFlyCamera();
+		this.app.root.addChild(camera);
 		const text = this.createText();
 		// camera.addChild(text);
 
@@ -86,7 +87,7 @@ export class App {
 		// //coche.children[0].children[2].children[0] es la rueda FL (Frontal Left)
 
 		//Add entity casa
-		const casa = Objects.prototype.addPlayCanvasCasa();
+		const casa = Objects.prototype.addPlayCanvasCasa(this.app);
 		this.app.root.addChild(casa);
     }
     
