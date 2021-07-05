@@ -1,4 +1,62 @@
+
 var FlyCamera = pc.createScript('flyCamera');
+var Raycast = pc.createScript('raycast');
+
+
+////////////////////////////////////////////////////////////////////////////
+//                          RayCast                                       //
+////////////////////////////////////////////////////////////////////////////
+
+
+// initialize code called once per entity
+Raycast.prototype.initialize = function() {
+    if (!this.entity.camera) {
+        console.error('This script must be applied to an entity with a camera component.');
+        return;
+    }
+
+    // Add a mousedown event handler
+    this.app.mouse.on(pc.EVENT_MOUSEDOWN, this.mouseDown, this);
+
+    // Add touch event only if touch is available
+    if (this.app.touch) {
+        this.app.touch.on(pc.EVENT_TOUCHSTART, this.touchStart, this);
+    }
+};
+
+Raycast.prototype.mouseDown = function (e) {
+    this.doRaycast(e.x, e.y);
+};
+
+Raycast.prototype.touchStart = function (e) {
+    // Only perform the raycast if there is one finger on the screen
+    if (e.touches.length === 1) {
+        this.doRaycast(e.touches[0].x, e.touches[0].y);
+    }
+    e.event.preventDefault();
+};
+
+Raycast.prototype.doRaycast = function (screenX, screenY) {
+    // The pc.Vec3 to raycast from (the position of the camera)
+    var from = this.entity.getPosition();
+
+    // The pc.Vec3 to raycast to (the click position projected onto the camera's far clip plane)
+    var to = this.entity.camera.screenToWorld(screenX, screenY, this.entity.camera.farClip);
+
+    // Raycast between the two points and return the closest hit result
+    var result = this.app.systems.rigidbody.raycastFirst(from, to);
+
+    // If there was a hit, store the entity
+    if (result) {
+        var hitEntity = result.entity;
+        console.log('You selected ' + hitEntity.name);
+    }    
+    return result;
+};
+
+////////////////////////////////////////////////////////////////////////////
+//                          FlyCamera                                     //
+////////////////////////////////////////////////////////////////////////////
 
 FlyCamera.attributes.add('speed', {
     type: 'number',
@@ -97,4 +155,80 @@ FlyCamera.prototype.onMouseUp = function (event) {
     if (event.button === 0) {
         this.lmbDown = false;
     }
+
+    
+    if (this.mode) {
+        this.selectObject(new pc.Vec3(event.x, event.y, event.z));
+    }
+};
+
+FlyCamera.prototype.selectObject =function(pos){
+    console.log("Llego a la linea 167, pos: ", pos);
+    var result;
+    if (pos)
+        result=this.doRaycast(pos.x,pos.y);
+    else
+        result=this.doRaycast(this.app.mouse._lastX,this.app.mouse._lastY);
+    console.log("Llego a la linea 169, result: ", result);
+    if(result && result.entity){        
+        if(result.entity.model?.meshInstances.length > 0){
+            console.log("Llego a la linea 115");
+            for(let i=0; i < result.entity.model.meshInstances.length ; i++ ){
+                const ray = this.createRay(pos);  
+                let intersectResult = new pc.Vec3();   
+                console.log("AABB", 
+                    result.entity.model.meshInstances[i].node.name,
+                    result.entity.model.meshInstances[i].aabb.intersectsRay(ray, intersectResult) );
+            }
+        } console.log("meshInstances:",result.entity.model?.meshInstances.length)
+        return result;
+    }
+};
+
+FlyCamera.prototype.createRay = function(screenPosition){
+    var camera=this.entity;
+    var from = camera.camera.screenToWorld(screenPosition.x, screenPosition.y, camera.camera.nearClip);
+    var to = camera.camera.screenToWorld(screenPosition.x, screenPosition.y, camera.camera.farClip);
+    var r = new pc.Vec3();
+    var dir = r.sub2(to, from);
+    dir.normalize();   
+    var ray = new pc.Ray(from, dir);
+    console.log("ray:",ray);
+    return ray;
+}
+
+FlyCamera.prototype.getFirstMeshSelectable =  function (screenPosition) {
+    var camera=this.entity;
+    var from = camera.camera.screenToWorld(screenPosition.x, screenPosition.y, camera.camera.nearClip);
+    var to = camera.camera.screenToWorld(screenPosition.x, screenPosition.y, camera.camera.farClip);
+    var result = this.app.systems.rigidbody.raycastFirst(from, to);
+    if(result  && result.entity){
+        //Recorrer MeshInstances
+        // Solo tratar los que empiezan por "puerta", "ventana"
+        // Lista de intersecciones OK + pto de interseccion Tupla [Mesh, intersectPoint]
+        // De la lista obtengo el que este más cerca del "from"
+
+        //Obtener objetos seleccionables y animables ("puerta", "ventana")
+        //Estos objetos los metes en una lista estados ( inicial, final, animar=false, 90, dirección)
+    }
+};
+
+
+
+FlyCamera.prototype.doRaycast = function (x, y) {
+    // The pc.Vec3 to raycast from (the position of the camera)
+    var from = this.entity.getPosition();
+
+    // The pc.Vec3 to raycast to (the click position projected onto the camera's far clip plane)
+    var to = this.entity.camera.screenToWorld(x, y, this.entity.camera.farClip);
+
+    // Raycast between the two points and return the closest hit result
+    var result = this.app.systems.rigidbody.raycastFirst(from, to);
+
+    // If there was a hit, store the entity
+    if (result) {
+        var hitEntity = result.entity;
+        console.log('You selected ' + hitEntity.name);
+    }    
+    return result;
 };
