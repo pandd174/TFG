@@ -3,8 +3,7 @@ import * as pc from 'playcanvas'
 
 export class Cameras {
     public app:pc.Application
-
-
+	public scripts = new Array;
 
 	createStaticCamera(){
 		// Create an Entity with a camera component
@@ -27,14 +26,14 @@ export class Cameras {
 		});
 		camera.addComponent("script");
 		if(camera.script){
-			camera.script.create("orbitCamera", {
+			this.scripts.push(camera.script.create("orbitCamera", {
 				attributes: {
 					inertiaFactor: 0.2, // Override default of 0 (no inertia)
 					focusEntity: lookatEntity,
 				}
-			});
-			camera.script.create("orbitCameraInputMouse");
-			camera.script.create("orbitCameraInputTouch");
+			}));
+			this.scripts.push(camera.script.create("orbitCameraInputMouse"));
+			this.scripts.push(camera.script.create("orbitCameraInputTouch"));
 		}
 		console.log("cameraScript",camera.script);
 		return camera;
@@ -52,11 +51,11 @@ export class Cameras {
 		// add the fly camera script to the camera
 		camera.addComponent("script");
 		if(camera.script){
-			camera.script.create("flyCamera", {
+			this.scripts.push(camera.script.create("flyCamera", {
 				attributes: {
 					mode: 1
 				}
-			})
+			}))
 		}
 		console.log("cameraScript",camera.script);
 		camera.translate(5, 10, 5);
@@ -114,5 +113,32 @@ export class Cameras {
 		//this.app.root.addChild(characterController);
 		characterController.addChild(camera);
         return characterController;
+	}
+
+	private createText(){
+		// Create a 2D screen
+		const screen = new pc.Entity();
+		screen.addComponent("screen", {
+			referenceResolution: new pc.Vec2(1280, 720),
+			scaleBlend: 0.5,
+			scaleMode: pc.SCALEMODE_BLEND,
+			screenSpace: true
+		});
+		this.app.root.addChild(screen);
+		// Create a basic text element
+		const text = new pc.Entity();
+		text.addComponent("element", {
+			anchor: new pc.Vec4(0.1, 0.1, 0.5, 0.5),
+			fontAsset: this.app.assets.find("font"),
+			fontSize: 28,
+			color: pc.Color.BLACK,
+			pivot: new pc.Vec2(0.5, 0.1),
+			text: "Aqui iria la seleccion",
+			type: pc.ELEMENTTYPE_TEXT,
+			alignment: pc.Vec2.ZERO
+		});
+		screen.addChild(text);
+		console.log(text.element?.text);
+		return text;
 	}
 }

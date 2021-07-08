@@ -58,22 +58,22 @@ export class App {
 		// this.app.root.addChild(ground);
 		//camera
 		//Cameras.prototype.createOrbitCamera(ground);
-		const camera = Cameras.prototype.createFlyCamera();
+		const allCameras = new Cameras();
+		const camera = allCameras.createFlyCamera();
 		this.app.root.addChild(camera);
-		const text = this.createText();
+		var text = this.createText((allCameras.scripts[0].__attributes.text as any));
 		console.log('En app.ts ', camera.script?.get('flyCamera'))
-
-		var onTextChange = function() {
-			if (camera.script && text.script && text.script.get('element')) {
-				console.log('En app.ts ', text.script.get('element'))
-				// text.on('attr:text', function (value, prev) {
-				// 	text: camera.script.get('flyCamera');
-				// });
-			}
-		};
-	
+		console.log('En createsCameras.ts ', allCameras.scripts[0].__attributes.text);
+		console.log('texto de pantalla ', (text.findComponent("element") as any));
+		console.log('texto de pantalla TEXTO ', (text.findComponent("element") as any)._text);
+		var thisAux = this;
+		camera.script?.get('flyCamera')?.on("attr:text", function (dt) {
+			console.log('Cambio texto en camara');
+			text.destroy();
+			text = thisAux.createText(allCameras.scripts[0].__attributes.text);
+			text.findComponent("element");
+		})
 		// listen for the player:move event
-		this.app.on('camera:text', onTextChange);   
 		// camera.addChild(text);
 
 		//Add entity
@@ -113,7 +113,7 @@ export class App {
         return canvas;
     }
 
-	private createText(){
+	private createText(textoReferencia:any){
 		// Create a 2D screen
 		const screen = new pc.Entity();
 		screen.addComponent("screen", {
@@ -131,7 +131,7 @@ export class App {
 			fontSize: 28,
 			color: pc.Color.BLACK,
 			pivot: new pc.Vec2(0.5, 0.1),
-			text: "Aqui iria la seleccion",
+			text: textoReferencia,
 			type: pc.ELEMENTTYPE_TEXT,
 			alignment: pc.Vec2.ZERO
 		});
