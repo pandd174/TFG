@@ -6,6 +6,16 @@ import {AssetsLoader} from './assets-loader'
 export class Objects {
     public app:pc.Application
 	private assets: { font: pc.Asset }
+	public interactiveParts:{name:string[], textInstructions:string, meshInstancesArray:pc.MeshInstance[]}[];
+
+	initializeInteractiveParts() {
+	this.interactiveParts=[
+		{name:["window", "ventana"], textInstructions:"Colores: \nAzul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde \nTeclas 1, 2, 3, 4, 5, 6, 7, 8, 9", meshInstancesArray:[]}, 
+		{name:["light", "luces", "luz"], textInstructions:"Iluminacion: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]}, 
+		{name:["roof", "tejado"], textInstructions:"Movimiento: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]}
+	];
+	}
+	
 
 
 	createBox(){
@@ -85,19 +95,26 @@ export class Objects {
             //         }
             //     }
 
-            console.log(entity);
-            var tejados = new Array<pc.MeshInstance>(), luces = new Array<pc.MeshInstance>(), ventanas = new Array<pc.MeshInstance>();
+            //console.log(entity);
+            //var tejados = new Array<pc.MeshInstance>(), luces = new Array<pc.MeshInstance>(), ventanas = new Array<pc.MeshInstance>();
             entity.model.meshInstances.forEach( element => {
                 this.createPhysicalShape("box", element.node.getPosition().x, element.node.getPosition().y, element.node.getPosition().z, appAux, element.node.name);
-                if (element.node.name.toLowerCase().includes("roof") || element.node.name.toLowerCase().includes("tejado")){
-                    tejados.push(element);
-                }
-                if (element.node.name.toLowerCase().includes("window") || element.node.name.toLowerCase().includes("ventana")){
-                    ventanas.push(element);
-                }
-                if (element.node.name.toLowerCase().includes("light") || element.node.name.toLowerCase().includes("luz") || element.node.name.toLowerCase().includes("luces")){
-                    luces.push(element);
-                }
+				this.interactiveParts.forEach(elementInteractive => {
+					elementInteractive.name.forEach(name => {
+						if (element.node.name.toLowerCase().includes(name)) {
+							elementInteractive.meshInstancesArray.push(element);
+						}
+					});
+				})
+                // if (element.node.name.toLowerCase().includes("roof") || element.node.name.toLowerCase().includes("tejado")){
+                //     tejados.push(element);
+                // }
+                // if (element.node.name.toLowerCase().includes("window") || element.node.name.toLowerCase().includes("ventana")){
+                //     ventanas.push(element);
+                // }
+                // if (element.node.name.toLowerCase().includes("light") || element.node.name.toLowerCase().includes("luz") || element.node.name.toLowerCase().includes("luces")){
+                //     luces.push(element);
+                // }
                 
             })
 
@@ -105,8 +122,8 @@ export class Objects {
             //     // abajo habria que poner el nombre de las partes a manejar
             //     return node.node.name.toLowerCase().includes("roof") || node.node.name.toLowerCase().includes("tejado");
             // });
-            if (tejados) {
-                tejados.forEach( element => {
+            if (this.interactiveParts) {
+                this.interactiveParts[2].meshInstancesArray.forEach( element => {
                     element.node.setLocalPosition(element.node.getLocalPosition().x,element.node.getLocalPosition().y+10,element.node.getLocalPosition().z)
                     console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
                 })
@@ -114,8 +131,8 @@ export class Objects {
             // ventanas = entity.model.meshInstances.filter(function (node) {
             //     return node.node.name.toLowerCase().includes("window") || node.node.name.toLowerCase().includes("ventana");
             // });
-            if (ventanas) {
-                ventanas.forEach( element => {
+            if (this.interactiveParts) {
+                this.interactiveParts[0].meshInstancesArray.forEach( element => {
                     var materialAux = this.createMaterial(pc.Color.WHITE, pc.Color.CYAN, true, 0);
                     //materialAux.blendType = pc.BLEND_NORMAL;
                     element.material = materialAux;
@@ -124,8 +141,8 @@ export class Objects {
             // luces = entity.model.meshInstances.filter(function (node) {
             //     return node.node.name.toLowerCase().includes("light") || node.node.name.toLowerCase().includes("luz") || node.node.name.toLowerCase().includes("luces");
             // });
-            if (luces) {
-                luces.forEach( element => {
+            if (this.interactiveParts) {
+                this.interactiveParts[1].meshInstancesArray.forEach( element => {
                     const light = this.createSpotLight();
                     light.setPosition(element.node.getPosition());
                 })
