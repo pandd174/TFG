@@ -12,7 +12,8 @@ export class Objects {
 	this.interactiveParts=[
 		{name:["window", "ventana"], textInstructions:"Colores: \nAzul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde \nTeclas 1, 2, 3, 4, 5, 6, 7, 8, 9", meshInstancesArray:[]}, 
 		{name:["light", "luces", "luz"], textInstructions:"Iluminacion: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]}, 
-		{name:["roof", "tejado"], textInstructions:"Movimiento: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]}
+		{name:["roof", "tejado"], textInstructions:"Movimiento: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]},
+		{name:["door", "puerta"], textInstructions:"Movimiento: \n90º, -90º \nTeclas 1, 2", meshInstancesArray:[]}
 	];
 	}
 	
@@ -72,7 +73,12 @@ export class Objects {
 	addPlayCanvasCasa(appAux:pc.Application){
 		var asset:pc.Asset = appAux.assets.find("casa");
 		const entity = new pc.Entity("playCanvasCube");
-		entity.addComponent("model", {
+		// entity.addComponent("model", {
+		// 	type: "asset",
+		// 	asset: asset.resource.model,
+		// 	castShadows: true
+		// });
+		entity.addComponent("render", {
 			type: "asset",
 			asset: asset.resource.model,
 			castShadows: true
@@ -95,7 +101,7 @@ export class Objects {
             //         }
             //     }
 
-            //console.log(entity);
+            console.log("Entidad casa: " + entity.children);
             //var tejados = new Array<pc.MeshInstance>(), luces = new Array<pc.MeshInstance>(), ventanas = new Array<pc.MeshInstance>();
             entity.model.meshInstances.forEach( element => {
                 this.createPhysicalShape("box", element.node.getPosition().x, element.node.getPosition().y, element.node.getPosition().z, appAux, element.node.name);
@@ -125,7 +131,7 @@ export class Objects {
             if (this.interactiveParts) {
                 this.interactiveParts[2].meshInstancesArray.forEach( element => {
                     element.node.setLocalPosition(element.node.getLocalPosition().x,element.node.getLocalPosition().y+10,element.node.getLocalPosition().z)
-                    console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
+                    //console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
                 })
             }
             // ventanas = entity.model.meshInstances.filter(function (node) {
@@ -133,7 +139,7 @@ export class Objects {
             // });
             if (this.interactiveParts) {
                 this.interactiveParts[0].meshInstancesArray.forEach( element => {
-                    var materialAux = this.createMaterial(pc.Color.WHITE, pc.Color.CYAN, true, 0);
+                    var materialAux = this.createMaterial(pc.Color.WHITE, pc.Color.CYAN, "CYAN", true, 0);
                     //materialAux.blendType = pc.BLEND_NORMAL;
                     element.material = materialAux;
                 })
@@ -145,6 +151,9 @@ export class Objects {
                 this.interactiveParts[1].meshInstancesArray.forEach( element => {
                     const light = this.createSpotLight();
                     light.setPosition(element.node.getPosition());
+					// entity.addComponent("light", light);
+					// element.node.insertChild(light, 0);
+					// console.log(element.node.children)
                 })
             }
         }
@@ -152,10 +161,11 @@ export class Objects {
 	}
 		
 
-	createMaterial (ambient:pc.Color, diffuse:pc.Color, blend?:boolean, opacity?:number) {
+	createMaterial (ambient:pc.Color, diffuse:pc.Color, nombre:string="", blend?:boolean, opacity?:number) {
 		var material:pc.StandardMaterial = new pc.StandardMaterial();
 		material.diffuse = diffuse;
 		material.ambient = ambient;
+		material.name = nombre;
 		if(opacity)	material.opacity = opacity;
 		if(blend) material.blendType = pc.BLEND_ADDITIVE;
 		material.update();

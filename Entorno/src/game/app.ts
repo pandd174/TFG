@@ -117,15 +117,16 @@ export class App {
 		this.app.root.addChild(casa);
 
 		var thisAux = this;
+		var entidad = casa;
 		this.app.keyboard.on("keydown", function (e) {
 			switch (e.key) {
 				case pc.KEY_X:
-					let indl = casa.model?.meshInstances.findIndex((value: pc.MeshInstance) => {
+					let indl = entidad.model?.meshInstances.findIndex((value: pc.MeshInstance) => {
 						return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())
 					});
 					console.log("pulso izq " + indl);
 					if (indl!=-1 && indl && indl>0) {
-						let aux = casa.model?.meshInstances[(indl-1)];
+						let aux = entidad.model?.meshInstances[(indl-1)];
 						allCameras.scripts[0].__attributes.text=aux?.node.name;
 						text.destroy();
 						text = thisAux.createText(aux?.node.name);
@@ -142,12 +143,12 @@ export class App {
 					}
 					break;
 				case pc.KEY_C:
-					let indr = casa.model?.meshInstances.findIndex((value: pc.MeshInstance) => {
+					let indr = entidad.model?.meshInstances.findIndex((value: pc.MeshInstance) => {
 						return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())
 					});
 					console.log("pulso der " + indr);
-					if (indr!=-1 && indr && casa.model && casa.model.meshInstances[(indr+1)]) {
-						let aux = casa.model?.meshInstances[(indr+1)];
+					if (indr!=-1 && indr && entidad.model && entidad.model.meshInstances[(indr+1)]) {
+						let aux = entidad.model?.meshInstances[(indr+1)];
 						allCameras.scripts[0].__attributes.text=aux?.node.name;
 						text.destroy();
 						text = thisAux.createText(aux?.node.name);
@@ -164,121 +165,31 @@ export class App {
 					}
 					break;
 				case pc.KEY_1:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 1, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(1, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_2:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 2, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(2, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_3:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 3, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(3, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_4:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 4, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(4, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_5:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 5, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(5, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_6:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 6, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(6, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_7:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 7, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(7, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_8:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 8, tipo);}
-					}
+					if (thisAux.especial) { thisAux.cambiar(8, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 				case pc.KEY_9:
-					if (thisAux.especial) {
-						let aux = casa.model?.meshInstances.find((value: pc.MeshInstance) => {return allCameras.scripts[0].__attributes.text.toLowerCase().includes(value.node.name.toLowerCase())});
-						let tipo:number=-1;
-						Objects.prototype.interactiveParts.findIndex( (value) => {
-							let boolAux=false;	value.name.forEach((text) => {
-								if (!boolAux && aux) boolAux = aux?.node.name.toLowerCase().includes(text);
-							}) 
-							return boolAux;
-						})
-						if (aux) { thisAux.cambiar(aux, 9, tipo); }
-					}
+					if (thisAux.especial) { thisAux.cambiar(9, entidad, allCameras.scripts[0].__attributes.text); }
 					break;
 			}
 		}, this);
@@ -321,110 +232,154 @@ export class App {
 	}
 
 
-	cambiar(meshInstance:pc.MeshInstance, tecla:number, tipo:number){
-		//Azul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde
-		switch (tecla) {
-			case 1:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.BLUE, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-					case 1:
-						
-						break;
-					case 2:
-						
-						break;
-				}
-				break;
-				
-			case 2:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.YELLOW, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-					case 1:
-						
-						break;
-					case 2:
-						
-						break;
-				}
-				break;
-				
-			case 3:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.WHITE, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
-				
-			case 4:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.CYAN, pc.Color.BLUE, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
-				
-			case 5:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.GRAY, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
-				
-			case 6:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.MAGENTA, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
-				
-			case 7:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.BLACK, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
+	cambiar(tecla:number, entity:pc.Entity, textoAux:string){
+		let meshInstance = entity.model?.meshInstances.find((value: pc.MeshInstance) => {return textoAux.toLowerCase().includes(value.node.name.toLowerCase())});
+		let tipo:number=-1;
+		tipo = Objects.prototype.interactiveParts.findIndex( (value) => {
+			let boolAux=false;	value.name.forEach((text) => {
+				if (!boolAux && meshInstance) boolAux = meshInstance?.node.name.toLowerCase().includes(text);
+			}) 
+			return boolAux;
+		})
+		if (meshInstance) { 
+			//Azul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde
+			switch (tecla) {
+				case 1:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.BLUE, 'BLUE', true, 0);
+							console.log("Entro")
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+						case 1:
+							let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
+							if (light==undefined) {
+								entity.addComponent('light', (meshInstance.node.children[0] as pc.Entity))
+							}
+							break;
+						case 2:
+							
+							break;
+						case 3:
+							this.addTweenEntity((meshInstance.node as pc.Entity),"rotate door");
+							console.log("Puerta debe de hacer algo")
+							break;
+						default:
+							console.log("Tipo: " + tipo + " no existe")
+					}
+					break;
+					
+				case 2:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.YELLOW, 'YELLOW', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+						case 1:
+							let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
+							if (light) {
+								entity.removeComponent('light')
+							}
+							break;
+						case 2:
+							
+							break;
+					}
+					break;
+					
+				case 3:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.WHITE, 'WHITE', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
+					
+				case 4:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.CYAN, 'CYAN', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
+					
+				case 5:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.GRAY, 'GRAY', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
+					
+				case 6:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.MAGENTA, 'MAGENTA', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
+					
+				case 7:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.BLACK, 'BLACK', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
 
-			case 8:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.RED, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
-				
-			case 9:
-				switch (tipo) {
-					case 0:
-						var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.GREEN, true, 0);
-						//materialAux.blendType = pc.BLEND_NORMAL;
-						meshInstance.material = materialAux;
-						break;
-				}
-				break;
+				case 8:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.RED, 'RED', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
+					
+				case 9:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.prototype.createMaterial(pc.Color.WHITE, pc.Color.GREEN, 'GREEN', true, 0);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material.destroy();
+							meshInstance.material = materialAux;
+							meshInstance.material.update();
+							break;
+					}
+					break;
+				default:
+					console.log("Tecla " + tecla + " no establecida");
+			}
+			console.log(meshInstance.node.name + " color: " +  meshInstance.material.name);
 		}
 	}
 
@@ -449,6 +404,12 @@ export class App {
 			.loop(true)
 			.yoyo(true)
 			.start();
+		}
+		if(animationName == "rotate door"){
+			const pca = pc as any;
+			const entitya = entity as any;
+			entitya
+			.rotate(new pc.Vec3(0, 90, 0))
 		}
 	}
 }
