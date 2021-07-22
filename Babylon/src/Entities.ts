@@ -6,9 +6,13 @@ export default class Entities {
     private _scene: BABYLON.Scene;
     private _plane: BABYLON.Mesh;
     private _button: GUI.Button;
+    private _panel = new GUI.StackPanel();
+    private _textBlock = new GUI.TextBlock();
+    private _picker = new GUI.ColorPicker();
 
     constructor(scene : BABYLON.Scene) {
         this._scene = scene;
+        this.createPanel();
     }
 
     listenToEvents(): void{
@@ -22,6 +26,7 @@ export default class Entities {
                 let mesh = (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh;
                 this.addTextOver(mesh);
                 const parent = this.getParent(mesh); //Obtenemos el mesh root
+                this.createPicker(parent);
                 if(this.isAnimable(parent))
                     this.animar(parent)
             }
@@ -101,5 +106,50 @@ export default class Entities {
         }
 
         
+    }
+
+
+    createPanel():void{
+        // GUI
+
+        var advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+        var panel = new GUI.StackPanel();
+        panel.width = "200px";
+        panel.isVertical = true;
+        panel.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        panel.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        advancedTexture.addControl(panel);
+
+        this._panel = panel;
+    }
+
+
+    createPicker(mesh:BABYLON.AbstractMesh):void{
+        // GUI
+        this._panel.removeControl(this._textBlock);
+        this._panel.removeControl(this._picker);
+
+        var MeshMaterial = new BABYLON.StandardMaterial("MeshMaterial", this._scene);
+
+        mesh.material = MeshMaterial;
+
+        var textBlock = new GUI.TextBlock();
+        textBlock.text = "Diffuse color:";
+        textBlock.height = "30px";
+        this._textBlock = textBlock;
+        this._panel.addControl(this._textBlock);     
+
+        var picker = new GUI.ColorPicker();
+        picker.value = MeshMaterial.diffuseColor;
+        picker.height = "150px";
+        picker.width = "150px";
+        picker.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        picker.onValueChangedObservable.add(function(value) { // value is a color3
+            MeshMaterial.diffuseColor.copyFrom(value);
+        });
+
+        this._picker = picker;
+        this._panel.addControl(this._picker);     
     }
 }

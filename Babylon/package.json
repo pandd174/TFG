@@ -45,6 +45,8 @@
     "test"
   ],
   "dependencies": {
+    "@babylonjs/core": "^4.2.0",
+    "@babylonjs/gui": "^4.2.0",
     "@tweenjs/tween.js": "^18.6.4",
     "copy-webpack-plugin": "^6.2.1",
     "socket.io-client": "^3.0.5"

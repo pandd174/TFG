@@ -2,6 +2,8 @@ import * as BABYLON from 'babylonjs';
 import { BabylonFileLoaderConfiguration, Mesh, ShadowGenerator } from 'babylonjs';
 import 'babylonjs-loaders'; //Para que funcionen los loaders
 import * as Objects from './addObjects'
+import * as BABYLONGUI from 'babylonjs-gui';
+
 
 import AssetsLoader from './assets-loader';
 
@@ -9,7 +11,8 @@ export default class MyScene {
     private _canvas: HTMLCanvasElement;
     private _engine: BABYLON.Engine;
     private _scene: BABYLON.Scene;
-    private _camera: BABYLON.ArcRotateCamera;
+    //private _camera: BABYLON.ArcRotateCamera;
+    private _camera: BABYLON.FlyCamera;
     private _light: BABYLON.IShadowLight;
     private _assetsLoader: AssetsLoader;
 
@@ -52,6 +55,7 @@ export default class MyScene {
 		Objects.Objects.prototype.initializeInteractiveParts();
 		const casa = Objects.Objects.prototype.addPlayCanvasCasa(this._scene, this._shadowGenerator);
         
+        //this.createGUI();
         console.log("ASSETS LOADED");
     }
 
@@ -190,9 +194,20 @@ export default class MyScene {
 	}
 
     createCamera():void{
-        this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
-        this._camera.wheelPrecision = 20; 
-        this._camera.attachControl(this._canvas, false);
+        //this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
+        // this._camera.wheelPrecision = 20; 
+        // this._camera.attachControl(this._canvas, false);
+        // this._camera = new BABYLON.FreeCamera('Camera', new BABYLON.Vector3(0,0,10), this._scene);
+        // var inputManager = this._camera.inputs;
+        // inputManager.add(new BABYLON.FreeCameraMouseInput())
+        // inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
+        // inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
+        // this._camera.attachControl(this._canvas, false);
+        this._camera = new BABYLON.FlyCamera('Camera', new BABYLON.Vector3(0,0,10), this._scene);
+        var inputManager = this._camera.inputs;
+        inputManager.add(new BABYLON.FlyCameraMouseInput())
+        inputManager.add(new BABYLON.FlyCameraKeyboardInput())
+        this._camera.attachControl();
     }
 
     createBasicLight():void{

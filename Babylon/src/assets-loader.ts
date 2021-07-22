@@ -14,7 +14,7 @@ export default class AssetsLoader {
             // { id:"environment", type:"cubeTexture", url:"./assets/objects/", file:"environmentSpecular.env", tag:"init"},
             // { id:"cube", type:"mesh", url:"./assets/objects/", file:"cube.glb", tag:"init"},
             // { id:"coche", type:"mesh", url:"./assets/objects/", file:"uploads_files_2792345_Koenigsegg.glb", tag:"init"},
-            { id:"casa", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"casa"}
+            { id:"modelo", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"init"}
         ];
     private _assetsLoaded = 0;
 
@@ -29,6 +29,7 @@ export default class AssetsLoader {
             let meshTask = asset.type == "mesh" ? this._assetsManager.addMeshTask(asset.id, "", asset.url, <string>asset.file)
                                                     : this._assetsManager.addCubeTextureTask(asset.id, asset.url + asset.file);
             meshTask.onSuccess =  (task:any) =>{
+                if (task.name.includes("modelo")) { this.addModeloTag(task) }
                 this._assetsLoaded++;
                 console.log("mesh loaded:",task);
 	           // task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
@@ -44,5 +45,13 @@ export default class AssetsLoader {
         };
         
         this._assetsManager.load();
+    }
+
+
+    addModeloTag(task:any) {
+        for (let i = 0; i < task.loadedMeshes.length; i++) {
+            const element = task.loadedMeshes[i];
+            BABYLON.Tags.AddTagsTo(element, 'modelo');
+        }
     }
 }

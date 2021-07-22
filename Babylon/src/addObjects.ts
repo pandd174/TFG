@@ -114,11 +114,15 @@ export class Objects {
                 //this.createPhysicalShape("box", element.getRenderingMesh().position.x, element.getRenderingMesh().position.y, element.getRenderingMesh().position.z, scene, element.getRenderingMesh().name);
 				this.interactiveParts.forEach(elementInteractive => {
 					elementInteractive.name.forEach(name => {
-						if (element.name.toLowerCase().search(name)!=-1) {
+						if (element.name.toLowerCase().includes(name)) {
 							elementInteractive.meshInstancesArray.push(<BABYLON.Mesh>element);
+							BABYLON.Tags.AddTagsTo(element, "name")
 						}
 					});
 				})
+				if (element.name.toLowerCase().includes("superficie")) {
+					BABYLON.Tags.AddTagsTo(element, "superficie")
+				}
                 
             })
 			//this.interactiveParts[0].meshInstancesArray.forEach((e) => {console.log(e.name)});
@@ -137,6 +141,7 @@ export class Objects {
 					} catch (error) {
 						console.error(element.name + ": " + error)
 					}
+					console.log(BABYLON.Tags.GetTags(element));
                 })
             }
             if (this.interactiveParts) {
