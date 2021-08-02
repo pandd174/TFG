@@ -49,7 +49,141 @@ export default class MyScene {
 
         this.createEnvironment();
     }
+/*
+	cambiar(tecla:number, entity:BABYLON.Mesh,  textoAux:string){
+		let meshInstance = entity.subMeshes.find((value: BABYLON.SubMesh) => {return textoAux.toLowerCase().includes(value.getRenderingMesh().name.toLowerCase());})?.getRenderingMesh();
+		let tipo:number=-1;
+		tipo = Objects.Objects.prototype.interactiveParts.findIndex( (value) => {
+			let boolAux=false;	value.name.forEach((text) => {
+				if (!boolAux && meshInstance) boolAux = meshInstance?.name.toLowerCase().includes(text);
+			}) 
+			return boolAux;
+		})
+		if (meshInstance) { 
+			//Azul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde
+			switch (tecla) {
+				case 1:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Blue(), 'BLUE', this._scene);
+							console.log("Entro")
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							//meshInstance.material.update();
+							break;
+						case 1:
+							// let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
+							// if (light==undefined) {
+							// 	entity.addComponent('light', (meshInstance.node.children[0] as pc.Entity))
+							// }
+							break;
+						case 2:
+							
+							break;
+						// case 3:
+						// 	this.addTweenEntity((meshInstance.node as pc.Entity),"rotate door");
+						// 	console.log("Puerta debe de hacer algo")
+						// 	break;
+						default:
+							console.log("Tipo: " + tipo + " no existe")
+					}
+					break;
+					
+				case 2:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Yellow(), 'YELLOW', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+						case 1:
+							// let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
+							// if (light) {
+							// 	entity.removeComponent('light')
+							// }
+							break;
+						case 2:
+							
+							break;
+					}
+					break;
+					
+				case 3:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.White(), 'WHITE', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
+					
+				case 4:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Teal(), 'TEAL OR CYAN', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
+					
+				case 5:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Gray(), 'GRAY', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
+					
+				case 6:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Magenta(), 'MAGENTA', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
+					
+				case 7:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Black(), 'BLACK', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
 
+				case 8:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Red(), 'RED', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
+					
+				case 9:
+					switch (tipo) {
+						case 0:
+							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Green(), 'GREEN', this._scene);
+							//materialAux.blendType = pc.BLEND_NORMAL;
+							meshInstance.material = materialAux;
+							break;
+					}
+					break;
+				default:
+					console.log("Tecla " + tecla + " no establecida");
+			}
+			console.log(meshInstance.name + " color: " +  meshInstance.material?.name);
+		}
+	}
+*/
     createCamera():void{
         this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
         this._camera.wheelPrecision = 20; 

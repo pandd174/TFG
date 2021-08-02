@@ -12,12 +12,14 @@ export default class MyScene {
     private _engine: BABYLON.Engine;
     private _scene: BABYLON.Scene;
     //private _camera: BABYLON.ArcRotateCamera;
-    private _camera: BABYLON.FlyCamera;
+    private _camera: BABYLON.FreeCamera;
     private _light: BABYLON.IShadowLight;
     private _assetsLoader: AssetsLoader;
+    private _sessionManager:BABYLON.WebXRSessionManager;
 
     private _ground:Mesh;
     private _shadowGenerator:ShadowGenerator;
+    private _vrEnable:Boolean = false;
 
     get scene(): BABYLON.Scene {
         return this._scene;
@@ -31,11 +33,39 @@ export default class MyScene {
 
     createScene() : void {
         this._scene = new BABYLON.Scene(this._engine);
-        this.createCamera();
+        this._sessionManager = new BABYLON.WebXRSessionManager(this._scene);
+        if (this._sessionManager.isSessionSupportedAsync('immersive-vr') && this._vrEnable)
+            this.createCameraXR();
+        else
+            this.createCamera();
         this.createBasicLight();
         
         this._assetsLoader = new AssetsLoader(this._scene);
         this._assetsLoader.loadAssets(()=>this.createElements());
+
+        if (this._vrEnable) {
+            var vrHelper = this._scene.createDefaultVRExperience();
+            var leftHand = BABYLON.Mesh.CreateBox("",0.1, this._scene)
+            leftHand.scaling.z = 2;
+            var rightHand = leftHand.clone()
+            var head = BABYLON.Mesh.CreateBox("",0.2, this._scene) 
+            this._scene.onBeforeRenderObservable.add(()=>{
+                // Left and right hand position/rotation
+                if(vrHelper.webVRCamera.leftController){
+                    leftHand.position = vrHelper.webVRCamera.leftController.devicePosition.clone()
+                    leftHand.rotationQuaternion = vrHelper.webVRCamera.leftController.deviceRotationQuaternion.clone()
+                }
+                if(vrHelper.webVRCamera.rightController){
+                    rightHand.position = vrHelper.webVRCamera.rightController.devicePosition.clone()
+                    rightHand.rotationQuaternion = vrHelper.webVRCamera.rightController.deviceRotationQuaternion.clone()
+                }
+        
+                // Head position/rotation
+                head.position = vrHelper.webVRCamera.devicePosition.clone()
+                head.rotationQuaternion = vrHelper.webVRCamera.deviceRotationQuaternion.clone()
+                head.position.z = 2;
+            })
+        }
     }
 
     createElements():void{
@@ -54,144 +84,11 @@ export default class MyScene {
         this.createEnvironment();
 		Objects.Objects.prototype.initializeInteractiveParts();
 		const casa = Objects.Objects.prototype.addPlayCanvasCasa(this._scene, this._shadowGenerator);
+        Objects.Objects.prototype.animateDoor(this._scene)
         
         //this.createGUI();
         console.log("ASSETS LOADED");
     }
-
-	cambiar(tecla:number, entity:BABYLON.Mesh, textoAux:string){
-		let meshInstance = entity.subMeshes.find((value: BABYLON.SubMesh) => {return textoAux.toLowerCase().includes(value.getRenderingMesh().name.toLowerCase());})?.getRenderingMesh();
-		let tipo:number=-1;
-		tipo = Objects.Objects.prototype.interactiveParts.findIndex( (value) => {
-			let boolAux=false;	value.name.forEach((text) => {
-				if (!boolAux && meshInstance) boolAux = meshInstance?.name.toLowerCase().includes(text);
-			}) 
-			return boolAux;
-		})
-		if (meshInstance) { 
-			//Azul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde
-			switch (tecla) {
-				case 1:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Blue(), 'BLUE', this._scene);
-							console.log("Entro")
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							//meshInstance.material.update();
-							break;
-						case 1:
-							// let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
-							// if (light==undefined) {
-							// 	entity.addComponent('light', (meshInstance.node.children[0] as pc.Entity))
-							// }
-							break;
-						case 2:
-							
-							break;
-						// case 3:
-						// 	this.addTweenEntity((meshInstance.node as pc.Entity),"rotate door");
-						// 	console.log("Puerta debe de hacer algo")
-						// 	break;
-						default:
-							console.log("Tipo: " + tipo + " no existe")
-					}
-					break;
-					
-				case 2:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Yellow(), 'YELLOW', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-						case 1:
-							// let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
-							// if (light) {
-							// 	entity.removeComponent('light')
-							// }
-							break;
-						case 2:
-							
-							break;
-					}
-					break;
-					
-				case 3:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.White(), 'WHITE', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-					
-				case 4:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Teal(), 'TEAL OR CYAN', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-					
-				case 5:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Gray(), 'GRAY', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-					
-				case 6:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Magenta(), 'MAGENTA', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-					
-				case 7:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Black(), 'BLACK', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-
-				case 8:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Red(), 'RED', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-					
-				case 9:
-					switch (tipo) {
-						case 0:
-							var materialAux = Objects.Objects.prototype.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Green(), 'GREEN', this._scene);
-							//materialAux.blendType = pc.BLEND_NORMAL;
-							meshInstance.material = materialAux;
-							break;
-					}
-					break;
-				default:
-					console.log("Tecla " + tecla + " no establecida");
-			}
-			console.log(meshInstance.name + " color: " +  meshInstance.material?.name);
-		}
-	}
 
     createCamera():void{
         //this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
@@ -203,16 +100,31 @@ export default class MyScene {
         // inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
         // inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
         // this._camera.attachControl(this._canvas, false);
-        this._camera = new BABYLON.FlyCamera('Camera', new BABYLON.Vector3(0,0,10), this._scene);
+        this._camera = new BABYLON.FreeCamera('Camera', new BABYLON.Vector3(0,0,10), this._scene);
         var inputManager = this._camera.inputs;
-        inputManager.add(new BABYLON.FlyCameraMouseInput())
-        inputManager.add(new BABYLON.FlyCameraKeyboardInput())
+        inputManager.add(new BABYLON.FreeCameraMouseInput())
+        inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
+        inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
+        this._camera.attachControl();
+    }
+
+    createCameraXR():void{
+        this._sessionManager.initializeSessionAsync('immersive-vr');
+        const referenceSpace = this._sessionManager.setReferenceSpaceTypeAsync();
+        const renderTarget = this._sessionManager.getWebXRRenderTarget();
+        const xrWebGLLayer = renderTarget.initializeXRLayerAsync(this._sessionManager.session);
+        this._sessionManager.runXRRenderLoop();
+        this._camera = new BABYLON.WebXRCamera('Camera', this._scene, this._sessionManager);
         this._camera.attachControl();
     }
 
     createBasicLight():void{
         this._light = new BABYLON.DirectionalLight('light1', new BABYLON.Vector3(1,-1,-1), this._scene);
         this._light.position = new BABYLON.Vector3(0,10,10);
+        var aux = this;
+        this._scene.registerBeforeRender(function () {
+            aux._light.position = aux._camera.position;
+        });
         this._shadowGenerator = new BABYLON.ShadowGenerator(1024, this._light);
         this._shadowGenerator.usePercentageCloserFiltering = true;
         this._shadowGenerator.bias = 0.00001;

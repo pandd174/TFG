@@ -11,7 +11,7 @@ export class Objects {
 
     private _ground:Mesh;
     private _shadowGenerator:ShadowGenerator;
-	public interactiveParts:{name:string[], textInstructions:string, meshInstancesArray:BABYLON.Mesh[]}[];
+	public interactiveParts:{name:string[], textInstructions:string, meshInstancesArray:BABYLON.AbstractMesh[]}[];
 
 	initializeInteractiveParts() {
 	this.interactiveParts=[
@@ -42,19 +42,6 @@ export class Objects {
 	}
 
 
-	// createCoche(appAux:bbl.Application){
-	// 	var asset:bbl.Asset = appAux.assets.find("coche");
-	// 	const entity = new bbl.Entity("playCanvasCube");
-	// 	entity.addComponent("model", {
-	// 		type: "asset",
-	// 		asset: asset.resource.model,
-	// 		castShadows: true
-	// 	});
-	// 	entity.setLocalPosition(10,0.5,10);
-	// 	return entity;
-	// }
-
-
 	createCoche(scene:BABYLON.Scene, shadow:ShadowGenerator){
         const entity = <BABYLON.Mesh> scene.getMeshByName("coche");
 		shadow.addShadowCaster(entity);
@@ -62,50 +49,12 @@ export class Objects {
 		return entity;
 	}
 
-    createAndPositionWTurbines(scene:BABYLON.Scene, shadow:ShadowGenerator){
-        let posZ = -2.5;
-        let posX = -4.5;
-        const wturbine = <BABYLON.Mesh> scene.getMeshByName("windTurbine");
-        shadow.addShadowCaster(wturbine);
-        wturbine.position.z = posZ;
-        wturbine.position.x = posX;
-
-        [1,2,3,4,5].forEach((p)=>{
-            let clonedWTurbine = wturbine.clone("wturbine" +p);  
-            BABYLON.Tags.AddTagsTo(clonedWTurbine, "wturbine animable " + "wturbine" +p);
-            if(p%2){
-                BABYLON.Tags.AddTagsTo(clonedWTurbine, "animar");
-                //clonedWTurbine.material.wireframe = true;
-            }
-            clonedWTurbine.position.x = posX + p -1;
-            shadow.addShadowCaster(clonedWTurbine);
-        })
-        wturbine.setEnabled(false); //El objecto origen lo ocultamos
-		return wturbine;
-    }
-
 
 	addPlayCanvasCasa(scene:BABYLON.Scene, shadow:ShadowGenerator):void{
 		console.log(scene.meshes)
         //const entity = <BABYLON.Mesh> scene.getMeshByName("casa");
         //shadow.addShadowCaster(entity);
 		//entity.position = new BABYLON.Vector3(0,0,0);
-
-		// Tejados
-		// entity.model?.meshInstances
-		// Bounding box
-		// model->meshInstance->AABB
-		// intersectsRay(ray, intersection)
-        //if (entity.subMeshes) {
-            // Calculate bounding box of a model: 
-            //     var meshInstances = entity.model?.meshInstances;
-            //     if (meshInstances.length > 0) {
-            //         var bbox = new bbl.BoundingBox();
-            //         bbox.copy(meshInstances[0].aabb);
-            //         for (var i = 1; i < meshInstances.length; i++) {
-            //             bbox.add(meshInstances[i].aabb);
-            //         }
-            //     }
 
             console.log("Entidad casa: " + scene.getMeshesByTags('casa'));
             //var tejados = new Array<bbl.MeshInstance>(), luces = new Array<bbl.MeshInstance>(), ventanas = new Array<bbl.MeshInstance>();
@@ -115,36 +64,28 @@ export class Objects {
 				this.interactiveParts.forEach(elementInteractive => {
 					elementInteractive.name.forEach(name => {
 						if (element.name.toLowerCase().includes(name)) {
-							elementInteractive.meshInstancesArray.push(<BABYLON.Mesh>element);
-							BABYLON.Tags.AddTagsTo(element, "name")
+							elementInteractive.meshInstancesArray.push(element);
+							BABYLON.Tags.AddTagsTo(element, name)
+							if (this.interactiveParts[0].name.includes(name))
+								BABYLON.Tags.AddTagsTo(element, 'materialEspecial');
 						}
 					});
 				})
-				if (element.name.toLowerCase().includes("superficie")) {
-					BABYLON.Tags.AddTagsTo(element, "superficie")
-				}
                 
             })
 			//this.interactiveParts[0].meshInstancesArray.forEach((e) => {console.log(e.name)});
-            if (this.interactiveParts) {
-                this.interactiveParts[2].meshInstancesArray.forEach( element => {
-                    element.position = new BABYLON.Vector3(element.position.x,element.position.y+10,element.position.z);
-                    //console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
-                })
-            }
             if (this.interactiveParts) {
                 this.interactiveParts[0].meshInstancesArray.forEach( element => {
 					try {
 						let materialAux = this.createMaterial(BABYLON.Color3.White(), BABYLON.Color3.Blue(), "Blue", scene /*,  Textura*/);
 						//materialAux.blendType = bbl.BLEND_NORMAL;
 						(<BABYLON.AbstractMesh>scene.getMeshByName(element.name)).material = materialAux;
+						
 					} catch (error) {
 						console.error(element.name + ": " + error)
 					}
 					console.log(BABYLON.Tags.GetTags(element));
                 })
-            }
-            if (this.interactiveParts) {
                 this.interactiveParts[1].meshInstancesArray.forEach( element => {
                     const light = this.createSpotLight(scene, shadow);
 
@@ -153,6 +94,18 @@ export class Objects {
 					// entity.addComponent("light", light);
 					// element.node.insertChild(light, 0);
 					// console.log(element.node.children)
+                })
+                this.interactiveParts[2].meshInstancesArray.forEach( element => {
+                    element.position = new BABYLON.Vector3(element.position.x,element.position.y+10,element.position.z);
+                    //console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
+                })
+                this.interactiveParts[3].meshInstancesArray.forEach( element => {
+					BABYLON.Tags.AddTagsTo(element, ("animable"))
+					let vectorsWorld = element.getBoundingInfo().boundingBox.vectorsWorld; 
+					let width = vectorsWorld[1].subtract(vectorsWorld[0])
+					console.log(width)
+					element.setPivotPoint(new BABYLON.Vector3(-width.x, 0, 0))
+					element.position = element.position.add(new BABYLON.Vector3(width.x/2, 0, 0));
                 })
             }
         //}
@@ -173,6 +126,26 @@ export class Objects {
 		if(opacity)	material.opacityTexture = opacity;
 		return material.clone(nombre);
 	}
+
+	
+
+    addAnimColor(mesh:any,stoppedColor:BABYLON.Color3, animedColor:BABYLON.Color3){
+        const color = mesh.matchesTagsQuery("animar") ? animedColor : stoppedColor;
+        var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material?.clone(<string>mesh.getChildMeshes()[0].material?.name);
+        mesh.getChildMeshes()[0].material = mat;
+        mat.albedoColor = color;
+    }
+
+    animateDoor(scene:BABYLON.Scene):void{
+
+        scene.onBeforeRenderObservable.add(() => {
+            scene.getMeshesByTags("(door || puerta) && animar", function (ct:BABYLON.AbstractMesh) { 
+				//ct.
+
+                ct.rotate(BABYLON.Axis.Y, -0.05, BABYLON.Space.LOCAL);
+            });
+        })
+    }
 
 
 	createSpotLight (scene:BABYLON.Scene, shadow:ShadowGenerator){

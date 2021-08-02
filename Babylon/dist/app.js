@@ -215,10 +215,19 @@ __webpack_require__.r(__webpack_exports__);
 
 var Entities = /** @class */ (function () {
     function Entities(scene) {
-        this._panel = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
-        this._textBlock = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
-        this._picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"]();
+        this._button = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._buttonUp = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._buttonDown = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._buttonLeft = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._buttonRight = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._buttonForward = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._buttonBackward = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"];
+        this._panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"];
+        this._textBlock = new Array(new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]);
+        this._picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"];
         this._scene = scene;
+        this._gl = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["GlowLayer"]("glow", scene);
         this.createPanel();
     }
     Entities.prototype.listenToEvents = function () {
@@ -228,13 +237,17 @@ var Entities = /** @class */ (function () {
         var _this = this;
         this._scene.onPointerObservable.add(function (evt) {
             console.log("click");
+            //this._oldMesh?this.movementButtons(this.getParent(this._oldMesh), evt):null;
             if (evt.pickInfo.hit && evt.pickInfo.pickedMesh && evt.event.button === 0) {
                 var mesh = evt.pickInfo.pickedMesh;
+                //this.addGlown(<BABYLON.AbstractMesh>mesh);
                 _this.addTextOver(mesh);
                 var parent_1 = _this.getParent(mesh); //Obtenemos el mesh root
                 _this.createPicker(parent_1);
+                _this.movementButtons(parent_1, evt);
                 if (_this.isAnimable(parent_1))
                     _this.animar(parent_1);
+                _this._oldMesh = mesh;
             }
         }, babylonjs__WEBPACK_IMPORTED_MODULE_0__["PointerEventTypes"].POINTERUP);
     };
@@ -282,8 +295,8 @@ var Entities = /** @class */ (function () {
             this._plane.billboardMode = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].BILLBOARDMODE_ALL;
             var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateForMesh(this._plane);
             this._button = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but1", "Click Me");
-            this._button.width = 0.75;
-            this._button.height = 0.2;
+            this._button.width = 1;
+            this._button.height = 0.5;
             this._button.color = '#222222';
             this._button.fontSize = 120;
             this._button.background = "white"; //new BABYLON.Color3(0.2, 0.2, 0.2);
@@ -293,41 +306,69 @@ var Entities = /** @class */ (function () {
             advancedTexture.addControl(this._button);
         }
         console.log("parent:", parent.name, parent.position);
-        if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(parent) && parent.matchesTagsQuery("animable")) {
-            this._button.textBlock.text = parent.name;
-            var position = parent.getAbsolutePosition();
-            this._plane.position.x = position.x;
-            this._plane.position.z = position.z;
-            var despY = parent.matchesTagsQuery("turbina || bomba") ? 0.5 : 2;
-            this._plane.position.y = position.y + despY;
-            this._plane.setEnabled(true);
-        }
-        else {
-            // this._plane.setEnabled(false);
-        }
+        this._button.textBlock.text = parent.name;
+        var position = parent.getAbsolutePosition();
+        this._plane.position.x = position.x;
+        this._plane.position.z = position.z;
+        var despY = parent.getBoundingInfo().boundingBox.vectorsWorld[1].y - parent.getBoundingInfo().boundingBox.vectorsWorld[0].y + 0.2;
+        this._plane.position.y = position.y + despY;
+        this._plane.setEnabled(true);
+        // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
+        //     (<GUI.TextBlock>this._button.textBlock).text =  parent.name;
+        //     const position = parent.getAbsolutePosition();
+        //     this._plane.position.x = position.x;
+        //     this._plane.position.z = position.z;
+        //     const despY =  (<any> parent).matchesTagsQuery("turbina || bomba") ? 0.5 : parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
+        //     this._plane.position.y = position.y + despY;
+        //     this._plane.setEnabled(true);
+        // }else{
+        //    // this._plane.setEnabled(false);
+        // }
     };
     Entities.prototype.createPanel = function () {
         // GUI
         var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateFullscreenUI("UI");
-        var panel = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
-        panel.width = "200px";
-        panel.isVertical = true;
-        panel.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_RIGHT;
-        panel.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
-        advancedTexture.addControl(panel);
-        this._panel = panel;
-    };
-    Entities.prototype.createPicker = function (mesh) {
-        // GUI
-        this._panel.removeControl(this._textBlock);
-        this._panel.removeControl(this._picker);
-        var MeshMaterial = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["StandardMaterial"]("MeshMaterial", this._scene);
-        mesh.material = MeshMaterial;
+        var panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
+        panel1.width = "200px";
+        panel1.isVertical = true;
+        panel1.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_RIGHT;
+        panel1.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        advancedTexture.addControl(panel1);
         var textBlock = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
         textBlock.text = "Diffuse color:";
         textBlock.height = "30px";
-        this._textBlock = textBlock;
-        this._panel.addControl(this._textBlock);
+        this._textBlock.push(textBlock);
+        panel1.addControl(this._textBlock[0]);
+        var advancedTexture2 = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateFullscreenUI("UI");
+        var panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
+        panel2.width = "150px";
+        panel2.isVertical = true;
+        panel2.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_LEFT;
+        panel2.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        advancedTexture2.addControl(panel2);
+        var textBlock2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
+        textBlock2.text = "Control Movement:";
+        textBlock2.height = "30px";
+        panel2.addControl(textBlock2);
+        this._panel1 = (panel1);
+        this._panel2 = (panel2);
+        this.createMovementsKeys();
+    };
+    Entities.prototype.createPicker = function (mesh) {
+        var _a;
+        // GUI
+        this._panel1.removeControl(this._picker);
+        console.log(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(mesh));
+        console.log(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(mesh, true).includes('materialEspecial'));
+        var MeshMaterial;
+        if (!((_a = mesh.material) === null || _a === void 0 ? void 0 : _a.getClassName().includes('StandardMaterial')) && !babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].MatchesQuery(mesh, 'materialEspecial')) {
+            MeshMaterial = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["StandardMaterial"]("MeshMaterial", this._scene);
+            mesh.material = MeshMaterial;
+        }
+        else if (!babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].MatchesQuery(mesh, 'materialEspecial'))
+            MeshMaterial = mesh.material;
+        else
+            return;
         var picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"]();
         picker.value = MeshMaterial.diffuseColor;
         picker.height = "150px";
@@ -337,7 +378,141 @@ var Entities = /** @class */ (function () {
             MeshMaterial.diffuseColor.copyFrom(value);
         });
         this._picker = picker;
-        this._panel.addControl(this._picker);
+        this._panel1.addControl(this._picker);
+    };
+    Entities.prototype.createMovementsKeys = function () {
+        // GUI
+        var buttonUp = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
+        //"🠕"
+        "up");
+        buttonUp.height = "20px";
+        buttonUp.width = "75px";
+        buttonUp.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonUp.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_TOP;
+        var buttonDown = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
+        //"🠗"
+        "down");
+        buttonDown.height = "20px";
+        buttonDown.width = "75px";
+        buttonDown.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonDown.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_BOTTOM;
+        var buttonLeft = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
+        //"🠔"
+        "left");
+        buttonLeft.height = "20px";
+        buttonLeft.width = "75px";
+        buttonLeft.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_LEFT;
+        buttonLeft.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        var buttonRight = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
+        //"🠖"
+        "right");
+        buttonRight.height = "20px";
+        buttonRight.width = "75px";
+        buttonRight.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_RIGHT;
+        buttonRight.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        var buttonForward = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
+        //"🠖"
+        "forward");
+        buttonForward.height = "20px";
+        buttonForward.width = "75px";
+        buttonForward.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonForward.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        var buttonBackward = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
+        //"🠖"
+        "backward");
+        buttonBackward.height = "20px";
+        buttonBackward.width = "75px";
+        buttonBackward.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonBackward.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        this._buttonDown = buttonDown;
+        this._buttonUp = buttonUp;
+        this._buttonLeft = buttonLeft;
+        this._buttonRight = buttonRight;
+        this._buttonForward = buttonForward;
+        this._buttonBackward = buttonBackward;
+        this._panel2.addControl(buttonUp);
+        this._panel2.addControl(buttonDown);
+        this._panel2.addControl(buttonLeft);
+        this._panel2.addControl(buttonRight);
+        this._panel2.addControl(buttonForward);
+        this._panel2.addControl(buttonBackward);
+    };
+    Entities.prototype.addGlown = function (mesh) {
+        console.log("GLOWWWWWWW");
+        var materialAux = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["NodeMaterial"]("lightNodeMat", this._scene, { emitComments: false });
+        var loadedTextures = mesh.material.getActiveTextures();
+        var lightBaseColorTex;
+        var lightEmissiveTex;
+        for (var i = 0; i < loadedTextures.length; i++) {
+            if (loadedTextures[i].name.includes("(Base Color)")) {
+                lightBaseColorTex = loadedTextures[i];
+            }
+            else if (loadedTextures[i].name.includes("(Emissive)")) {
+                lightEmissiveTex = loadedTextures[i];
+            }
+        }
+        // build node material
+        // let NodeMaterialBlockAux = new BABYLON.NodeMaterialBlock('bloqueAux');
+        // materialAux._fragmentOutputNodes.push(NodeMaterialBlockAux);
+        // materialAux._vertexOutputNodes.push(NodeMaterialBlockAux);
+        materialAux.optimize();
+        materialAux.build(false);
+        mesh.material = materialAux;
+        // assign original textures to node material
+        var baseColor = materialAux.getBlockByName("baseColorTexture");
+        var emissiveColor = materialAux.getBlockByName("emissiveTexture");
+        baseColor.texture = lightBaseColorTex;
+        emissiveColor.texture = lightEmissiveTex;
+        // get shader values to drive glow
+        var glowMask = materialAux.getBlockByName("glowMask");
+        // set up glow layer post effect
+        var gl = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["GlowLayer"]("glow", this._scene);
+        gl.intensity = 1.25;
+        // set up material to use glow layer
+        gl.referenceMeshToUseItsOwnMaterial(mesh);
+        // enable glow mask to render only emissive into glow layer, and then disable glow mask
+        gl.onBeforeRenderMeshToEffect.add(function () {
+            glowMask.value = 1.0;
+        });
+        gl.onAfterRenderMeshToEffect.add(function () {
+            glowMask.value = 0.0;
+        });
+        // this._oldMesh?this._gl.addExcludedMesh((<BABYLON.AbstractMesh>this._oldMesh)) : null;
+        // this._gl.addIncludedOnlyMesh((<BABYLON.AbstractMesh>mesh));
+    };
+    Entities.prototype.movementButtons = function (mesh, pointerInfo) {
+        console.log("POINTERUP: " + babylonjs__WEBPACK_IMPORTED_MODULE_0__["PointerEventTypes"].POINTERUP);
+        console.log(pointerInfo.type);
+        this._buttonDown.onPointerDownObservable.clear();
+        this._buttonDown.onPointerDownObservable.add(function () {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            mesh.movePOV(0, -0.1, 0);
+        });
+        this._buttonUp.onPointerDownObservable.clear();
+        this._buttonUp.onPointerDownObservable.add(function () {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            mesh.movePOV(0, 0.1, 0);
+        });
+        this._buttonLeft.onPointerDownObservable.clear();
+        this._buttonLeft.onPointerDownObservable.add(function () {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            mesh.movePOV(-0.1, 0, 0);
+        });
+        this._buttonRight.onPointerDownObservable.clear();
+        this._buttonRight.onPointerDownObservable.add(function () {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            mesh.movePOV(0.1, 0, 0);
+        });
+        this._buttonForward.onPointerDownObservable.clear();
+        this._buttonForward.onPointerDownObservable.add(function () {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            mesh.movePOV(0, 0, 0.1);
+        });
+        this._buttonBackward.onPointerDownObservable.clear();
+        this._buttonBackward.onPointerDownObservable.add(function () {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            mesh.movePOV(0, 0, -0.1);
+        });
     };
     return Entities;
 }());
@@ -389,42 +564,11 @@ var Objects = /** @class */ (function () {
         entity.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](3, 0.5, 3);
         return entity;
     };
-    // createCoche(appAux:bbl.Application){
-    // 	var asset:bbl.Asset = appAux.assets.find("coche");
-    // 	const entity = new bbl.Entity("playCanvasCube");
-    // 	entity.addComponent("model", {
-    // 		type: "asset",
-    // 		asset: asset.resource.model,
-    // 		castShadows: true
-    // 	});
-    // 	entity.setLocalPosition(10,0.5,10);
-    // 	return entity;
-    // }
     Objects.prototype.createCoche = function (scene, shadow) {
         var entity = scene.getMeshByName("coche");
         shadow.addShadowCaster(entity);
         entity.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](10, 0.5, 10);
         return entity;
-    };
-    Objects.prototype.createAndPositionWTurbines = function (scene, shadow) {
-        var posZ = -2.5;
-        var posX = -4.5;
-        var wturbine = scene.getMeshByName("windTurbine");
-        shadow.addShadowCaster(wturbine);
-        wturbine.position.z = posZ;
-        wturbine.position.x = posX;
-        [1, 2, 3, 4, 5].forEach(function (p) {
-            var clonedWTurbine = wturbine.clone("wturbine" + p);
-            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(clonedWTurbine, "wturbine animable " + "wturbine" + p);
-            if (p % 2) {
-                babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(clonedWTurbine, "animar");
-                //clonedWTurbine.material.wireframe = true;
-            }
-            clonedWTurbine.position.x = posX + p - 1;
-            shadow.addShadowCaster(clonedWTurbine);
-        });
-        wturbine.setEnabled(false); //El objecto origen lo ocultamos
-        return wturbine;
     };
     Objects.prototype.addPlayCanvasCasa = function (scene, shadow) {
         var _this = this;
@@ -432,21 +576,6 @@ var Objects = /** @class */ (function () {
         //const entity = <BABYLON.Mesh> scene.getMeshByName("casa");
         //shadow.addShadowCaster(entity);
         //entity.position = new BABYLON.Vector3(0,0,0);
-        // Tejados
-        // entity.model?.meshInstances
-        // Bounding box
-        // model->meshInstance->AABB
-        // intersectsRay(ray, intersection)
-        //if (entity.subMeshes) {
-        // Calculate bounding box of a model: 
-        //     var meshInstances = entity.model?.meshInstances;
-        //     if (meshInstances.length > 0) {
-        //         var bbox = new bbl.BoundingBox();
-        //         bbox.copy(meshInstances[0].aabb);
-        //         for (var i = 1; i < meshInstances.length; i++) {
-        //             bbox.add(meshInstances[i].aabb);
-        //         }
-        //     }
         console.log("Entidad casa: " + scene.getMeshesByTags('casa'));
         //var tejados = new Array<bbl.MeshInstance>(), luces = new Array<bbl.MeshInstance>(), ventanas = new Array<bbl.MeshInstance>();
         scene.meshes.forEach(function (element) {
@@ -456,21 +585,14 @@ var Objects = /** @class */ (function () {
                 elementInteractive.name.forEach(function (name) {
                     if (element.name.toLowerCase().includes(name)) {
                         elementInteractive.meshInstancesArray.push(element);
-                        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, "name");
+                        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, name);
+                        if (_this.interactiveParts[0].name.includes(name))
+                            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'materialEspecial');
                     }
                 });
             });
-            if (element.name.toLowerCase().includes("superficie")) {
-                babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, "superficie");
-            }
         });
         //this.interactiveParts[0].meshInstancesArray.forEach((e) => {console.log(e.name)});
-        if (this.interactiveParts) {
-            this.interactiveParts[2].meshInstancesArray.forEach(function (element) {
-                element.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](element.position.x, element.position.y + 10, element.position.z);
-                //console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
-            });
-        }
         if (this.interactiveParts) {
             this.interactiveParts[0].meshInstancesArray.forEach(function (element) {
                 try {
@@ -483,14 +605,24 @@ var Objects = /** @class */ (function () {
                 }
                 console.log(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element));
             });
-        }
-        if (this.interactiveParts) {
             this.interactiveParts[1].meshInstancesArray.forEach(function (element) {
                 var light = _this.createSpotLight(scene, shadow);
                 //light.setPosition(element.node.getPosition());
                 // entity.addComponent("light", light);
                 // element.node.insertChild(light, 0);
                 // console.log(element.node.children)
+            });
+            this.interactiveParts[2].meshInstancesArray.forEach(function (element) {
+                element.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](element.position.x, element.position.y + 10, element.position.z);
+                //console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
+            });
+            this.interactiveParts[3].meshInstancesArray.forEach(function (element) {
+                babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, ("animable"));
+                var vectorsWorld = element.getBoundingInfo().boundingBox.vectorsWorld;
+                var width = vectorsWorld[1].subtract(vectorsWorld[0]);
+                console.log(width);
+                element.setPivotPoint(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](-width.x, 0, 0));
+                element.position = element.position.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](width.x / 2, 0, 0));
             });
         }
         //}
@@ -509,6 +641,21 @@ var Objects = /** @class */ (function () {
         if (opacity)
             material.opacityTexture = opacity;
         return material.clone(nombre);
+    };
+    Objects.prototype.addAnimColor = function (mesh, stoppedColor, animedColor) {
+        var _a, _b;
+        var color = mesh.matchesTagsQuery("animar") ? animedColor : stoppedColor;
+        var mat = (_a = mesh.getChildMeshes()[0].material) === null || _a === void 0 ? void 0 : _a.clone((_b = mesh.getChildMeshes()[0].material) === null || _b === void 0 ? void 0 : _b.name);
+        mesh.getChildMeshes()[0].material = mat;
+        mat.albedoColor = color;
+    };
+    Objects.prototype.animateDoor = function (scene) {
+        scene.onBeforeRenderObservable.add(function () {
+            scene.getMeshesByTags("(door || puerta) && animar", function (ct) {
+                //ct.
+                ct.rotate(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Axis"].Y, -0.05, babylonjs__WEBPACK_IMPORTED_MODULE_0__["Space"].LOCAL);
+            });
+        });
     };
     Objects.prototype.createSpotLight = function (scene, shadow) {
         var spotlight = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Light"].Construct('spot', 'light', scene, babylonjs__WEBPACK_IMPORTED_MODULE_0__["Light"].LIGHTTYPEID_SPOTLIGHT);
@@ -683,6 +830,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var MyScene = /** @class */ (function () {
     function MyScene(canvasElement) {
+        this._vrEnable = true;
         // Create canvas and engine.
         this._canvas = document.getElementById(canvasElement);
         this._engine = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Engine"](this._canvas, true);
@@ -697,10 +845,36 @@ var MyScene = /** @class */ (function () {
     MyScene.prototype.createScene = function () {
         var _this = this;
         this._scene = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Scene"](this._engine);
-        this.createCamera();
+        this._sessionManager = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["WebXRSessionManager"](this._scene);
+        if (this._sessionManager.isSessionSupportedAsync('immersive-vr') && this._vrEnable)
+            this.createCameraXR();
+        else
+            this.createCamera();
         this.createBasicLight();
         this._assetsLoader = new _assets_loader__WEBPACK_IMPORTED_MODULE_3__["default"](this._scene);
         this._assetsLoader.loadAssets(function () { return _this.createElements(); });
+        if (this._vrEnable) {
+            var vrHelper = this._scene.createDefaultVRExperience();
+            var leftHand = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreateBox("", 0.1, this._scene);
+            leftHand.scaling.z = 2;
+            var rightHand = leftHand.clone();
+            var head = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreateBox("", 0.2, this._scene);
+            this._scene.onBeforeRenderObservable.add(function () {
+                // Left and right hand position/rotation
+                if (vrHelper.webVRCamera.leftController) {
+                    leftHand.position = vrHelper.webVRCamera.leftController.devicePosition.clone();
+                    leftHand.rotationQuaternion = vrHelper.webVRCamera.leftController.deviceRotationQuaternion.clone();
+                }
+                if (vrHelper.webVRCamera.rightController) {
+                    rightHand.position = vrHelper.webVRCamera.rightController.devicePosition.clone();
+                    rightHand.rotationQuaternion = vrHelper.webVRCamera.rightController.deviceRotationQuaternion.clone();
+                }
+                // Head position/rotation
+                head.position = vrHelper.webVRCamera.devicePosition.clone();
+                head.rotationQuaternion = vrHelper.webVRCamera.deviceRotationQuaternion.clone();
+                head.position.z = 2;
+            });
+        }
     };
     MyScene.prototype.createElements = function () {
         console.log("createElements");
@@ -714,134 +888,9 @@ var MyScene = /** @class */ (function () {
         this.createEnvironment();
         _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.initializeInteractiveParts();
         var casa = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.addPlayCanvasCasa(this._scene, this._shadowGenerator);
+        _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.animateDoor(this._scene);
         //this.createGUI();
         console.log("ASSETS LOADED");
-    };
-    MyScene.prototype.cambiar = function (tecla, entity, textoAux) {
-        var _a, _b;
-        var meshInstance = (_a = entity.subMeshes.find(function (value) { return textoAux.toLowerCase().includes(value.getRenderingMesh().name.toLowerCase()); })) === null || _a === void 0 ? void 0 : _a.getRenderingMesh();
-        var tipo = -1;
-        tipo = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.interactiveParts.findIndex(function (value) {
-            var boolAux = false;
-            value.name.forEach(function (text) {
-                if (!boolAux && meshInstance)
-                    boolAux = meshInstance === null || meshInstance === void 0 ? void 0 : meshInstance.name.toLowerCase().includes(text);
-            });
-            return boolAux;
-        });
-        if (meshInstance) {
-            //Azul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde
-            switch (tecla) {
-                case 1:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Blue(), 'BLUE', this._scene);
-                            console.log("Entro");
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            //meshInstance.material.update();
-                            break;
-                        case 1:
-                            // let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
-                            // if (light==undefined) {
-                            // 	entity.addComponent('light', (meshInstance.node.children[0] as pc.Entity))
-                            // }
-                            break;
-                        case 2:
-                            break;
-                        // case 3:
-                        // 	this.addTweenEntity((meshInstance.node as pc.Entity),"rotate door");
-                        // 	console.log("Puerta debe de hacer algo")
-                        // 	break;
-                        default:
-                            console.log("Tipo: " + tipo + " no existe");
-                    }
-                    break;
-                case 2:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Yellow(), 'YELLOW', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                        case 1:
-                            // let light = entity.findComponent((meshInstance.node.children[0] as pc.Entity).name);
-                            // if (light) {
-                            // 	entity.removeComponent('light')
-                            // }
-                            break;
-                        case 2:
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), 'WHITE', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                case 4:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Teal(), 'TEAL OR CYAN', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                case 5:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Gray(), 'GRAY', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                case 6:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Magenta(), 'MAGENTA', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                case 7:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Black(), 'BLACK', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                case 8:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Red(), 'RED', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                case 9:
-                    switch (tipo) {
-                        case 0:
-                            var materialAux = _addObjects__WEBPACK_IMPORTED_MODULE_2__["Objects"].prototype.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Green(), 'GREEN', this._scene);
-                            //materialAux.blendType = pc.BLEND_NORMAL;
-                            meshInstance.material = materialAux;
-                            break;
-                    }
-                    break;
-                default:
-                    console.log("Tecla " + tecla + " no establecida");
-            }
-            console.log(meshInstance.name + " color: " + ((_b = meshInstance.material) === null || _b === void 0 ? void 0 : _b.name));
-        }
     };
     MyScene.prototype.createCamera = function () {
         //this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
@@ -853,15 +902,29 @@ var MyScene = /** @class */ (function () {
         // inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
         // inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
         // this._camera.attachControl(this._canvas, false);
-        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FlyCamera"]('Camera', new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](0, 0, 10), this._scene);
+        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FreeCamera"]('Camera', new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](0, 0, 10), this._scene);
         var inputManager = this._camera.inputs;
-        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FlyCameraMouseInput"]());
-        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FlyCameraKeyboardInput"]());
+        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FreeCameraMouseInput"]());
+        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FreeCameraMouseWheelInput"]());
+        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["FreeCameraKeyboardMoveInput"]());
+        this._camera.attachControl();
+    };
+    MyScene.prototype.createCameraXR = function () {
+        this._sessionManager.initializeSessionAsync('immersive-vr');
+        var referenceSpace = this._sessionManager.setReferenceSpaceTypeAsync();
+        var renderTarget = this._sessionManager.getWebXRRenderTarget();
+        var xrWebGLLayer = renderTarget.initializeXRLayerAsync(this._sessionManager.session);
+        this._sessionManager.runXRRenderLoop();
+        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["WebXRCamera"]('Camera', this._scene, this._sessionManager);
         this._camera.attachControl();
     };
     MyScene.prototype.createBasicLight = function () {
         this._light = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["DirectionalLight"]('light1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](1, -1, -1), this._scene);
         this._light.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](0, 10, 10);
+        var aux = this;
+        this._scene.registerBeforeRender(function () {
+            aux._light.position = aux._camera.position;
+        });
         this._shadowGenerator = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["ShadowGenerator"](1024, this._light);
         this._shadowGenerator.usePercentageCloserFiltering = true;
         this._shadowGenerator.bias = 0.00001;
