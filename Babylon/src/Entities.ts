@@ -151,16 +151,12 @@ export default class Entities {
         var advancedTexture2 = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
         var panel2 = new GUI.StackPanel();
-        panel2.width = "150px";
+        panel2.width = "151px";
         panel2.isVertical = true;
         panel2.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         panel2.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-        advancedTexture2.addControl(panel2);
         
-        var textBlock2 = new GUI.TextBlock();
-        textBlock2.text = "Control Movement:";
-        textBlock2.height = "30px";
-        panel2.addControl(textBlock2);   
+        advancedTexture2.addControl(panel2);
 
         this._panel1 = (panel1);
         this._panel2 = (panel2);
@@ -171,8 +167,6 @@ export default class Entities {
         // GUI
         this._panel1.removeControl(this._picker);
 
-        console.log(BABYLON.Tags.GetTags(mesh))
-        console.log((<string>BABYLON.Tags.GetTags(mesh, true)).includes('materialEspecial'));
         var MeshMaterial:BABYLON.StandardMaterial;
         if (!mesh.material?.getClassName().includes('StandardMaterial') && !BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial')){
             MeshMaterial = new BABYLON.StandardMaterial("MeshMaterial", this._scene);
@@ -206,6 +200,8 @@ export default class Entities {
         buttonUp.width = "75px";
         buttonUp.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         buttonUp.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        buttonUp.color = "blue";
+        buttonUp.background = "white";
 
         var buttonDown = GUI.Button.CreateSimpleButton(
             "but",
@@ -216,6 +212,8 @@ export default class Entities {
         buttonDown.width = "75px";
         buttonDown.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         buttonDown.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        buttonDown.color = "blue";
+        buttonDown.background = "white";
         
         var buttonLeft = GUI.Button.CreateSimpleButton(
             "but",
@@ -226,6 +224,8 @@ export default class Entities {
         buttonLeft.width = "75px";
         buttonLeft.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         buttonLeft.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        buttonLeft.color = "blue";
+        buttonLeft.background = "white";
         
         var buttonRight = GUI.Button.CreateSimpleButton(
             "but",
@@ -236,6 +236,8 @@ export default class Entities {
         buttonRight.width = "75px";
         buttonRight.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
         buttonRight.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        buttonRight.color = "blue";
+        buttonRight.background = "white";
         
         var buttonForward = GUI.Button.CreateSimpleButton(
             "but",
@@ -246,6 +248,8 @@ export default class Entities {
         buttonForward.width = "75px";
         buttonForward.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         buttonForward.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        buttonForward.color = "blue";
+        buttonForward.background = "white";
         
         var buttonBackward = GUI.Button.CreateSimpleButton(
             "but",
@@ -256,6 +260,8 @@ export default class Entities {
         buttonBackward.width = "75px";
         buttonBackward.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         buttonBackward.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        buttonBackward.color = "blue";
+        buttonBackward.background = "white";
 
         this._buttonDown = buttonDown;
         this._buttonUp = buttonUp;
@@ -263,13 +269,43 @@ export default class Entities {
         this._buttonRight = buttonRight;
         this._buttonForward = buttonForward;
         this._buttonBackward = buttonBackward;
-
+        
         this._panel2.addControl(buttonUp);
+        
+        // var panel1 = new GUI.StackPanel();
+        // panel1.width = "151px";
+        // panel1.isVertical = false;
+        
+        // panel1.color = "blue";
+        // panel1.background = "#FFFF99";
+        
+        // panel1.addControl(buttonUp);
+        // panel1.addControl(buttonDown);
+        // this._panel2.addControl(panel1);
+
+        var panel2 = new GUI.StackPanel();
+        panel2.width = "150px";
+        panel2.height = "20px";
+        panel2.isVertical = false;
+        
+        panel2.addControl(buttonLeft);
+        panel2.addControl(buttonRight);
+        this._panel2.addControl(panel2);
+
+        var panel3 = new GUI.StackPanel();
+        panel3.width = "150px";
+        panel3.height = "20px";
+        panel3.isVertical = false;
+        
+        panel3.addControl(buttonForward);
+        panel3.addControl(buttonBackward);
+        this._panel2.addControl(panel3);
+
         this._panel2.addControl(buttonDown);
-        this._panel2.addControl(buttonLeft);
-        this._panel2.addControl(buttonRight);
-        this._panel2.addControl(buttonForward);
-        this._panel2.addControl(buttonBackward);
+        // this._panel2.addControl(buttonLeft);
+        // this._panel2.addControl(buttonRight);
+        // this._panel2.addControl(buttonForward);
+        // this._panel2.addControl(buttonBackward);
     }
 
     private addGlown(mesh:BABYLON.AbstractMesh){
@@ -327,8 +363,10 @@ export default class Entities {
         console.log("POINTERUP: " + BABYLON.PointerEventTypes.POINTERUP);
         console.log(pointerInfo.type);
         this._buttonDown.onPointerDownObservable.clear()
-        this._buttonDown.onPointerDownObservable.add(function() {
+        this._buttonDown.onPointerDownObservable.add(function(eventData: GUI.Vector2WithInfo, eventState: BABYLON.EventState) {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            BABYLON.Tags.HasTags(eventState.target)?BABYLON.Tags.RemoveTagsFrom(eventState.target, 'go'):BABYLON.Tags.AddTagsTo(eventState.target, 'go');
+            //while(BABYLON.Tags.GetTags(eventState.target)!=null)
                 mesh.movePOV(0,-0.1, 0)
         });
         this._buttonUp.onPointerDownObservable.clear()

@@ -341,15 +341,11 @@ var Entities = /** @class */ (function () {
         panel1.addControl(this._textBlock[0]);
         var advancedTexture2 = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateFullscreenUI("UI");
         var panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
-        panel2.width = "150px";
+        panel2.width = "151px";
         panel2.isVertical = true;
         panel2.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_LEFT;
         panel2.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
         advancedTexture2.addControl(panel2);
-        var textBlock2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
-        textBlock2.text = "Control Movement:";
-        textBlock2.height = "30px";
-        panel2.addControl(textBlock2);
         this._panel1 = (panel1);
         this._panel2 = (panel2);
         this.createMovementsKeys();
@@ -358,8 +354,6 @@ var Entities = /** @class */ (function () {
         var _a;
         // GUI
         this._panel1.removeControl(this._picker);
-        console.log(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(mesh));
-        console.log(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(mesh, true).includes('materialEspecial'));
         var MeshMaterial;
         if (!((_a = mesh.material) === null || _a === void 0 ? void 0 : _a.getClassName().includes('StandardMaterial')) && !babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].MatchesQuery(mesh, 'materialEspecial')) {
             MeshMaterial = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["StandardMaterial"]("MeshMaterial", this._scene);
@@ -389,6 +383,8 @@ var Entities = /** @class */ (function () {
         buttonUp.width = "75px";
         buttonUp.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
         buttonUp.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_TOP;
+        buttonUp.color = "blue";
+        buttonUp.background = "white";
         var buttonDown = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
         //"🠗"
         "down");
@@ -396,6 +392,8 @@ var Entities = /** @class */ (function () {
         buttonDown.width = "75px";
         buttonDown.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
         buttonDown.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_BOTTOM;
+        buttonDown.color = "blue";
+        buttonDown.background = "white";
         var buttonLeft = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
         //"🠔"
         "left");
@@ -403,6 +401,8 @@ var Entities = /** @class */ (function () {
         buttonLeft.width = "75px";
         buttonLeft.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_LEFT;
         buttonLeft.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        buttonLeft.color = "blue";
+        buttonLeft.background = "white";
         var buttonRight = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
         //"🠖"
         "right");
@@ -410,6 +410,8 @@ var Entities = /** @class */ (function () {
         buttonRight.width = "75px";
         buttonRight.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_RIGHT;
         buttonRight.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        buttonRight.color = "blue";
+        buttonRight.background = "white";
         var buttonForward = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
         //"🠖"
         "forward");
@@ -417,6 +419,8 @@ var Entities = /** @class */ (function () {
         buttonForward.width = "75px";
         buttonForward.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
         buttonForward.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        buttonForward.color = "blue";
+        buttonForward.background = "white";
         var buttonBackward = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but", 
         //"🠖"
         "backward");
@@ -424,6 +428,8 @@ var Entities = /** @class */ (function () {
         buttonBackward.width = "75px";
         buttonBackward.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
         buttonBackward.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
+        buttonBackward.color = "blue";
+        buttonBackward.background = "white";
         this._buttonDown = buttonDown;
         this._buttonUp = buttonUp;
         this._buttonLeft = buttonLeft;
@@ -431,11 +437,33 @@ var Entities = /** @class */ (function () {
         this._buttonForward = buttonForward;
         this._buttonBackward = buttonBackward;
         this._panel2.addControl(buttonUp);
+        // var panel1 = new GUI.StackPanel();
+        // panel1.width = "151px";
+        // panel1.isVertical = false;
+        // panel1.color = "blue";
+        // panel1.background = "#FFFF99";
+        // panel1.addControl(buttonUp);
+        // panel1.addControl(buttonDown);
+        // this._panel2.addControl(panel1);
+        var panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
+        panel2.width = "150px";
+        panel2.height = "20px";
+        panel2.isVertical = false;
+        panel2.addControl(buttonLeft);
+        panel2.addControl(buttonRight);
+        this._panel2.addControl(panel2);
+        var panel3 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
+        panel3.width = "150px";
+        panel3.height = "20px";
+        panel3.isVertical = false;
+        panel3.addControl(buttonForward);
+        panel3.addControl(buttonBackward);
+        this._panel2.addControl(panel3);
         this._panel2.addControl(buttonDown);
-        this._panel2.addControl(buttonLeft);
-        this._panel2.addControl(buttonRight);
-        this._panel2.addControl(buttonForward);
-        this._panel2.addControl(buttonBackward);
+        // this._panel2.addControl(buttonLeft);
+        // this._panel2.addControl(buttonRight);
+        // this._panel2.addControl(buttonForward);
+        // this._panel2.addControl(buttonBackward);
     };
     Entities.prototype.addGlown = function (mesh) {
         console.log("GLOWWWWWWW");
@@ -484,9 +512,13 @@ var Entities = /** @class */ (function () {
         console.log("POINTERUP: " + babylonjs__WEBPACK_IMPORTED_MODULE_0__["PointerEventTypes"].POINTERUP);
         console.log(pointerInfo.type);
         this._buttonDown.onPointerDownObservable.clear();
-        this._buttonDown.onPointerDownObservable.add(function () {
+        this._buttonDown.onPointerDownObservable.add(function (eventData, eventState) {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
-            mesh.movePOV(0, -0.1, 0);
+            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(eventState.target) ? babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].RemoveTagsFrom(eventState.target, 'go') : babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(eventState.target, 'go');
+            //BABYLON.Tags.
+            while (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(eventState.target) != null) {
+                mesh.movePOV(0, -0.1, 0);
+            }
         });
         this._buttonUp.onPointerDownObservable.clear();
         this._buttonUp.onPointerDownObservable.add(function () {
@@ -830,7 +862,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var MyScene = /** @class */ (function () {
     function MyScene(canvasElement) {
-        this._vrEnable = true;
+        this._vrEnable = false;
         // Create canvas and engine.
         this._canvas = document.getElementById(canvasElement);
         this._engine = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Engine"](this._canvas, true);
