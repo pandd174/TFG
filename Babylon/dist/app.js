@@ -515,10 +515,8 @@ var Entities = /** @class */ (function () {
         this._buttonDown.onPointerDownObservable.add(function (eventData, eventState) {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
             babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(eventState.target) ? babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].RemoveTagsFrom(eventState.target, 'go') : babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(eventState.target, 'go');
-            //BABYLON.Tags.
-            while (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(eventState.target) != null) {
-                mesh.movePOV(0, -0.1, 0);
-            }
+            //while(BABYLON.Tags.GetTags(eventState.target)!=null)
+            mesh.movePOV(0, -0.1, 0);
         });
         this._buttonUp.onPointerDownObservable.clear();
         this._buttonUp.onPointerDownObservable.add(function () {

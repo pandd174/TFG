@@ -1,0 +1,2717 @@
+Exporter version: 2.93.4, Blender version: 2.93.0
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		Inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		Keep Z-up r-handed  :  no
+		Texture directory   :  C:\Users\USUARIO\Documents\Trabajos\20-21\TFG\TFG\REALTFG\assets\objects\
+	Python World class constructor completed
+	processing begun of camera (UniversalCamera):  Camera
+	processing begun of mesh:  A2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  251
+		num normals        :  251
+		num tangents       :  1004
+		num uvs            :  502
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  92
+	processing begun of mesh:  A3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  142
+		num normals        :  142
+		num tangents       :  568
+		num uvs            :  284
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  52
+	processing begun of mesh:  A4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  140
+	processing begun of mesh:  A6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  228
+		num normals        :  228
+		num tangents       :  912
+		num uvs            :  456
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  92
+	processing begun of mesh:  A5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  251
+		num normals        :  251
+		num tangents       :  1004
+		num uvs            :  502
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  108
+	processing begun of mesh:  A7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  98
+		num normals        :  98
+		num tangents       :  392
+		num uvs            :  196
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  A8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  98
+		num normals        :  98
+		num tangents       :  392
+		num uvs            :  196
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  A1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  159
+		num normals        :  159
+		num tangents       :  636
+		num uvs            :  318
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  60
+	processing begun of mesh:  A9
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.0041 secs
+		Custom split normals with tangents being used
+		num positions      :  492
+		num normals        :  492
+		num tangents       :  1968
+		num uvs            :  984
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  228
+	processing begun of mesh:  A10
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  52
+		num normals        :  52
+		num tangents       :  208
+		num uvs            :  104
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  20
+	processing begun of mesh:  A11
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  A12
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  A13
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  A14
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  124
+		num normals        :  124
+		num tangents       :  496
+		num uvs            :  248
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  48
+	processing begun of mesh:  A15
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  171
+		num normals        :  171
+		num tangents       :  684
+		num uvs            :  342
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  66
+	processing begun of mesh:  A16
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  98
+		num normals        :  98
+		num tangents       :  392
+		num uvs            :  196
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  A18
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1792
+		num normals        :  1792
+		num tangents       :  7168
+		num uvs            :  3584
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  888
+	processing begun of mesh:  A20
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  421
+		num normals        :  421
+		num tangents       :  1684
+		num uvs            :  842
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  180
+	processing begun of mesh:  A21
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  58
+		num normals        :  58
+		num tangents       :  232
+		num uvs            :  116
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  24
+	processing begun of mesh:  A22
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  59
+		num normals        :  59
+		num tangents       :  236
+		num uvs            :  118
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  24
+	processing begun of mesh:  A23
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  193
+		num normals        :  193
+		num tangents       :  772
+		num uvs            :  386
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  88
+	processing begun of mesh:  A24
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  193
+		num normals        :  193
+		num tangents       :  772
+		num uvs            :  386
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  88
+	processing begun of mesh:  A26
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  193
+		num normals        :  193
+		num tangents       :  772
+		num uvs            :  386
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  88
+	processing begun of mesh:  A25
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  193
+		num normals        :  193
+		num tangents       :  772
+		num uvs            :  386
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  88
+	processing begun of mesh:  MD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  788
+		num normals        :  788
+		num tangents       :  3152
+		num uvs            :  1576
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  396
+	processing begun of mesh:  MD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1588
+		num normals        :  1588
+		num tangents       :  6352
+		num uvs            :  3176
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  788
+	processing begun of mesh:  MD3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  788
+		num normals        :  788
+		num tangents       :  3152
+		num uvs            :  1576
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  396
+	processing begun of mesh:  MI1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  788
+		num normals        :  788
+		num tangents       :  3152
+		num uvs            :  1576
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  396
+	processing begun of mesh:  MI2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1588
+		num normals        :  1588
+		num tangents       :  6352
+		num uvs            :  3176
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  788
+	processing begun of mesh:  MI3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  788
+		num normals        :  788
+		num tangents       :  3152
+		num uvs            :  1576
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  396
+	processing begun of mesh:  EJE-RD
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  285
+		num normals        :  285
+		num tangents       :  1140
+		num uvs            :  570
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  278
+	processing begun of mesh:  SUSP1-R2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  715
+		num normals        :  715
+		num tangents       :  2860
+		num uvs            :  1430
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1060
+	processing begun of mesh:  SUSP1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  355
+		num normals        :  355
+		num tangents       :  1420
+		num uvs            :  710
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  160
+	processing begun of mesh:  SUSP2-R2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  715
+		num normals        :  715
+		num tangents       :  2860
+		num uvs            :  1430
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1060
+	processing begun of mesh:  SUSP2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  355
+		num normals        :  355
+		num tangents       :  1420
+		num uvs            :  710
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  160
+	processing begun of mesh:  SUSP3-R2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  715
+		num normals        :  715
+		num tangents       :  2860
+		num uvs            :  1430
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1060
+	processing begun of mesh:  SUSP3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  355
+		num normals        :  355
+		num tangents       :  1420
+		num uvs            :  710
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  160
+	processing begun of mesh:  SUSP4-R2.01
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  715
+		num normals        :  715
+		num tangents       :  2860
+		num uvs            :  1430
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1060
+	processing begun of mesh:  SUSP4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  355
+		num normals        :  355
+		num tangents       :  1420
+		num uvs            :  710
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  160
+	processing begun of mesh:  SUSP2-R1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  758
+		num normals        :  758
+		num tangents       :  3032
+		num uvs            :  1516
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1156
+	processing begun of mesh:  SUSP3-R1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  758
+		num normals        :  758
+		num tangents       :  3032
+		num uvs            :  1516
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1156
+	processing begun of mesh:  SUSP4-R1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  758
+		num normals        :  758
+		num tangents       :  3032
+		num uvs            :  1516
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1156
+	processing begun of mesh:  CUÑA1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  CUÑA2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  BASE-MOT
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  SUPERIOR1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  394
+		num normals        :  394
+		num tangents       :  1576
+		num uvs            :  788
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  SUPERIOR2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  394
+		num normals        :  394
+		num tangents       :  1576
+		num uvs            :  788
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  SUPERIOR4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  378
+		num normals        :  378
+		num tangents       :  1512
+		num uvs            :  756
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  164
+	processing begun of mesh:  SUPERIOR5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  378
+		num normals        :  378
+		num tangents       :  1512
+		num uvs            :  756
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  164
+	processing begun of mesh:  SUPERIOR3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  668
+		num normals        :  668
+		num tangents       :  2672
+		num uvs            :  1336
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  332
+	processing begun of mesh:  VARA1
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  746
+		num normals        :  746
+		num tangents       :  2984
+		num uvs            :  1492
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  372
+	processing begun of mesh:  VARA2
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  392
+		num normals        :  392
+		num tangents       :  1568
+		num uvs            :  784
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  192
+	processing begun of mesh:  VARA3
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  126
+		num normals        :  126
+		num tangents       :  504
+		num uvs            :  252
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  44
+	processing begun of mesh:  VARA4
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  746
+		num normals        :  746
+		num tangents       :  2984
+		num uvs            :  1492
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  372
+	processing begun of mesh:  VARA5
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  392
+		num normals        :  392
+		num tangents       :  1568
+		num uvs            :  784
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  192
+	processing begun of mesh:  VARA6
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  124
+		num normals        :  124
+		num tangents       :  496
+		num uvs            :  248
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  42
+	processing begun of mesh:  A19
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  970
+		num normals        :  970
+		num tangents       :  3880
+		num uvs            :  1940
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  534
+	processing begun of mesh:  BALLESTA1
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  3373
+		num normals        :  3373
+		num tangents       :  13492
+		num uvs            :  6746
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1276
+	processing begun of mesh:  ballesta2
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1694
+		num normals        :  1694
+		num tangents       :  6776
+		num uvs            :  3388
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  648
+	processing begun of mesh:  ballesta3M
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  875
+		num normals        :  875
+		num tangents       :  3500
+		num uvs            :  1750
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  588
+	processing begun of mesh:  ballesta6
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1378
+		num normals        :  1378
+		num tangents       :  5512
+		num uvs            :  2756
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  566
+	processing begun of mesh:  ballesta5
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1699
+		num normals        :  1699
+		num tangents       :  6796
+		num uvs            :  3398
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  658
+	processing begun of mesh:  ballesta4
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1519
+		num normals        :  1519
+		num tangents       :  6076
+		num uvs            :  3038
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  956
+	processing begun of mesh:  ballesta7
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  2312
+		num normals        :  2312
+		num tangents       :  9248
+		num uvs            :  4624
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1316
+	processing begun of mesh:  TENSOR1
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  670
+		num normals        :  670
+		num tangents       :  2680
+		num uvs            :  1340
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  248
+	processing begun of mesh:  TENSOR2
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  436
+		num normals        :  436
+		num tangents       :  1744
+		num uvs            :  872
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  160
+	processing begun of mesh:  TENSOR3
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  6
+		num normals        :  6
+		num tangents       :  24
+		num uvs            :  12
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  2
+	processing begun of mesh:  TENSOR4
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  89
+		num normals        :  89
+		num tangents       :  356
+		num uvs            :  178
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  33
+	processing begun of mesh:  EJE-RI
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  283
+		num normals        :  283
+		num tangents       :  1132
+		num uvs            :  566
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  278
+	processing begun of mesh:  SUSP1-R1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  758
+		num normals        :  758
+		num tangents       :  3032
+		num uvs            :  1516
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1156
+	processing begun of mesh:  SUPERIOR6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  314
+		num normals        :  314
+		num tangents       :  1256
+		num uvs            :  628
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  148
+	processing begun of mesh:  FRENO1
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  156
+		num normals        :  156
+		num tangents       :  624
+		num uvs            :  312
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  76
+	processing begun of mesh:  FRENO3
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  FRENO2
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  32
+		num normals        :  32
+		num tangents       :  128
+		num uvs            :  64
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  FRENO5
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  38
+		num normals        :  38
+		num tangents       :  152
+		num uvs            :  76
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  14
+	processing begun of mesh:  FRENO4
+		processing begun of material:  METAL
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  33
+		num normals        :  33
+		num tangents       :  132
+		num uvs            :  66
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  12
+	processing begun of mesh:  EJE_MI
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  188
+		num normals        :  188
+		num tangents       :  752
+		num uvs            :  376
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  96
+	processing begun of mesh:  EJE-MD
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  188
+		num normals        :  188
+		num tangents       :  752
+		num uvs            :  376
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  96
+	processing begun of mesh:  MD6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  412
+		num normals        :  412
+		num tangents       :  1648
+		num uvs            :  824
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  MD5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  580
+		num normals        :  580
+		num tangents       :  2320
+		num uvs            :  1160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  292
+	processing begun of mesh:  MD4-ENGRANAJE
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  7112
+		num normals        :  7112
+		num tangents       :  28448
+		num uvs            :  14224
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  3172
+	processing begun of mesh:  LEVA1
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  325
+	processing begun of mesh:  LEVA2
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  325
+	processing begun of mesh:  LEVA3
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  326
+	processing begun of mesh:  LEVA4
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  326
+	processing begun of mesh:  LEVA5
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  326
+	processing begun of mesh:  LEVA6
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  325
+	processing begun of mesh:  LEVA7
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.0048 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  326
+	processing begun of mesh:  LEVA8
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  319
+		num normals        :  319
+		num tangents       :  1276
+		num uvs            :  638
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  325
+	processing begun of node:  ANIM MOTOR DER
+		animation processing begun
+			processing action ANIM MOTOR DER|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of mesh:  MI4-ENGRANAJE
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  7112
+		num normals        :  7112
+		num tangents       :  28448
+		num uvs            :  14224
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  3172
+	processing begun of mesh:  MI5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  586
+		num normals        :  586
+		num tangents       :  2344
+		num uvs            :  1172
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  292
+	processing begun of mesh:  MI6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  412
+		num normals        :  412
+		num tangents       :  1648
+		num uvs            :  824
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  LEVA9
+		processing begun of material:  LEVAS
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  303
+		num normals        :  303
+		num tangents       :  1212
+		num uvs            :  606
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  321
+	processing begun of node:  ANIM MOTOR IZQ
+		animation processing begun
+			processing action ANIM MOTOR IZQ|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of mesh:  ANGULAR1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  624
+		num normals        :  624
+		num tangents       :  2496
+		num uvs            :  1248
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  312
+	processing begun of mesh:  ANGULAR2
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  912
+		num normals        :  912
+		num tangents       :  3648
+		num uvs            :  1824
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  448
+	processing begun of mesh:  ANGULAR3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  514
+		num normals        :  514
+		num tangents       :  2056
+		num uvs            :  1028
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  ANGULAR4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  514
+		num normals        :  514
+		num tangents       :  2056
+		num uvs            :  1028
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  EJE-A1
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  172
+		num normals        :  172
+		num tangents       :  688
+		num uvs            :  344
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  88
+	processing begun of mesh:  JAULA1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  760
+		num normals        :  760
+		num tangents       :  3040
+		num uvs            :  1520
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  384
+	processing begun of mesh:  JAULA2
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1056
+		num normals        :  1056
+		num tangents       :  4224
+		num uvs            :  2112
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  544
+	processing begun of mesh:  PIÑON1
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  2360
+		num normals        :  2360
+		num tangents       :  9440
+		num uvs            :  4720
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1072
+	processing begun of node:  ANIM ANG DER
+		animation processing begun
+			processing action ANIM ANG DER|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of mesh:  JAULA3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  760
+		num normals        :  760
+		num tangents       :  3040
+		num uvs            :  1520
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  384
+	processing begun of mesh:  JAULA4
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1056
+		num normals        :  1056
+		num tangents       :  4224
+		num uvs            :  2112
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  544
+	processing begun of mesh:  ANGULAR6
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  912
+		num normals        :  912
+		num tangents       :  3648
+		num uvs            :  1824
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  448
+	processing begun of mesh:  ANGULAR5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  624
+		num normals        :  624
+		num tangents       :  2496
+		num uvs            :  1248
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  312
+	processing begun of mesh:  ANGULAR7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  513
+		num normals        :  513
+		num tangents       :  2052
+		num uvs            :  1026
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  ANGULAR8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  513
+		num normals        :  513
+		num tangents       :  2052
+		num uvs            :  1026
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  EJE-A2
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  172
+		num normals        :  172
+		num tangents       :  688
+		num uvs            :  344
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  88
+	processing begun of mesh:  PIÑON2
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  2360
+		num normals        :  2360
+		num tangents       :  9440
+		num uvs            :  4720
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1072
+	processing begun of node:  ANIM ANG IZQ
+		animation processing begun
+			processing action ANIM ANG IZQ|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of mesh:  RD_RAD5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  457
+		num normals        :  457
+		num tangents       :  1828
+		num uvs            :  914
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RD_RAD6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD_RAD7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD_RAD8.01
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD_RAD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD_RAD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD_RAD3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD_RAD4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RD-GOMA
+		processing begun of material:  RUEDAGOMA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1732
+		num normals        :  1732
+		num tangents       :  6928
+		num uvs            :  3464
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  864
+	processing begun of mesh:  RD-DIENT2
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1415
+		num normals        :  1415
+		num tangents       :  5660
+		num uvs            :  2830
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RD-DIENT3
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1430
+		num normals        :  1430
+		num tangents       :  5720
+		num uvs            :  2860
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RD-DIENT4
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  1386
+		num normals        :  1386
+		num tangents       :  5544
+		num uvs            :  2772
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RD-DIENT1
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1434
+		num normals        :  1434
+		num tangents       :  5736
+		num uvs            :  2868
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RD-ROD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  572
+		num normals        :  572
+		num tangents       :  2288
+		num uvs            :  1144
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1060
+	processing begun of mesh:  RD3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  439
+		num normals        :  439
+		num tangents       :  1756
+		num uvs            :  878
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  453
+		num normals        :  453
+		num tangents       :  1812
+		num uvs            :  906
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  430
+		num normals        :  430
+		num tangents       :  1720
+		num uvs            :  860
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RD-ROD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  630
+		num normals        :  630
+		num tangents       :  2520
+		num uvs            :  1260
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1156
+	processing begun of mesh:  RD12
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD9
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD10
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD11
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD7.01
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RD5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of node:  ANIM RUEDA DER
+		animation processing begun
+			processing action ANIM RUEDA DER|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of mesh:  RI_RAD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_RAD6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_RAD7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_RAD8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_RAD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_RAD3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  444
+		num normals        :  444
+		num tangents       :  1776
+		num uvs            :  888
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RI_RAD5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_RAD4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RI_GOMA
+		processing begun of material:  RUEDAGOMA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1734
+		num normals        :  1734
+		num tangents       :  6936
+		num uvs            :  3468
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  864
+	processing begun of mesh:  RI_DIENT2
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1449
+		num normals        :  1449
+		num tangents       :  5796
+		num uvs            :  2898
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RI_DIENT3
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1442
+		num normals        :  1442
+		num tangents       :  5768
+		num uvs            :  2884
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RI_DIENT4
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1443
+		num normals        :  1443
+		num tangents       :  5772
+		num uvs            :  2886
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RI_DIENT1
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1437
+		num normals        :  1437
+		num tangents       :  5748
+		num uvs            :  2874
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1440
+	processing begun of mesh:  RI-ROD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  711
+		num normals        :  711
+		num tangents       :  2844
+		num uvs            :  1422
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1060
+	processing begun of mesh:  RI8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.0048 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  456
+		num normals        :  456
+		num tangents       :  1824
+		num uvs            :  912
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RI2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  458
+		num normals        :  458
+		num tangents       :  1832
+		num uvs            :  916
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RI1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  454
+		num normals        :  454
+		num tangents       :  1816
+		num uvs            :  908
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  212
+	processing begun of mesh:  RI12
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI9
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI10
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI11
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  424
+		num normals        :  424
+		num tangents       :  1696
+		num uvs            :  848
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  208
+	processing begun of mesh:  RI-ROD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  758
+		num normals        :  758
+		num tangents       :  3032
+		num uvs            :  1516
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1156
+	processing begun of node:  ANIM RUEDA IZQ
+		animation processing begun
+			processing action ANIM RUEDA IZQ|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of mesh:  BALLESTA1-SIM
+		processing begun of material:  MADERA-CLARA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  3314
+		num normals        :  3314
+		num tangents       :  13256
+		num uvs            :  6628
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  1258
+	processing begun of mesh:  DIREC3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.0096 secs
+		Custom split normals with tangents being used
+		num positions      :  1781
+		num normals        :  1781
+		num tangents       :  7124
+		num uvs            :  3562
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  2764
+	processing begun of mesh:  EJE-DIRECCION
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  204
+		num normals        :  204
+		num tangents       :  816
+		num uvs            :  408
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  104
+	processing begun of mesh:  DIREC2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  614
+		num normals        :  614
+		num tangents       :  2456
+		num uvs            :  1228
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  288
+	processing begun of mesh:  DIREC1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  615
+		num normals        :  615
+		num tangents       :  2460
+		num uvs            :  1230
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  288
+	processing begun of mesh:  EJE_RT
+		processing begun of material:  EJES
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  306
+		num normals        :  306
+		num tangents       :  1224
+		num uvs            :  612
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  396
+	processing begun of mesh:  RT2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  387
+		num normals        :  387
+		num tangents       :  1548
+		num uvs            :  774
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT_GOMA
+		processing begun of material:  RUEDAGOMA
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  1541
+		num normals        :  1541
+		num tangents       :  6164
+		num uvs            :  3082
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  768
+	processing begun of mesh:  RT10
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT_RAD4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  388
+		num normals        :  388
+		num tangents       :  1552
+		num uvs            :  776
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT_RAD5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT11
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT4
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  397
+		num normals        :  397
+		num tangents       :  1588
+		num uvs            :  794
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT5
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  385
+		num normals        :  385
+		num tangents       :  1540
+		num uvs            :  770
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT9
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.012 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT12
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.0068 secs
+		Custom split normals with tangents being used
+		num positions      :  384
+		num normals        :  384
+		num tangents       :  1536
+		num uvs            :  768
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  188
+	processing begun of mesh:  RT_ROD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  530
+		num normals        :  530
+		num tangents       :  2120
+		num uvs            :  1060
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  784
+	processing begun of mesh:  RT_RAD6
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.008 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT_RAD7
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT_RAD8
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.0044 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT_RAD1
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT_RAD2
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of mesh:  RT_RAD3
+		processing begun of material:  BASTIDOR
+
+ERROR: UN-EXCEPTED NODE TYPE(SHADERNODENORMALMAP).  CANNOT CONTINUE.
+
+			bake time:  0 min, 0.004 secs
+		Custom split normals with tangents being used
+		num positions      :  80
+		num normals        :  80
+		num tangents       :  320
+		num uvs            :  160
+		num uvs2           :  0
+		num colors         :  0
+		num triangles      :  36
+	processing begun of node:  ANIM RUEDA TRASERA
+		animation processing begun
+			processing action ANIM RUEDA TRASERA|Take 001|BaseLayer:  in[1 - 251], out[0 - 251]
+	processing begun of node:  ANIM DIRECCION
+		animation processing begun
+			processing action ANIM DIRECCION|Take 001|BaseLayer:  in[6 - 251], out[0 - 251]
+	processing begun of node:  CUERDA1
+	processing begun of light (POINT):  Light
+	Output cancelled due to data error
+========= end of processing =========
+elapsed time:  0 min, 11.5363 secs
