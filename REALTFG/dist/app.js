@@ -515,8 +515,8 @@ var Entities = /** @class */ (function () {
                 //         if(this.isClickable(parent))
                 //             this.addTextOver(parent);
                 //    }
-                if (_this.isAnimable(parent_1))
-                    _this.animar(parent_1);
+                // if(this.isAnimable(parent))
+                //     this.animar(parent)
                 _this._oldMesh = mesh;
             }
         }, babylonjs__WEBPACK_IMPORTED_MODULE_0__["PointerEventTypes"].POINTERUP);
@@ -528,77 +528,81 @@ var Entities = /** @class */ (function () {
         }
         return retmesh;
     };
-    Entities.prototype.isAnimable = function (mesh) {
-        return mesh && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(mesh) && mesh.matchesTagsQuery("animable");
-    };
-    Entities.prototype.animar = function (mesh) {
-        if (mesh.matchesTagsQuery("animar")) {
-            mesh.removeTags("animar");
-        }
-        else {
-            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(mesh, "animar");
-        }
-        this.addAditionalChange(mesh);
-    };
-    Entities.prototype.addAditionalChange = function (mesh) {
-        if (mesh.matchesTagsQuery("bomba")) {
-            this.changeColorBomba(mesh);
-        }
-        if (mesh.matchesTagsQuery("turbina")) {
-            this.changeColorTurbina(mesh);
-        }
-    };
-    Entities.prototype.changeColorBomba = function (mesh) {
-        var color = mesh.matchesTagsQuery("animar") ? babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Blue() : babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Red();
-        var mat = mesh.getChildMeshes()[0].material;
-        mat.albedoColor = color;
-    };
-    Entities.prototype.changeColorTurbina = function (mesh) {
-        var color = mesh.matchesTagsQuery("animar") ? babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Green() : babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Magenta();
-        var mat = mesh.getChildMeshes()[0].material;
-        mat.albedoColor = color;
-    };
+    // private isAnimable(mesh:any){
+    //    return  mesh && BABYLON.Tags.HasTags(mesh) && mesh.matchesTagsQuery("animable")
+    // }
+    // private animar(mesh:any){
+    //     if(mesh.matchesTagsQuery("animar")){
+    //         mesh.removeTags("animar");
+    //     }else{
+    //         BABYLON.Tags.AddTagsTo(mesh, "animar");
+    //     }
+    //     this.addAditionalChange(mesh)
+    // }
+    // private addAditionalChange(mesh:any){
+    //     if(mesh.matchesTagsQuery("bomba")){
+    //         this.changeColorBomba(mesh)
+    //     }
+    //     if(mesh.matchesTagsQuery("turbina")){
+    //         this.changeColorTurbina(mesh)
+    //     }
+    // }
+    // private changeColorBomba(mesh:any){
+    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Blue() : BABYLON.Color3.Red();
+    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
+    //     mat.albedoColor = color;
+    // }
+    // private changeColorTurbina(mesh:any){
+    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Green() : BABYLON.Color3.Magenta();
+    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
+    //     mat.albedoColor = color;
+    // }
     Entities.prototype.addTextOver = function (mesh) {
         var _a;
-        var parent = this.getParent(mesh);
-        if (!this._plane) {
-            this._plane = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane", 1, this._scene);
-            this._plane.billboardMode = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].BILLBOARDMODE_ALL;
-            var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateForMesh(this._plane);
-            this._button = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but1", "Click Me");
-            this._button.width = 1;
-            this._button.height = 0.5;
-            this._button.color = '#222222';
-            this._button.fontSize = 120;
-            this._button.background = "white"; //new BABYLON.Color3(0.2, 0.2, 0.2);
-            this._button.onPointerUpObservable.add(function () {
-                alert("you did it!");
-            });
-            advancedTexture.addControl(this._button);
+        if (((_a = this._oldMesh) === null || _a === void 0 ? void 0 : _a.id) == mesh.id) {
+            this._plane.setEnabled(!this._plane.isEnabled());
         }
-        //console.log("parent: " + parent.name + " ; Descripcion: " + descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})?.pop());
-        var descripcion = "";
-        if (_descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent.name == obj[index][0]; })) {
-            descripcion = (_a = _descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent.name == obj[index][0]; })) === null || _a === void 0 ? void 0 : _a.pop();
+        else {
+            var parent_2 = this.getParent(mesh);
+            if (!this._plane) {
+                this._plane = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane", 1, this._scene);
+                this._plane.billboardMode = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].BILLBOARDMODE_ALL;
+                var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateForMesh(this._plane);
+                this._button = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("but1", "Click Me");
+                this._button.width = 1;
+                this._button.height = 0.5;
+                this._button.color = '#222222';
+                this._button.fontSize = 120;
+                this._button.background = "white"; //new BABYLON.Color3(0.2, 0.2, 0.2);
+                // this._button.onPointerUpObservable.add(function() {
+                //     alert("you did it!");
+                // });
+                advancedTexture.addControl(this._button);
+            }
+            //console.log("parent: " + parent.name + " ; Descripcion: " + descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})?.pop());
+            var descripcion = "";
+            if (_descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_2.name == obj[index][0]; })) {
+                descripcion = _descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_2.name == obj[index][0]; })[1];
+            }
+            this._button.textBlock.text = parent_2.name + "\n" + descripcion;
+            var position = parent_2.getAbsolutePosition();
+            this._plane.position.x = position.x;
+            this._plane.position.z = position.z;
+            var despY = parent_2.getBoundingInfo().boundingBox.vectorsWorld[1].y - parent_2.getBoundingInfo().boundingBox.vectorsWorld[0].y + 0.2;
+            this._plane.position.y = position.y + despY;
+            this._plane.setEnabled(true);
+            // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
+            //     (<GUI.TextBlock>this._button.textBlock).text =  parent.name;
+            //     const position = parent.getAbsolutePosition();
+            //     this._plane.position.x = position.x;
+            //     this._plane.position.z = position.z;
+            //     const despY =  (<any> parent).matchesTagsQuery("turbina || bomba") ? 0.5 : parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
+            //     this._plane.position.y = position.y + despY;
+            //     this._plane.setEnabled(true);
+            // }else{
+            //    // this._plane.setEnabled(false);
+            // }
         }
-        this._button.textBlock.text = parent.name + "\n" + descripcion;
-        var position = parent.getAbsolutePosition();
-        this._plane.position.x = position.x;
-        this._plane.position.z = position.z;
-        var despY = parent.getBoundingInfo().boundingBox.vectorsWorld[1].y - parent.getBoundingInfo().boundingBox.vectorsWorld[0].y + 0.2;
-        this._plane.position.y = position.y + despY;
-        this._plane.setEnabled(true);
-        // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
-        //     (<GUI.TextBlock>this._button.textBlock).text =  parent.name;
-        //     const position = parent.getAbsolutePosition();
-        //     this._plane.position.x = position.x;
-        //     this._plane.position.z = position.z;
-        //     const despY =  (<any> parent).matchesTagsQuery("turbina || bomba") ? 0.5 : parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
-        //     this._plane.position.y = position.y + despY;
-        //     this._plane.setEnabled(true);
-        // }else{
-        //    // this._plane.setEnabled(false);
-        // }
     };
     Entities.prototype.createPanel = function () {
         // GUI
@@ -782,216 +786,52 @@ __webpack_require__.r(__webpack_exports__);
 var Objects = /** @class */ (function () {
     function Objects() {
     }
-    Objects.prototype.initializeInteractiveParts = function () {
-        this.interactiveParts = [
-            { name: ["window", "ventana"], textInstructions: "Colores: \nAzul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde \nTeclas 1, 2, 3, 4, 5, 6, 7, 8, 9", meshInstancesArray: [] },
-            { name: ["light", "luces", "luz"], textInstructions: "Iluminacion: \nOn, Off \nTeclas 1, 2", meshInstancesArray: [] },
-            { name: ["roof", "tejado"], textInstructions: "Movimiento: \nOn, Off \nTeclas 1, 2", meshInstancesArray: [] },
-            { name: ["door", "puerta"], textInstructions: "Movimiento: \n90º, -90º \nTeclas 1, 2", meshInstancesArray: [] }
-        ];
-    };
-    Objects.prototype.createGround = function (scene, shadow) {
-        // Create a built-in "ground" shape.
-        this._ground = babylonjs__WEBPACK_IMPORTED_MODULE_0__["MeshBuilder"].CreateGround('ground', { width: 12, height: 8, subdivisions: 2 }, scene);
-        var groundMaterial = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["StandardMaterial"]("groundMaterial", scene);
-        groundMaterial.diffuseColor = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].FromHexString('#454649');
-        //groundMaterial.specularColor = BABYLON.Color3.FromHexString('#101010');
-        this._ground.receiveShadows = true;
-        this._ground.material = groundMaterial;
-        return groundMaterial;
-    };
-    Objects.prototype.addPlayCanvasCube = function (scene, shadow) {
-        var entity = scene.getMeshByName("cube");
-        shadow.addShadowCaster(entity);
-        entity.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](3, 0.5, 3);
-        return entity;
-    };
-    Objects.prototype.createCoche = function (scene, shadow) {
-        var entity = scene.getMeshByName("coche");
-        shadow.addShadowCaster(entity);
-        entity.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](10, 0.5, 10);
-        return entity;
-    };
+    // initializeInteractiveParts() {
+    // this.interactiveParts=[
+    // 	{name:["window", "ventana"], textInstructions:"Colores: \nAzul, Amarillo, Blanco, Cian, Gris, Magenta, Negro, Rojo, Verde \nTeclas 1, 2, 3, 4, 5, 6, 7, 8, 9", meshInstancesArray:[]}, 
+    // 	{name:["light", "luces", "luz"], textInstructions:"Iluminacion: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]}, 
+    // 	{name:["roof", "tejado"], textInstructions:"Movimiento: \nOn, Off \nTeclas 1, 2", meshInstancesArray:[]},
+    // 	{name:["door", "puerta"], textInstructions:"Movimiento: \n90º, -90º \nTeclas 1, 2", meshInstancesArray:[]}
+    // ];
+    // }
+    // createGround(scene:BABYLON.Scene, shadow:ShadowGenerator){
+    //     // Create a built-in "ground" shape.
+    //     this._ground = BABYLON.MeshBuilder.CreateGround('ground',
+    //                             {width: 12, height: 8, subdivisions: 2}, scene);
+    //     const groundMaterial = new BABYLON.StandardMaterial("groundMaterial",  scene);
+    //     groundMaterial.diffuseColor = BABYLON.Color3.FromHexString('#454649');
+    //     //groundMaterial.specularColor = BABYLON.Color3.FromHexString('#101010');
+    //     this._ground.receiveShadows = true;
+    //     this._ground.material = groundMaterial;
+    // 	return groundMaterial;
+    // }
+    // addPlayCanvasCube(scene:BABYLON.Scene, shadow:ShadowGenerator){
+    //     const entity = <BABYLON.Mesh> scene.getMeshByName("cube");
+    // 	shadow.addShadowCaster(entity);
+    // 	entity.position = new BABYLON.Vector3(3,0.5,3);
+    // 	return entity;
+    // }
+    // createCoche(scene:BABYLON.Scene, shadow:ShadowGenerator){
+    //     const entity = <BABYLON.Mesh> scene.getMeshByName("coche");
+    // 	shadow.addShadowCaster(entity);
+    // 	entity.position = new BABYLON.Vector3(10,0.5,10);
+    // 	return entity;
+    // }
     Objects.prototype.addCocheDaVinci = function (scene, shadow) {
-        var _this = this;
         scene.meshes.forEach(function (element) {
             if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('cocheDaVinci')) {
                 shadow.addShadowCaster(element);
                 //console.log(element.name);
-                _this.interactiveParts.forEach(function (elementInteractive) {
-                    elementInteractive.name.forEach(function (name) {
-                        // if (element.name.toLowerCase().includes("a1") && element.name.length<3) {
-                        // 	console.log(element);
-                        // }
-                        if (element.name.toLowerCase().includes(name)) {
-                            elementInteractive.meshInstancesArray.push(element);
-                            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, name);
-                            if (_this.interactiveParts[0].name.includes(name))
-                                babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'materialEspecial');
-                        }
-                    });
-                });
             }
         });
     };
     Objects.prototype.addHangar = function (scene, shadow) {
-        var _this = this;
         scene.meshes.forEach(function (element) {
             if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('Hangar')) {
                 shadow.addShadowCaster(element);
                 //console.log(element.name);
-                _this.interactiveParts.forEach(function (elementInteractive) {
-                    elementInteractive.name.forEach(function (name) {
-                        if (element.name.toLowerCase().includes(name)) {
-                            elementInteractive.meshInstancesArray.push(element);
-                            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, name);
-                            if (_this.interactiveParts[0].name.includes(name))
-                                babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'materialEspecial');
-                        }
-                    });
-                });
             }
         });
-    };
-    Objects.prototype.addPlayCanvasCasa = function (scene, shadow) {
-        var _this = this;
-        console.log(scene.meshes);
-        //const entity = <BABYLON.Mesh> scene.getMeshByName("casa");
-        //shadow.addShadowCaster(entity);
-        //entity.position = new BABYLON.Vector3(0,0,0);
-        console.log("Entidad casa: " + scene.getMeshesByTags('casa'));
-        //var tejados = new Array<bbl.MeshInstance>(), luces = new Array<bbl.MeshInstance>(), ventanas = new Array<bbl.MeshInstance>();
-        scene.meshes.forEach(function (element) {
-            shadow.addShadowCaster(element);
-            element.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](element.position.x, element.position.y + 10, element.position.z);
-            //this.createPhysicalShape("box", element.getRenderingMesh().position.x, element.getRenderingMesh().position.y, element.getRenderingMesh().position.z, scene, element.getRenderingMesh().name);
-            _this.interactiveParts.forEach(function (elementInteractive) {
-                elementInteractive.name.forEach(function (name) {
-                    if (element.name.toLowerCase().includes(name)) {
-                        elementInteractive.meshInstancesArray.push(element);
-                        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, name);
-                        if (_this.interactiveParts[0].name.includes(name))
-                            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'materialEspecial');
-                    }
-                });
-            });
-        });
-        //this.interactiveParts[0].meshInstancesArray.forEach((e) => {console.log(e.name)});
-        if (this.interactiveParts) {
-            this.interactiveParts[0].meshInstancesArray.forEach(function (element) {
-                try {
-                    var materialAux = _this.createMaterial(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].White(), babylonjs__WEBPACK_IMPORTED_MODULE_0__["Color3"].Blue(), "Blue", scene /*,  Textura*/);
-                    //materialAux.blendType = bbl.BLEND_NORMAL;
-                    scene.getMeshByName(element.name).material = materialAux;
-                }
-                catch (error) {
-                    console.error(element.name + ": " + error);
-                }
-                console.log(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element));
-            });
-            this.interactiveParts[1].meshInstancesArray.forEach(function (element) {
-                var light = _this.createSpotLight(scene, shadow);
-                //light.setPosition(element.node.getPosition());
-                // entity.addComponent("light", light);
-                // element.node.insertChild(light, 0);
-                // console.log(element.node.children)
-            });
-            this.interactiveParts[2].meshInstancesArray.forEach(function (element) {
-                element.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](element.position.x, element.position.y + 10, element.position.z);
-                //console.log("Casa: " + element.node.name + " posicion: " + element.node.getPosition().toString());
-            });
-            this.interactiveParts[3].meshInstancesArray.forEach(function (element) {
-                babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, ("animable"));
-                var vectorsWorld = element.getBoundingInfo().boundingBox.vectorsWorld;
-                var width = vectorsWorld[1].subtract(vectorsWorld[0]);
-                console.log(width);
-                element.setPivotPoint(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](-width.x, 0, 0));
-                element.position = element.position.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](width.x / 2, 0, 0));
-            });
-        }
-        //}
-        //return entity;
-    };
-    Objects.prototype.createMaterial = function (ambient, color, nombre, scene, opacity) {
-        if (nombre === void 0) { nombre = ""; }
-        var material = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["PBRMaterial"](nombre, scene);
-        material.albedoColor = color;
-        material.ambientColor = ambient;
-        material.name = nombre;
-        material.metallic = 0;
-        material.roughness = 0;
-        material.subSurface.isRefractionEnabled = true;
-        material.subSurface.refractionIntensity = 0.8;
-        if (opacity)
-            material.opacityTexture = opacity;
-        return material.clone(nombre);
-    };
-    Objects.prototype.addAnimColor = function (mesh, stoppedColor, animedColor) {
-        var _a, _b;
-        var color = mesh.matchesTagsQuery("animar") ? animedColor : stoppedColor;
-        var mat = (_a = mesh.getChildMeshes()[0].material) === null || _a === void 0 ? void 0 : _a.clone((_b = mesh.getChildMeshes()[0].material) === null || _b === void 0 ? void 0 : _b.name);
-        mesh.getChildMeshes()[0].material = mat;
-        mat.albedoColor = color;
-    };
-    Objects.prototype.animateDoor = function (scene) {
-        scene.onBeforeRenderObservable.add(function () {
-            scene.getMeshesByTags("(door || puerta) && animar", function (ct) {
-                //ct.
-                ct.rotate(babylonjs__WEBPACK_IMPORTED_MODULE_0__["Axis"].Y, -0.05, babylonjs__WEBPACK_IMPORTED_MODULE_0__["Space"].LOCAL);
-            });
-        });
-    };
-    Objects.prototype.createSpotLight = function (scene, shadow) {
-        var spotlight = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Light"].Construct('spot', 'light', scene, babylonjs__WEBPACK_IMPORTED_MODULE_0__["Light"].LIGHTTYPEID_SPOTLIGHT);
-        //spotlight.
-        // spotlight.apply
-        // spotlight.addComponent("light", {
-        // 	type: "spot",
-        // 	color: bbl.Color.WHITE,
-        // 	innerConeAngle: 30,
-        // 	outerConeAngle: 31,
-        // 	range: 100,
-        // 	intensity: 0.6,
-        // 	castShadows: true,
-        // 	shadowBias: 0.05,
-        // 	normalOffsetBias: 0.03,
-        // 	shadowResolution: 2048,
-        // });
-        // const cone = new bbl.Entity();
-        // cone.addComponent("render", {
-        // 	type: "cone",
-        // 	castShadows: false,
-        // 	material: this.createMaterial(bbl.Color.RED, bbl.Color.RED)
-        // });
-        // spotlight.addChild(cone);
-        return spotlight;
-    };
-    Objects.prototype.createPhysicalShape = function (type, x, y, z, appAux, name, height, rigidbodyType, material) {
-        var e = null;
-        // Have to set the position of the entity before adding the static rigidbody
-        // component because static bodies cannot be moved after creation
-        // appAux.root.addChild(e);
-        // e.setPosition(x, y, z);
-        // if (name)
-        //     e.name = name;
-        // if (material){
-        //     e.addComponent("model", {
-        //         type: type,
-        //         material: material
-        //     });
-        // }else{
-        //     e.addComponent("model", {
-        //         type: type
-        //     });
-        // }
-        // e.addComponent("rigidbody", {
-        // 	type: rigidbodyType
-        // });
-        // e.addComponent("collision", {
-        // 	type: type,
-        // 	height: height
-        // });
-        return e;
     };
     return Objects;
 }());
@@ -1179,8 +1019,9 @@ var MyScene = /** @class */ (function () {
         this.createBasicLight();
         this._assetsLoader = new _assets_loader__WEBPACK_IMPORTED_MODULE_4__["default"](this._scene);
         this._assetsLoader.loadAssets(function () { return _this.createElements(); });
+        //console.log("Has pasao")
         if (this._vrEnable) {
-            this.addXRSupport();
+            //this.addXRSupport();
             //this._xrHelper =  this._scene.createDefaultVRExperience({});
             //this._xrHelper.enableTeleportation({floorMeshes: [this._ground]});
             // var leftHand = BABYLON.Mesh.CreateBox("",0.1, this._scene)
@@ -1219,6 +1060,8 @@ var MyScene = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
+                        console.log("Environment: " + this._environment.ground);
+                        console.log("Suelo: " + this._ground);
                         _a = this;
                         return [4 /*yield*/, this._scene.createDefaultXRExperienceAsync({
                                 floorMeshes: [this._ground]
@@ -1264,16 +1107,18 @@ var MyScene = /** @class */ (function () {
         // this.createAndPositionTurbinas();
         // this.animateTurbinas();
         this.createEnvironment();
-        _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.initializeInteractiveParts();
+        // Objects.Objects.prototype.initializeInteractiveParts();
         var coche = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addCocheDaVinci(this._scene, this._shadowGenerator);
         var hangar = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addHangar(this._scene, this._shadowGenerator);
-        _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.animateDoor(this._scene);
+        // Objects.Objects.prototype.animateDoor(this._scene)
         //this.createGUI();
         console.log("ASSETS LOADED");
         console.log(this._scene.animationGroups);
         this.animations(1, this._scene, false);
         //this.createCamera2();
         //this.createBasicLight();
+        if (this._vrEnable)
+            this.addXRSupport();
     };
     MyScene.prototype.createCamera = function () {
         //this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
@@ -1293,7 +1138,6 @@ var MyScene = /** @class */ (function () {
         walkableCamera.keysDownward = [];
         walkableCamera.keysUpward = [];
         inputManager.add(walkableCamera);
-        //inputManager.add(new BABYLON.FreeCameraVirtualJoystickInput())
         this._camera.attachControl();
         this._camera.speed = 0.1;
         this._camera.checkCollisions = true;
@@ -1364,69 +1208,65 @@ var MyScene = /** @class */ (function () {
         this._ground.receiveShadows = true;
         // this._ground.material = groundMaterial;
     };
-    MyScene.prototype.createAndPositionWTurbines = function () {
-        var _this = this;
-        var posZ = -2.5;
-        var posX = -4.5;
-        var wturbine = this._scene.getMeshByName("windTurbine");
-        this._shadowGenerator.addShadowCaster(wturbine);
-        wturbine.position.z = posZ;
-        wturbine.position.x = posX;
-        [1, 2, 3, 4, 5].forEach(function (p) {
-            var clonedWTurbine = wturbine.clone("wturbine" + p);
-            babylonjs__WEBPACK_IMPORTED_MODULE_1__["Tags"].AddTagsTo(clonedWTurbine, "wturbine animable " + "wturbine" + p);
-            if (p % 2) {
-                babylonjs__WEBPACK_IMPORTED_MODULE_1__["Tags"].AddTagsTo(clonedWTurbine, "animar");
-                //clonedWTurbine.material.wireframe = true;
-            }
-            clonedWTurbine.position.x = posX + p - 1;
-            _this._shadowGenerator.addShadowCaster(clonedWTurbine);
-        });
-        wturbine.setEnabled(false); //El objecto origen lo ocultamos
-    };
-    MyScene.prototype.createAndPositionBombas = function () {
-        var _this = this;
-        var posZ = -0.5;
-        var posX = 4.5;
-        var bomba = this._scene.getMeshByName("bomba");
-        this._shadowGenerator.addShadowCaster(bomba);
-        bomba.position.x = posX;
-        bomba.position.z = posZ;
-        [1, 2, 3, 4, 5, 6].forEach(function (p) {
-            var _a;
-            var clonedBomba = bomba.clone("bomba" + p);
-            babylonjs__WEBPACK_IMPORTED_MODULE_1__["Tags"].AddTagsTo(clonedBomba, "bomba animable " + "bomba" + p);
-            clonedBomba.position.z = posZ + (p - 1) * 0.75;
-            if (clonedBomba.getChildMeshes()[0].material)
-                clonedBomba.getChildMeshes()[0].material = (_a = clonedBomba.getChildMeshes()[0].material) === null || _a === void 0 ? void 0 : _a.clone("bomba" + p);
-            if (p % 2 != 1) {
-                babylonjs__WEBPACK_IMPORTED_MODULE_1__["Tags"].AddTagsTo(clonedBomba, "animar");
-            }
-            _this.addAnimColor(clonedBomba, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"].Red(), babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"].Blue());
-            _this._shadowGenerator.addShadowCaster(clonedBomba);
-        });
-        bomba.setEnabled(false); //El objecto origen lo ocultamos
-    };
-    MyScene.prototype.createAndPositionTurbinas = function () {
-        var _this = this;
-        var posZ = 0;
-        var posX = 0.5;
-        var turbina = this._scene.getMeshByName("turbina");
-        this._shadowGenerator.addShadowCaster(turbina);
-        turbina.position.x = posX;
-        turbina.position.z = posZ;
-        [1, 2, 3, 4].forEach(function (p) {
-            var clonedTurbina = turbina.clone("turbina" + p);
-            babylonjs__WEBPACK_IMPORTED_MODULE_1__["Tags"].AddTagsTo(clonedTurbina, "turbina animable " + "turbina" + p);
-            clonedTurbina.position.x = posX + (p - 1) * 0.75;
-            if (p % 2 != 1) {
-                babylonjs__WEBPACK_IMPORTED_MODULE_1__["Tags"].AddTagsTo(clonedTurbina, "animar");
-            }
-            _this.addAnimColor(clonedTurbina, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"].Magenta(), babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"].Green());
-            _this._shadowGenerator.addShadowCaster(clonedTurbina);
-        });
-        turbina.setEnabled(false); //El objecto origen lo ocultamos
-    };
+    // createAndPositionWTurbines(): void{
+    //     let posZ = -2.5;
+    //     let posX = -4.5;
+    //     const wturbine = <BABYLON.Mesh> this._scene.getMeshByName("windTurbine");
+    //     this._shadowGenerator.addShadowCaster(wturbine);
+    //     wturbine.position.z = posZ;
+    //     wturbine.position.x = posX;
+    //     [1,2,3,4,5].forEach((p)=>{
+    //         let clonedWTurbine = wturbine.clone("wturbine" +p);  
+    //         BABYLON.Tags.AddTagsTo(clonedWTurbine, "wturbine animable " + "wturbine" +p);
+    //         if(p%2){
+    //             BABYLON.Tags.AddTagsTo(clonedWTurbine, "animar");
+    //             //clonedWTurbine.material.wireframe = true;
+    //         }
+    //         clonedWTurbine.position.x = posX + p -1;
+    //         this._shadowGenerator.addShadowCaster(clonedWTurbine);
+    //     })
+    //     wturbine.setEnabled(false); //El objecto origen lo ocultamos
+    // }
+    // createAndPositionBombas(): void{
+    //     let posZ = -0.5;
+    //     let posX = 4.5;
+    //     const bomba = <BABYLON.Mesh> this._scene.getMeshByName("bomba");
+    //     this._shadowGenerator.addShadowCaster(bomba);
+    //     bomba.position.x = posX;
+    //     bomba.position.z = posZ;
+    //     [1,2,3,4,5,6].forEach((p)=>{
+    //         let clonedBomba = bomba.clone("bomba" +p);
+    // 	    BABYLON.Tags.AddTagsTo(clonedBomba, "bomba animable " + "bomba" +p);
+    //         clonedBomba.position.z = posZ + (p -1)*0.75;
+    //         if (clonedBomba.getChildMeshes()[0].material)
+    //             clonedBomba.getChildMeshes()[0].material = <BABYLON.Material>clonedBomba.getChildMeshes()[0].material?.clone("bomba" +p);
+    //         if(p%2 != 1){
+    //             BABYLON.Tags.AddTagsTo(clonedBomba, "animar");
+    //         }
+    //         this.addAnimColor(clonedBomba, BABYLON.Color3.Red(), BABYLON.Color3.Blue());
+    //         this._shadowGenerator.addShadowCaster(clonedBomba);
+    //     })
+    //     bomba.setEnabled(false); //El objecto origen lo ocultamos
+    // }
+    // createAndPositionTurbinas(): void{
+    //     let posZ = 0;
+    //     let posX = 0.5;
+    //     const turbina = <BABYLON.Mesh> this._scene.getMeshByName("turbina");
+    //     this._shadowGenerator.addShadowCaster(turbina);
+    //     turbina.position.x= posX;
+    //     turbina.position.z= posZ;
+    //     [1,2,3,4].forEach((p)=>{
+    //         let clonedTurbina = turbina.clone("turbina" +p);
+    // 	    BABYLON.Tags.AddTagsTo(clonedTurbina, "turbina animable " + "turbina" +p);
+    //         clonedTurbina.position.x = posX + (p -1)*0.75;
+    //         if(p%2 != 1){
+    //             BABYLON.Tags.AddTagsTo(clonedTurbina, "animar");
+    //         }           
+    //         this.addAnimColor(clonedTurbina, BABYLON.Color3.Magenta(), BABYLON.Color3.Green());
+    //         this._shadowGenerator.addShadowCaster(clonedTurbina);
+    //     })
+    //     turbina.setEnabled(false); //El objecto origen lo ocultamos
+    // }
     MyScene.prototype.addAnimColor = function (mesh, stoppedColor, animedColor) {
         var _a, _b;
         var color = mesh.matchesTagsQuery("animar") ? animedColor : stoppedColor;
@@ -1446,53 +1286,51 @@ var MyScene = /** @class */ (function () {
     MyScene.prototype.deg2rad = function (degree) {
         return degree * Math.PI / 180;
     };
-    MyScene.prototype.animateWTurbines = function () {
-        var _this = this;
-        this._scene.onBeforeRenderObservable.add(function () {
-            _this._scene.getMeshesByTags("wturbine && animar", function (ct) {
-                ct.getChildMeshes()[1].rotate(babylonjs__WEBPACK_IMPORTED_MODULE_1__["Axis"].Y, -0.05, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Space"].LOCAL);
-                if (Number(ct.name.charAt(8)) % 2 == 1) //SOLO LAS IMPARES
-                    ct.getChildMeshes()[0].rotate(babylonjs__WEBPACK_IMPORTED_MODULE_1__["Axis"].Y, -0.005, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Space"].LOCAL);
-            });
-        });
-    };
-    MyScene.prototype.animateBombas = function () {
-        var _this = this;
-        this._scene.onBeforeRenderObservable.add(function () {
-            _this._scene.getMeshesByTags("bomba && animar", function (ct) {
-                ct.getChildMeshes()[0].rotate(babylonjs__WEBPACK_IMPORTED_MODULE_1__["Axis"].Y, -0.03, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Space"].LOCAL);
-                //mat.emissiveColor = BABYLON.Color3.Red(); //4573D5
-                //mat.wireframe=true;
-            });
-        });
-    };
-    MyScene.prototype.animateTurbinas = function () {
-        var _this = this;
-        this._scene.onBeforeRenderObservable.add(function () {
-            _this._scene.getMeshesByTags("turbina && animar", function (ct) {
-                ct.getChildMeshes()[0].rotate(babylonjs__WEBPACK_IMPORTED_MODULE_1__["Axis"].Y, -0.03, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Space"].LOCAL);
-            });
-        });
-    };
-    MyScene.prototype.createAnimation = function () {
-        var frameRate = 10;
-        var xRotate = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Animation"]("xRotate", "rotation.x", frameRate, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Animation"].ANIMATIONTYPE_FLOAT, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Animation"].ANIMATIONLOOPMODE_CYCLE);
-        var keyFrames = [];
-        keyFrames.push({ frame: 0, value: 2 });
-        keyFrames.push({ frame: frameRate, value: -2 });
-        keyFrames.push({ frame: 2 * frameRate, value: 2 });
-        xRotate.setKeys(keyFrames);
-        return xRotate;
-    };
-    MyScene.prototype.addAnimatedCube = function () {
-        var box = babylonjs__WEBPACK_IMPORTED_MODULE_1__["MeshBuilder"].CreateBox("box", {});
-        console.log("box", box);
-        box.position.x = 2;
-        var frameRate = 10;
-        var xrotation = this.createAnimation();
-        box.animations.push(xrotation);
-        this._scene.beginAnimation(box, 0, 2 * frameRate, true);
-    };
+    // animateWTurbines():void{
+    //     this._scene.onBeforeRenderObservable.add(() => {
+    //         this._scene.getMeshesByTags("wturbine && animar", function (ct:BABYLON.AbstractMesh) { 
+    //             ct.getChildMeshes()[1].rotate(BABYLON.Axis.Y, -0.05, BABYLON.Space.LOCAL);
+    //             if(Number(ct.name.charAt(8))%2 == 1) //SOLO LAS IMPARES
+    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
+    //         });
+    //     })
+    // }
+    // animateBombas():void{
+    //     this._scene.onBeforeRenderObservable.add(() => {
+    //         this._scene.getMeshesByTags("bomba && animar", function (ct:BABYLON.AbstractMesh) { 
+    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
+    //                 //mat.emissiveColor = BABYLON.Color3.Red(); //4573D5
+    //                 //mat.wireframe=true;
+    //         });
+    //     })
+    // }
+    // animateTurbinas():void{
+    //     this._scene.onBeforeRenderObservable.add(() => {
+    //         this._scene.getMeshesByTags("turbina && animar", function (ct:BABYLON.AbstractMesh) { 
+    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
+    //         });
+    //     })
+    // }
+    // createAnimation(){
+    //     const frameRate = 10;
+    //     const xRotate = new BABYLON.Animation("xRotate", "rotation.x", frameRate, 
+    //             BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //     const keyFrames = []; 
+    //     keyFrames.push({ frame: 0, value: 2 });
+    //     keyFrames.push({ frame: frameRate,  value: -2  });
+    //     keyFrames.push({ frame: 2 * frameRate, value: 2 });
+    //     xRotate.setKeys(keyFrames);
+    //     return xRotate;
+    // }
+    // addAnimatedCube(){
+    //     const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    //     console.log("box",box);
+    //     box.position.x = 2;
+    //     const frameRate = 10;
+    //     const xrotation = this.createAnimation();
+    //     box.animations.push(xrotation);
+    //     this._scene.beginAnimation(box, 0, 2 * frameRate, true);
+    // }
     MyScene.prototype.animations = function (modo, escena, unirDesmembrar) {
         switch (modo) {
             case 1:

@@ -53,8 +53,8 @@ export default class Entities {
             //         if(this.isClickable(parent))
             //             this.addTextOver(parent);
             //    }
-                if(this.isAnimable(parent))
-                    this.animar(parent)
+                // if(this.isAnimable(parent))
+                //     this.animar(parent)
                 this._oldMesh = mesh;
             }
         }, BABYLON.PointerEventTypes.POINTERUP);
@@ -68,80 +68,84 @@ export default class Entities {
         return retmesh;
     }
 
-    private isAnimable(mesh:any){
-       return  mesh && BABYLON.Tags.HasTags(mesh) && mesh.matchesTagsQuery("animable")
-    }
+    // private isAnimable(mesh:any){
+    //    return  mesh && BABYLON.Tags.HasTags(mesh) && mesh.matchesTagsQuery("animable")
+    // }
 
-    private animar(mesh:any){
-        if(mesh.matchesTagsQuery("animar")){
-            mesh.removeTags("animar");
-        }else{
-            BABYLON.Tags.AddTagsTo(mesh, "animar");
-        }
-        this.addAditionalChange(mesh)
-    }
+    // private animar(mesh:any){
+    //     if(mesh.matchesTagsQuery("animar")){
+    //         mesh.removeTags("animar");
+    //     }else{
+    //         BABYLON.Tags.AddTagsTo(mesh, "animar");
+    //     }
+    //     this.addAditionalChange(mesh)
+    // }
 
-    private addAditionalChange(mesh:any){
-        if(mesh.matchesTagsQuery("bomba")){
-            this.changeColorBomba(mesh)
-        }
-        if(mesh.matchesTagsQuery("turbina")){
-            this.changeColorTurbina(mesh)
-        }
-    }
+    // private addAditionalChange(mesh:any){
+    //     if(mesh.matchesTagsQuery("bomba")){
+    //         this.changeColorBomba(mesh)
+    //     }
+    //     if(mesh.matchesTagsQuery("turbina")){
+    //         this.changeColorTurbina(mesh)
+    //     }
+    // }
 
-    private changeColorBomba(mesh:any){
-        const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Blue() : BABYLON.Color3.Red();
-        var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
-        mat.albedoColor = color;
-    }
+    // private changeColorBomba(mesh:any){
+    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Blue() : BABYLON.Color3.Red();
+    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
+    //     mat.albedoColor = color;
+    // }
 
-    private changeColorTurbina(mesh:any){
-        const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Green() : BABYLON.Color3.Magenta();
-        var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
-        mat.albedoColor = color;
-    }
+    // private changeColorTurbina(mesh:any){
+    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Green() : BABYLON.Color3.Magenta();
+    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
+    //     mat.albedoColor = color;
+    // }
 
     addTextOver(mesh:any){
-        const parent = this.getParent(mesh);
-        if(!this._plane){
-            this._plane = BABYLON.Mesh.CreatePlane("plane", 1, this._scene);
-            this._plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
-            var advancedTexture = GUI.AdvancedDynamicTexture.CreateForMesh(this._plane);
-            this._button = GUI.Button.CreateSimpleButton("but1", "Click Me");
-            this._button.width = 1;
-            this._button.height = 0.5;
-            this._button.color = '#222222';
-            this._button.fontSize = 120;
-            this._button.background = "white";//new BABYLON.Color3(0.2, 0.2, 0.2);
-            this._button.onPointerUpObservable.add(function() {
-                alert("you did it!");
-            });
-            advancedTexture.addControl(this._button);
+        if (this._oldMesh?.id==mesh.id) {
+            this._plane.setEnabled(!this._plane.isEnabled());
+        } else {
+            const parent = this.getParent(mesh);
+            if(!this._plane){
+                this._plane = BABYLON.Mesh.CreatePlane("plane", 1, this._scene);
+                this._plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
+                var advancedTexture = GUI.AdvancedDynamicTexture.CreateForMesh(this._plane);
+                this._button = GUI.Button.CreateSimpleButton("but1", "Click Me");
+                this._button.width = 1;
+                this._button.height = 0.5;
+                this._button.color = '#222222';
+                this._button.fontSize = 120;
+                this._button.background = "white";//new BABYLON.Color3(0.2, 0.2, 0.2);
+                // this._button.onPointerUpObservable.add(function() {
+                //     alert("you did it!");
+                // });
+                advancedTexture.addControl(this._button);
+            }
+            //console.log("parent: " + parent.name + " ; Descripcion: " + descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})?.pop());
+            let descripcion = "";
+            if (descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})) {
+                descripcion = (<string[]>descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]}))[1];
+            }
+            (<GUI.TextBlock>this._button.textBlock).text =  parent.name + "\n" + descripcion;
+            const position = parent.getAbsolutePosition();
+            this._plane.position.x = position.x;
+            this._plane.position.z = position.z;
+            const despY = parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
+            this._plane.position.y = position.y + despY;
+            this._plane.setEnabled(true);
+            // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
+            //     (<GUI.TextBlock>this._button.textBlock).text =  parent.name;
+            //     const position = parent.getAbsolutePosition();
+            //     this._plane.position.x = position.x;
+            //     this._plane.position.z = position.z;
+            //     const despY =  (<any> parent).matchesTagsQuery("turbina || bomba") ? 0.5 : parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
+            //     this._plane.position.y = position.y + despY;
+            //     this._plane.setEnabled(true);
+            // }else{
+            //    // this._plane.setEnabled(false);
+            // }
         }
-        //console.log("parent: " + parent.name + " ; Descripcion: " + descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})?.pop());
-        let descripcion = "";
-        if (descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})) {
-            descripcion = (<string>descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})?.pop());
-        }
-        (<GUI.TextBlock>this._button.textBlock).text =  parent.name + "\n" + descripcion;
-        const position = parent.getAbsolutePosition();
-        this._plane.position.x = position.x;
-        this._plane.position.z = position.z;
-        const despY = parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
-        this._plane.position.y = position.y + despY;
-        this._plane.setEnabled(true);
-        // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
-        //     (<GUI.TextBlock>this._button.textBlock).text =  parent.name;
-        //     const position = parent.getAbsolutePosition();
-        //     this._plane.position.x = position.x;
-        //     this._plane.position.z = position.z;
-        //     const despY =  (<any> parent).matchesTagsQuery("turbina || bomba") ? 0.5 : parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
-        //     this._plane.position.y = position.y + despY;
-        //     this._plane.setEnabled(true);
-        // }else{
-        //    // this._plane.setEnabled(false);
-        // }
 
         
     }

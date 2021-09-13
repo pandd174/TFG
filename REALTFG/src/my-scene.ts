@@ -35,7 +35,7 @@ export default class MyScene {
         this._engine = new BABYLON.Engine(this._canvas, true);
     }
 
-    createScene():void {
+    createScene() {
         this._scene = new BABYLON.Scene(this._engine);
         this._sessionManager = new BABYLON.WebXRSessionManager(this._scene);
         // if (this._sessionManager.isSessionSupportedAsync('immersive-vr') && this._vrEnable)
@@ -47,9 +47,10 @@ export default class MyScene {
         
         this._assetsLoader = new AssetsLoader(this._scene);
         this._assetsLoader.loadAssets(()=>this.createElements());
+        //console.log("Has pasao")
 
         if (this._vrEnable) {
-            this.addXRSupport();
+            //this.addXRSupport();
             //this._xrHelper =  this._scene.createDefaultVRExperience({});
             //this._xrHelper.enableTeleportation({floorMeshes: [this._ground]});
             // var leftHand = BABYLON.Mesh.CreateBox("",0.1, this._scene)
@@ -84,6 +85,8 @@ export default class MyScene {
 
     async addXRSupport(): Promise<BABYLON.WebXRDefaultExperience> {
         try {
+            console.log("Environment: " + this._environment.ground)
+            console.log("Suelo: " + this._ground)
             this._xrHelper =  await this._scene.createDefaultXRExperienceAsync({
                 floorMeshes: [this._ground]
             });
@@ -125,10 +128,10 @@ export default class MyScene {
         // this.animateTurbinas();
 
         this.createEnvironment();
-		Objects.Objects.prototype.initializeInteractiveParts();
+		// Objects.Objects.prototype.initializeInteractiveParts();
 		const coche = Objects.Objects.prototype.addCocheDaVinci(this._scene, this._shadowGenerator);
         const hangar = Objects.Objects.prototype.addHangar(this._scene, this._shadowGenerator);
-        Objects.Objects.prototype.animateDoor(this._scene)
+        // Objects.Objects.prototype.animateDoor(this._scene)
         
         //this.createGUI();
         console.log("ASSETS LOADED");
@@ -138,6 +141,8 @@ export default class MyScene {
         
         //this.createCamera2();
         //this.createBasicLight();
+        if (this._vrEnable) 
+            this.addXRSupport();
     }
 
     createCamera():void{
@@ -158,7 +163,6 @@ export default class MyScene {
         walkableCamera.keysDownward = [];
         walkableCamera.keysUpward = [];
         inputManager.add(walkableCamera)
-        //inputManager.add(new BABYLON.FreeCameraVirtualJoystickInput())
         this._camera.attachControl();
         (<BABYLON.FreeCamera>this._camera).speed = 0.1;
         (<BABYLON.FreeCamera>this._camera).checkCollisions = true;
@@ -239,70 +243,70 @@ export default class MyScene {
         // this._ground.material = groundMaterial;
     }
 
-    createAndPositionWTurbines(): void{
-        let posZ = -2.5;
-        let posX = -4.5;
-        const wturbine = <BABYLON.Mesh> this._scene.getMeshByName("windTurbine");
-        this._shadowGenerator.addShadowCaster(wturbine);
-        wturbine.position.z = posZ;
-        wturbine.position.x = posX;
+    // createAndPositionWTurbines(): void{
+    //     let posZ = -2.5;
+    //     let posX = -4.5;
+    //     const wturbine = <BABYLON.Mesh> this._scene.getMeshByName("windTurbine");
+    //     this._shadowGenerator.addShadowCaster(wturbine);
+    //     wturbine.position.z = posZ;
+    //     wturbine.position.x = posX;
 
-        [1,2,3,4,5].forEach((p)=>{
-            let clonedWTurbine = wturbine.clone("wturbine" +p);  
-            BABYLON.Tags.AddTagsTo(clonedWTurbine, "wturbine animable " + "wturbine" +p);
-            if(p%2){
-                BABYLON.Tags.AddTagsTo(clonedWTurbine, "animar");
-                //clonedWTurbine.material.wireframe = true;
-            }
-            clonedWTurbine.position.x = posX + p -1;
-            this._shadowGenerator.addShadowCaster(clonedWTurbine);
-        })
-        wturbine.setEnabled(false); //El objecto origen lo ocultamos
-    }
-
-
-    createAndPositionBombas(): void{
-        let posZ = -0.5;
-        let posX = 4.5;
-        const bomba = <BABYLON.Mesh> this._scene.getMeshByName("bomba");
-        this._shadowGenerator.addShadowCaster(bomba);
-        bomba.position.x = posX;
-        bomba.position.z = posZ;
-        [1,2,3,4,5,6].forEach((p)=>{
-            let clonedBomba = bomba.clone("bomba" +p);
-		    BABYLON.Tags.AddTagsTo(clonedBomba, "bomba animable " + "bomba" +p);
-            clonedBomba.position.z = posZ + (p -1)*0.75;
-            if (clonedBomba.getChildMeshes()[0].material)
-                clonedBomba.getChildMeshes()[0].material = <BABYLON.Material>clonedBomba.getChildMeshes()[0].material?.clone("bomba" +p);
-            if(p%2 != 1){
-                BABYLON.Tags.AddTagsTo(clonedBomba, "animar");
-            }
-            this.addAnimColor(clonedBomba, BABYLON.Color3.Red(), BABYLON.Color3.Blue());
-            this._shadowGenerator.addShadowCaster(clonedBomba);
-        })
-        bomba.setEnabled(false); //El objecto origen lo ocultamos
-    }
+    //     [1,2,3,4,5].forEach((p)=>{
+    //         let clonedWTurbine = wturbine.clone("wturbine" +p);  
+    //         BABYLON.Tags.AddTagsTo(clonedWTurbine, "wturbine animable " + "wturbine" +p);
+    //         if(p%2){
+    //             BABYLON.Tags.AddTagsTo(clonedWTurbine, "animar");
+    //             //clonedWTurbine.material.wireframe = true;
+    //         }
+    //         clonedWTurbine.position.x = posX + p -1;
+    //         this._shadowGenerator.addShadowCaster(clonedWTurbine);
+    //     })
+    //     wturbine.setEnabled(false); //El objecto origen lo ocultamos
+    // }
 
 
-    createAndPositionTurbinas(): void{
-        let posZ = 0;
-        let posX = 0.5;
-        const turbina = <BABYLON.Mesh> this._scene.getMeshByName("turbina");
-        this._shadowGenerator.addShadowCaster(turbina);
-        turbina.position.x= posX;
-        turbina.position.z= posZ;
-        [1,2,3,4].forEach((p)=>{
-            let clonedTurbina = turbina.clone("turbina" +p);
-		    BABYLON.Tags.AddTagsTo(clonedTurbina, "turbina animable " + "turbina" +p);
-            clonedTurbina.position.x = posX + (p -1)*0.75;
-            if(p%2 != 1){
-                BABYLON.Tags.AddTagsTo(clonedTurbina, "animar");
-            }           
-            this.addAnimColor(clonedTurbina, BABYLON.Color3.Magenta(), BABYLON.Color3.Green());
-            this._shadowGenerator.addShadowCaster(clonedTurbina);
-        })
-        turbina.setEnabled(false); //El objecto origen lo ocultamos
-    }
+    // createAndPositionBombas(): void{
+    //     let posZ = -0.5;
+    //     let posX = 4.5;
+    //     const bomba = <BABYLON.Mesh> this._scene.getMeshByName("bomba");
+    //     this._shadowGenerator.addShadowCaster(bomba);
+    //     bomba.position.x = posX;
+    //     bomba.position.z = posZ;
+    //     [1,2,3,4,5,6].forEach((p)=>{
+    //         let clonedBomba = bomba.clone("bomba" +p);
+	// 	    BABYLON.Tags.AddTagsTo(clonedBomba, "bomba animable " + "bomba" +p);
+    //         clonedBomba.position.z = posZ + (p -1)*0.75;
+    //         if (clonedBomba.getChildMeshes()[0].material)
+    //             clonedBomba.getChildMeshes()[0].material = <BABYLON.Material>clonedBomba.getChildMeshes()[0].material?.clone("bomba" +p);
+    //         if(p%2 != 1){
+    //             BABYLON.Tags.AddTagsTo(clonedBomba, "animar");
+    //         }
+    //         this.addAnimColor(clonedBomba, BABYLON.Color3.Red(), BABYLON.Color3.Blue());
+    //         this._shadowGenerator.addShadowCaster(clonedBomba);
+    //     })
+    //     bomba.setEnabled(false); //El objecto origen lo ocultamos
+    // }
+
+
+    // createAndPositionTurbinas(): void{
+    //     let posZ = 0;
+    //     let posX = 0.5;
+    //     const turbina = <BABYLON.Mesh> this._scene.getMeshByName("turbina");
+    //     this._shadowGenerator.addShadowCaster(turbina);
+    //     turbina.position.x= posX;
+    //     turbina.position.z= posZ;
+    //     [1,2,3,4].forEach((p)=>{
+    //         let clonedTurbina = turbina.clone("turbina" +p);
+	// 	    BABYLON.Tags.AddTagsTo(clonedTurbina, "turbina animable " + "turbina" +p);
+    //         clonedTurbina.position.x = posX + (p -1)*0.75;
+    //         if(p%2 != 1){
+    //             BABYLON.Tags.AddTagsTo(clonedTurbina, "animar");
+    //         }           
+    //         this.addAnimColor(clonedTurbina, BABYLON.Color3.Magenta(), BABYLON.Color3.Green());
+    //         this._shadowGenerator.addShadowCaster(clonedTurbina);
+    //     })
+    //     turbina.setEnabled(false); //El objecto origen lo ocultamos
+    // }
 
     addAnimColor(mesh:any,stoppedColor:BABYLON.Color3, animedColor:BABYLON.Color3){
         const color = mesh.matchesTagsQuery("animar") ? animedColor : stoppedColor;
@@ -325,56 +329,56 @@ export default class MyScene {
         return degree * Math.PI / 180;
     }
 
-    animateWTurbines():void{
+    // animateWTurbines():void{
 
-        this._scene.onBeforeRenderObservable.add(() => {
-            this._scene.getMeshesByTags("wturbine && animar", function (ct:BABYLON.AbstractMesh) { 
-                ct.getChildMeshes()[1].rotate(BABYLON.Axis.Y, -0.05, BABYLON.Space.LOCAL);
-                if(Number(ct.name.charAt(8))%2 == 1) //SOLO LAS IMPARES
-                    ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
-            });
-        })
-    }
+    //     this._scene.onBeforeRenderObservable.add(() => {
+    //         this._scene.getMeshesByTags("wturbine && animar", function (ct:BABYLON.AbstractMesh) { 
+    //             ct.getChildMeshes()[1].rotate(BABYLON.Axis.Y, -0.05, BABYLON.Space.LOCAL);
+    //             if(Number(ct.name.charAt(8))%2 == 1) //SOLO LAS IMPARES
+    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
+    //         });
+    //     })
+    // }
 
-    animateBombas():void{
-        this._scene.onBeforeRenderObservable.add(() => {
-            this._scene.getMeshesByTags("bomba && animar", function (ct:BABYLON.AbstractMesh) { 
-                    ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
-                    //mat.emissiveColor = BABYLON.Color3.Red(); //4573D5
-                    //mat.wireframe=true;
-            });
-        })
-    }
+    // animateBombas():void{
+    //     this._scene.onBeforeRenderObservable.add(() => {
+    //         this._scene.getMeshesByTags("bomba && animar", function (ct:BABYLON.AbstractMesh) { 
+    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
+    //                 //mat.emissiveColor = BABYLON.Color3.Red(); //4573D5
+    //                 //mat.wireframe=true;
+    //         });
+    //     })
+    // }
 
-    animateTurbinas():void{
-        this._scene.onBeforeRenderObservable.add(() => {
-            this._scene.getMeshesByTags("turbina && animar", function (ct:BABYLON.AbstractMesh) { 
-                    ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
-            });
-        })
-    }
+    // animateTurbinas():void{
+    //     this._scene.onBeforeRenderObservable.add(() => {
+    //         this._scene.getMeshesByTags("turbina && animar", function (ct:BABYLON.AbstractMesh) { 
+    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
+    //         });
+    //     })
+    // }
 
-    createAnimation(){
-        const frameRate = 10;
-        const xRotate = new BABYLON.Animation("xRotate", "rotation.x", frameRate, 
-                BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-        const keyFrames = []; 
-        keyFrames.push({ frame: 0, value: 2 });
-        keyFrames.push({ frame: frameRate,  value: -2  });
-        keyFrames.push({ frame: 2 * frameRate, value: 2 });
-        xRotate.setKeys(keyFrames);
-        return xRotate;
-    }
+    // createAnimation(){
+    //     const frameRate = 10;
+    //     const xRotate = new BABYLON.Animation("xRotate", "rotation.x", frameRate, 
+    //             BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //     const keyFrames = []; 
+    //     keyFrames.push({ frame: 0, value: 2 });
+    //     keyFrames.push({ frame: frameRate,  value: -2  });
+    //     keyFrames.push({ frame: 2 * frameRate, value: 2 });
+    //     xRotate.setKeys(keyFrames);
+    //     return xRotate;
+    // }
 
-    addAnimatedCube(){
-        const box = BABYLON.MeshBuilder.CreateBox("box", {});
-        console.log("box",box);
-        box.position.x = 2;
-        const frameRate = 10;
-        const xrotation = this.createAnimation();
-        box.animations.push(xrotation);
-        this._scene.beginAnimation(box, 0, 2 * frameRate, true);
-    }
+    // addAnimatedCube(){
+    //     const box = BABYLON.MeshBuilder.CreateBox("box", {});
+    //     console.log("box",box);
+    //     box.position.x = 2;
+    //     const frameRate = 10;
+    //     const xrotation = this.createAnimation();
+    //     box.animations.push(xrotation);
+    //     this._scene.beginAnimation(box, 0, 2 * frameRate, true);
+    // }
 
     animations (modo:Number, escena:BABYLON.Scene, unirDesmembrar?: Boolean|false){
         switch (modo) {
