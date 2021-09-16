@@ -15,10 +15,12 @@ export default class AssetsLoader {
             // { id:"cube", type:"mesh", url:"./assets/objects/", file:"cube.glb", tag:"init"},
             // { id:"coche", type:"mesh", url:"./assets/objects/", file:"uploads_files_2792345_Koenigsegg.glb", tag:"init"},
             //{ id:"modelo", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"init"},
-            //{ id:"cocheDaVinci", type:"mesh", url:"./assets/objects/", file:"CocheDaVinci.glb", tag:"init"},
-            { id:"cocheDaVinci3", type:"mesh", url:"./assets/objects/", file:"CocheDaVinci2.2.glb", tag:"init"},
-            //{ id:"cubo", type:"mesh", url:"./assets/objects/", file:"cuboPrueba.glb", tag:"init"},
-            { id:"hangar", type:"mesh", url:"./assets/objects/", file:"Hangar.glb", tag:"init"}
+            { id:"catapulta", type:"mesh", url:"./assets/objects/", file:"catapultaDaVinci.glb", tag:"init"},
+            { id:"draga", type:"mesh", url:"./assets/objects/", file:"dragaDaVinci.glb", tag:"init"},
+            { id:"ballesta", type:"mesh", url:"./assets/objects/", file:"ballestaDaVinci.glb", tag:"init"},
+            { id:"cocheDaVinci", type:"mesh", url:"./assets/objects/", file:"CocheDaVinci2.3.glb", tag:"init"},
+            { id:"marco", type:"mesh", url:"./assets/objects/", file:"marco2aux.glb", tag:"init"},
+            //{ id:"hangar", type:"mesh", url:"./assets/objects/", file:"Hangar.glb", tag:"init"}
         ];
     private _assetsLoaded = 0;
 
@@ -35,6 +37,10 @@ export default class AssetsLoader {
             meshTask.onSuccess =  (task:any) =>{
                 if (task.name.includes("cocheDaVinci")) { this.addcocheDaVinciTag(task) }
                 if (task.name.includes("hangar")) { this.addHangarTag(task) }
+                if (task.name.includes("marco")) { this.addMarcoTag(task) }
+                if (task.name.includes("catapulta")) { this.addCatapultaTag(task) }
+                if (task.name.includes("draga")) { this.addDragaTag(task) }
+                if (task.name.includes("ballesta")) { this.addBallestaTag(task) }
                 this._assetsLoaded++;
                 console.log("mesh loaded:",task);
 	           // task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
@@ -54,13 +60,13 @@ export default class AssetsLoader {
 
 
     addcocheDaVinciTag(task:any) {
-        console.log("DA VINCI CARE");
+        //console.log("DA VINCI CARE");
         for (let i = 0; i < task.loadedMeshes.length; i++) {
             //console.log(task.loadedMeshes[i].name);
             const element = task.loadedMeshes[i];
             BABYLON.Tags.AddTagsTo(element, 'cocheDaVinci');
         }
-        console.log("DA VINCI CARE FINITO");
+        //console.log("DA VINCI CARE FINITO");
     }
 
 
@@ -69,6 +75,42 @@ export default class AssetsLoader {
             //console.log(task.loadedMeshes[i].name);
             const element = task.loadedMeshes[i];
             BABYLON.Tags.AddTagsTo(element, 'Hangar');
+        }
+    }
+
+
+    addMarcoTag(task:any) {
+        for (let i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            const element = task.loadedMeshes[i];
+            BABYLON.Tags.AddTagsTo(element, 'Marco');
+        }
+    }
+
+
+    addCatapultaTag(task:any) {
+        for (let i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            const element = task.loadedMeshes[i];
+            BABYLON.Tags.AddTagsTo(element, 'Catapulta');
+        }
+    }
+
+
+    addDragaTag(task:any) {
+        for (let i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            const element = task.loadedMeshes[i];
+            BABYLON.Tags.AddTagsTo(element, 'Draga');
+        }
+    }
+
+
+    addBallestaTag(task:any) {
+        for (let i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            const element = task.loadedMeshes[i];
+            BABYLON.Tags.AddTagsTo(element, 'Ballesta');
         }
     }
 }

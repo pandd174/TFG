@@ -14,7 +14,7 @@ export default class Entities {
     private _buttonAnimarDesmembrar = new GUI.Button;
     private _panel1:GUI.StackPanel = new GUI.StackPanel;
     private _panel2:GUI.StackPanel = new GUI.StackPanel;
-    private _textBlock:GUI.TextBlock[] = new Array(new GUI.TextBlock);
+    private _textBlock:GUI.TextBlock//[] = new Array(new GUI.TextBlock);
     private _picker = new GUI.ColorPicker;
     private _oldMesh: BABYLON.Nullable<BABYLON.AbstractMesh>;
     private _gl: BABYLON.GlowLayer;
@@ -57,6 +57,17 @@ export default class Entities {
                 //     this.animar(parent)
                 this._oldMesh = mesh;
             }
+            if((<BABYLON.PickingInfo>evt.pickInfo).hit && (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh && evt.event.button === 2){
+                let mesh = (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh;
+                // if(this.isAnimable(parent))
+                //     this.animar(parent)
+                const parent = this.getParent(mesh); //Obtenemos el mesh root
+                //this.createPicker(parent);
+                this.movementButtons(parent, evt);
+                if (parent!=null)
+                    myScene.default.prototype.animations(5, this._scene, false, parent);
+                this._oldMesh = mesh;
+            }
         }, BABYLON.PointerEventTypes.POINTERUP);
     }
 
@@ -68,38 +79,30 @@ export default class Entities {
         return retmesh;
     }
 
-    // private isAnimable(mesh:any){
-    //    return  mesh && BABYLON.Tags.HasTags(mesh) && mesh.matchesTagsQuery("animable")
-    // }
+    // createPicker(mesh:BABYLON.AbstractMesh):void{
+    //     // GUI
+    //     this._panel1.removeControl(this._picker);
 
-    // private animar(mesh:any){
-    //     if(mesh.matchesTagsQuery("animar")){
-    //         mesh.removeTags("animar");
-    //     }else{
-    //         BABYLON.Tags.AddTagsTo(mesh, "animar");
-    //     }
-    //     this.addAditionalChange(mesh)
-    // }
+    //     var MeshMaterial:BABYLON.StandardMaterial;
+    //     if (!mesh.material?.getClassName().includes('StandardMaterial') && !BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial')){
+    //         MeshMaterial = new BABYLON.StandardMaterial("MeshMaterial", this._scene);
+    //         mesh.material = MeshMaterial;
+    //     }else if (!BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial'))
+    //         MeshMaterial = <BABYLON.StandardMaterial>mesh.material;
+    //     else 
+    //         return;
 
-    // private addAditionalChange(mesh:any){
-    //     if(mesh.matchesTagsQuery("bomba")){
-    //         this.changeColorBomba(mesh)
-    //     }
-    //     if(mesh.matchesTagsQuery("turbina")){
-    //         this.changeColorTurbina(mesh)
-    //     }
-    // }
+    //     var picker = new GUI.ColorPicker();
+    //     picker.value = MeshMaterial.diffuseColor;
+    //     picker.height = "150px";
+    //     picker.width = "150px";
+    //     picker.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+    //     picker.onValueChangedObservable.add(function(value) { // value is a color3
+    //         MeshMaterial.diffuseColor.copyFrom(value);
+    //     });
 
-    // private changeColorBomba(mesh:any){
-    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Blue() : BABYLON.Color3.Red();
-    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
-    //     mat.albedoColor = color;
-    // }
-
-    // private changeColorTurbina(mesh:any){
-    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Green() : BABYLON.Color3.Magenta();
-    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
-    //     mat.albedoColor = color;
+    //     this._picker = picker;
+    //     this._panel1.addControl(this._picker);     
     // }
 
     addTextOver(mesh:any){
@@ -127,11 +130,12 @@ export default class Entities {
             if (descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})) {
                 descripcion = (<string[]>descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]}))[1];
             }
-            (<GUI.TextBlock>this._button.textBlock).text =  parent.name + "\n" + descripcion;
+            (<GUI.TextBlock>this._button.textBlock).text =  parent.name;
+            this._textBlock.text = descripcion;
             const position = parent.getAbsolutePosition();
             this._plane.position.x = position.x;
             this._plane.position.z = position.z;
-            const despY = parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
+            const despY =  true ? 1.3 : parent.getBoundingInfo().boundingBox.vectorsWorld[1].y-parent.getBoundingInfo().boundingBox.vectorsWorld[0].y+0.2;
             this._plane.position.y = position.y + despY;
             this._plane.setEnabled(true);
             // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
@@ -157,17 +161,34 @@ export default class Entities {
         var advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
         var panel1 = new GUI.StackPanel();
-        panel1.width = "200px";
+        panel1.width = "400px";
         panel1.isVertical = true;
         panel1.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
         panel1.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         advancedTexture.addControl(panel1);
+
+        var sv = new GUI.ScrollViewer();
+        sv.background = "grey";
+        sv.width = "400px";
+        sv.height = "400px";
+        sv.paddingRight = "30%"
+    
+        panel1.addControl(sv);
         
         var textBlock = new GUI.TextBlock();
-        textBlock.text = "Diffuse color:";
-        textBlock.height = "30px";
-        this._textBlock.push(textBlock);
-        panel1.addControl(this._textBlock[0]);
+        textBlock.textWrapping = GUI.TextWrapping.WordWrap;
+        textBlock.paddingTop = "10px";
+        textBlock.paddingLeft = "10px";
+        textBlock.paddingRight = "10px"
+        textBlock.paddingBottom = "10px";
+        textBlock.resizeToFit = true;
+        //textBlock.lineSpacing = "5px";
+        textBlock.fontSize = "16px";
+        textBlock.color = "white";
+        textBlock.text = "Descripcion";
+        this._textBlock = (textBlock);
+        sv.addControl(this._textBlock);
+
 
         var advancedTexture2 = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -181,36 +202,10 @@ export default class Entities {
 
         this._panel1 = (panel1);
         this._panel2 = (panel2);
-        this.createKeys();
+        this.createKeys(this._panel2, true);
     }
 
-    createPicker(mesh:BABYLON.AbstractMesh):void{
-        // GUI
-        this._panel1.removeControl(this._picker);
-
-        var MeshMaterial:BABYLON.StandardMaterial;
-        if (!mesh.material?.getClassName().includes('StandardMaterial') && !BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial')){
-            MeshMaterial = new BABYLON.StandardMaterial("MeshMaterial", this._scene);
-            mesh.material = MeshMaterial;
-        }else if (!BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial'))
-            MeshMaterial = <BABYLON.StandardMaterial>mesh.material;
-        else 
-            return;
-
-        var picker = new GUI.ColorPicker();
-        picker.value = MeshMaterial.diffuseColor;
-        picker.height = "150px";
-        picker.width = "150px";
-        picker.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        picker.onValueChangedObservable.add(function(value) { // value is a color3
-            MeshMaterial.diffuseColor.copyFrom(value);
-        });
-
-        this._picker = picker;
-        this._panel1.addControl(this._picker);     
-    }
-
-    createKeys():void{
+    createKeys(panel:GUI.StackPanel, esEntities?:Boolean|false):void{
         // GUI
         var buttonAnimar = GUI.Button.CreateSimpleButton(
             "animar",
@@ -256,70 +251,20 @@ export default class Entities {
         buttonAnimarDesmembrar.color = "blue";
         buttonAnimarDesmembrar.background = "white";
 
-        this._buttonAnimar = buttonAnimar;
-        this._buttonAnimarOff = buttonAnimarOff;
-        this._buttonAnimarUnir = buttonAnimarUnir;
-        this._buttonAnimarDesmembrar = buttonAnimarDesmembrar;
-        this._panel2.addControl(buttonAnimar);
-        this._panel2.addControl(buttonAnimarOff);
-        this._panel2.addControl(buttonAnimarUnir);
-        this._panel2.addControl(buttonAnimarDesmembrar);
-    }
-
-    private addGlown(mesh:BABYLON.AbstractMesh){
-        console.log("GLOWWWWWWW")
-        let materialAux = new BABYLON.NodeMaterial("lightNodeMat", this._scene, { emitComments: false });
-        var loadedTextures = (<BABYLON.Material>mesh.material).getActiveTextures();
-        var lightBaseColorTex;
-        var lightEmissiveTex;
-
-        for (var i = 0; i < loadedTextures.length; i++) {
-            if (loadedTextures[i].name.includes("(Base Color)")) {
-                lightBaseColorTex = loadedTextures[i];
-            } else if (loadedTextures [i].name.includes("(Emissive)")) {
-                lightEmissiveTex = loadedTextures[i];
-            }
+        if (esEntities) {
+            this._buttonAnimar = buttonAnimar;
+            this._buttonAnimarOff = buttonAnimarOff;
+            this._buttonAnimarUnir = buttonAnimarUnir;
+            this._buttonAnimarDesmembrar = buttonAnimarDesmembrar;
         }
-
-        // build node material
-        // let NodeMaterialBlockAux = new BABYLON.NodeMaterialBlock('bloqueAux');
-        // materialAux._fragmentOutputNodes.push(NodeMaterialBlockAux);
-        // materialAux._vertexOutputNodes.push(NodeMaterialBlockAux);
-        materialAux.optimize();
-        materialAux.build(false);
-        mesh.material = materialAux;
-
-        // assign original textures to node material
-        var baseColor = materialAux.getBlockByName("baseColorTexture");
-        var emissiveColor = materialAux.getBlockByName("emissiveTexture");
-
-        (<any>baseColor).texture = lightBaseColorTex;
-        (<any>emissiveColor).texture = lightEmissiveTex;
-
-        // get shader values to drive glow
-        var glowMask = materialAux.getBlockByName("glowMask");
-
-        // set up glow layer post effect
-        var gl = new BABYLON.GlowLayer("glow", this._scene);
-        gl.intensity = 1.25;
-
-        // set up material to use glow layer
-        gl.referenceMeshToUseItsOwnMaterial(mesh);
-        // enable glow mask to render only emissive into glow layer, and then disable glow mask
-        gl.onBeforeRenderMeshToEffect.add(() => {
-            (<any>glowMask).value = 1.0;
-        });
-        gl.onAfterRenderMeshToEffect.add(() => {
-            (<any>glowMask).value = 0.0;
-        });
-        // this._oldMesh?this._gl.addExcludedMesh((<BABYLON.AbstractMesh>this._oldMesh)) : null;
-        // this._gl.addIncludedOnlyMesh((<BABYLON.AbstractMesh>mesh));
+        panel.addControl(buttonAnimar);
+        panel.addControl(buttonAnimarOff);
+        panel.addControl(buttonAnimarUnir);
+        panel.addControl(buttonAnimarDesmembrar);
     }
 
 
     private movementButtons(mesh:BABYLON.AbstractMesh, pointerInfo:any):void {
-        console.log("POINTERUP: " + BABYLON.PointerEventTypes.POINTERUP);
-        console.log(pointerInfo.type);
         let escena = this._scene;
         this._buttonAnimar.onPointerDownObservable.clear()
         this._buttonAnimar.onPointerDownObservable.add(function(eventData: GUI.Vector2WithInfo, eventState: BABYLON.EventState) {

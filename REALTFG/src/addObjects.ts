@@ -53,16 +53,53 @@ export class Objects {
 		scene.meshes.forEach( element => {
 			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('cocheDaVinci')) {
 				shadow.addShadowCaster(element);
-				//console.log(element.name);
 			}
 		})
 	}
 
 	addHangar(scene:BABYLON.Scene, shadow:ShadowGenerator):void{
+		// scene.meshes.forEach( element => {
+		// 	if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Hangar')) {
+		// 		shadow.addShadowCaster(element);
+		// 		//console.log(element.name);
+		// 	}
+		// })
+	}
+
+	addMarco(scene:BABYLON.Scene, shadow:ShadowGenerator):void{
 		scene.meshes.forEach( element => {
-			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Hangar')) {
+			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Marco')) {
 				shadow.addShadowCaster(element);
-				//console.log(element.name);
+				//console.log(element.name + ": " + element.position);
+				element.position = element.position.add(new BABYLON.Vector3(14, 0, 0));
+				//console.log(element.name + ": " + element.position);
+			}
+		})
+	}
+
+	addCatapulta(scene:BABYLON.Scene, shadow:ShadowGenerator):void{
+		scene.meshes.forEach( element => {
+			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Catapulta')) {
+				shadow.addShadowCaster(element);
+				//element.setAbsolutePosition((new BABYLON.Vector3(10, 0, 10).add(element.absolutePosition)))
+			}
+		})
+	}
+
+	addDraga(scene:BABYLON.Scene, shadow:ShadowGenerator):void{
+		scene.meshes.forEach( element => {
+			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Draga')) {
+				shadow.addShadowCaster(element);
+				//element.setAbsolutePosition((new BABYLON.Vector3(-10, 0, 10).add(element.absolutePosition)))
+			}
+		})
+	}
+
+	addBallesta(scene:BABYLON.Scene, shadow:ShadowGenerator):void{
+		scene.meshes.forEach( element => {
+			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Ballesta')) {
+				shadow.addShadowCaster(element);
+				//element.setAbsolutePosition((new BABYLON.Vector3(10, 0, -10)).add(element.absolutePosition))
 			}
 		})
 	}

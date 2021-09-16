@@ -481,7 +481,6 @@ var Entities = /** @class */ (function () {
         this._buttonAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
         this._panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"];
         this._panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"];
-        this._textBlock = new Array(new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]);
         this._picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"];
         this._scene = scene;
         this._gl = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["GlowLayer"]("glow", scene);
@@ -519,6 +518,17 @@ var Entities = /** @class */ (function () {
                 //     this.animar(parent)
                 _this._oldMesh = mesh;
             }
+            if (evt.pickInfo.hit && evt.pickInfo.pickedMesh && evt.event.button === 2) {
+                var mesh = evt.pickInfo.pickedMesh;
+                // if(this.isAnimable(parent))
+                //     this.animar(parent)
+                var parent_2 = _this.getParent(mesh); //Obtenemos el mesh root
+                //this.createPicker(parent);
+                _this.movementButtons(parent_2, evt);
+                if (parent_2 != null)
+                    _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(5, _this._scene, false, parent_2);
+                _this._oldMesh = mesh;
+            }
         }, babylonjs__WEBPACK_IMPORTED_MODULE_0__["PointerEventTypes"].POINTERUP);
     };
     Entities.prototype.getParent = function (mesh) {
@@ -528,34 +538,27 @@ var Entities = /** @class */ (function () {
         }
         return retmesh;
     };
-    // private isAnimable(mesh:any){
-    //    return  mesh && BABYLON.Tags.HasTags(mesh) && mesh.matchesTagsQuery("animable")
-    // }
-    // private animar(mesh:any){
-    //     if(mesh.matchesTagsQuery("animar")){
-    //         mesh.removeTags("animar");
-    //     }else{
-    //         BABYLON.Tags.AddTagsTo(mesh, "animar");
-    //     }
-    //     this.addAditionalChange(mesh)
-    // }
-    // private addAditionalChange(mesh:any){
-    //     if(mesh.matchesTagsQuery("bomba")){
-    //         this.changeColorBomba(mesh)
-    //     }
-    //     if(mesh.matchesTagsQuery("turbina")){
-    //         this.changeColorTurbina(mesh)
-    //     }
-    // }
-    // private changeColorBomba(mesh:any){
-    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Blue() : BABYLON.Color3.Red();
-    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
-    //     mat.albedoColor = color;
-    // }
-    // private changeColorTurbina(mesh:any){
-    //     const color = mesh.matchesTagsQuery("animar") ? BABYLON.Color3.Green() : BABYLON.Color3.Magenta();
-    //     var mat = <BABYLON.PBRMaterial>mesh.getChildMeshes()[0].material;
-    //     mat.albedoColor = color;
+    // createPicker(mesh:BABYLON.AbstractMesh):void{
+    //     // GUI
+    //     this._panel1.removeControl(this._picker);
+    //     var MeshMaterial:BABYLON.StandardMaterial;
+    //     if (!mesh.material?.getClassName().includes('StandardMaterial') && !BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial')){
+    //         MeshMaterial = new BABYLON.StandardMaterial("MeshMaterial", this._scene);
+    //         mesh.material = MeshMaterial;
+    //     }else if (!BABYLON.Tags.MatchesQuery(mesh, 'materialEspecial'))
+    //         MeshMaterial = <BABYLON.StandardMaterial>mesh.material;
+    //     else 
+    //         return;
+    //     var picker = new GUI.ColorPicker();
+    //     picker.value = MeshMaterial.diffuseColor;
+    //     picker.height = "150px";
+    //     picker.width = "150px";
+    //     picker.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+    //     picker.onValueChangedObservable.add(function(value) { // value is a color3
+    //         MeshMaterial.diffuseColor.copyFrom(value);
+    //     });
+    //     this._picker = picker;
+    //     this._panel1.addControl(this._picker);     
     // }
     Entities.prototype.addTextOver = function (mesh) {
         var _a;
@@ -563,7 +566,7 @@ var Entities = /** @class */ (function () {
             this._plane.setEnabled(!this._plane.isEnabled());
         }
         else {
-            var parent_2 = this.getParent(mesh);
+            var parent_3 = this.getParent(mesh);
             if (!this._plane) {
                 this._plane = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane", 1, this._scene);
                 this._plane.billboardMode = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].BILLBOARDMODE_ALL;
@@ -581,14 +584,15 @@ var Entities = /** @class */ (function () {
             }
             //console.log("parent: " + parent.name + " ; Descripcion: " + descripcionPiezas.find((value: string[], index: number, obj: string[][]) => {return parent.name==obj[index][0]})?.pop());
             var descripcion = "";
-            if (_descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_2.name == obj[index][0]; })) {
-                descripcion = _descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_2.name == obj[index][0]; })[1];
+            if (_descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_3.name == obj[index][0]; })) {
+                descripcion = _descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_3.name == obj[index][0]; })[1];
             }
-            this._button.textBlock.text = parent_2.name + "\n" + descripcion;
-            var position = parent_2.getAbsolutePosition();
+            this._button.textBlock.text = parent_3.name;
+            this._textBlock.text = descripcion;
+            var position = parent_3.getAbsolutePosition();
             this._plane.position.x = position.x;
             this._plane.position.z = position.z;
-            var despY = parent_2.getBoundingInfo().boundingBox.vectorsWorld[1].y - parent_2.getBoundingInfo().boundingBox.vectorsWorld[0].y + 0.2;
+            var despY = true ? 1.3 : undefined;
             this._plane.position.y = position.y + despY;
             this._plane.setEnabled(true);
             // if(BABYLON.Tags.HasTags(parent) && (<any> parent).matchesTagsQuery("animable")){
@@ -608,16 +612,30 @@ var Entities = /** @class */ (function () {
         // GUI
         var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateFullscreenUI("UI");
         var panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
-        panel1.width = "200px";
+        panel1.width = "400px";
         panel1.isVertical = true;
         panel1.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_RIGHT;
         panel1.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
         advancedTexture.addControl(panel1);
+        var sv = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ScrollViewer"]();
+        sv.background = "grey";
+        sv.width = "400px";
+        sv.height = "400px";
+        sv.paddingRight = "30%";
+        panel1.addControl(sv);
         var textBlock = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
-        textBlock.text = "Diffuse color:";
-        textBlock.height = "30px";
-        this._textBlock.push(textBlock);
-        panel1.addControl(this._textBlock[0]);
+        textBlock.textWrapping = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextWrapping"].WordWrap;
+        textBlock.paddingTop = "10px";
+        textBlock.paddingLeft = "10px";
+        textBlock.paddingRight = "10px";
+        textBlock.paddingBottom = "10px";
+        textBlock.resizeToFit = true;
+        //textBlock.lineSpacing = "5px";
+        textBlock.fontSize = "16px";
+        textBlock.color = "white";
+        textBlock.text = "Descripcion";
+        this._textBlock = (textBlock);
+        sv.addControl(this._textBlock);
         var advancedTexture2 = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateFullscreenUI("UI");
         var panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
         panel2.width = "151px";
@@ -627,33 +645,9 @@ var Entities = /** @class */ (function () {
         advancedTexture2.addControl(panel2);
         this._panel1 = (panel1);
         this._panel2 = (panel2);
-        this.createKeys();
+        this.createKeys(this._panel2, true);
     };
-    Entities.prototype.createPicker = function (mesh) {
-        var _a;
-        // GUI
-        this._panel1.removeControl(this._picker);
-        var MeshMaterial;
-        if (!((_a = mesh.material) === null || _a === void 0 ? void 0 : _a.getClassName().includes('StandardMaterial')) && !babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].MatchesQuery(mesh, 'materialEspecial')) {
-            MeshMaterial = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["StandardMaterial"]("MeshMaterial", this._scene);
-            mesh.material = MeshMaterial;
-        }
-        else if (!babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].MatchesQuery(mesh, 'materialEspecial'))
-            MeshMaterial = mesh.material;
-        else
-            return;
-        var picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"]();
-        picker.value = MeshMaterial.diffuseColor;
-        picker.height = "150px";
-        picker.width = "150px";
-        picker.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
-        picker.onValueChangedObservable.add(function (value) {
-            MeshMaterial.diffuseColor.copyFrom(value);
-        });
-        this._picker = picker;
-        this._panel1.addControl(this._picker);
-    };
-    Entities.prototype.createKeys = function () {
+    Entities.prototype.createKeys = function (panel, esEntities) {
         // GUI
         var buttonAnimar = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"].CreateSimpleButton("animar", "Animar");
         buttonAnimar.height = "20px";
@@ -683,61 +677,18 @@ var Entities = /** @class */ (function () {
         buttonAnimarDesmembrar.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_TOP;
         buttonAnimarDesmembrar.color = "blue";
         buttonAnimarDesmembrar.background = "white";
-        this._buttonAnimar = buttonAnimar;
-        this._buttonAnimarOff = buttonAnimarOff;
-        this._buttonAnimarUnir = buttonAnimarUnir;
-        this._buttonAnimarDesmembrar = buttonAnimarDesmembrar;
-        this._panel2.addControl(buttonAnimar);
-        this._panel2.addControl(buttonAnimarOff);
-        this._panel2.addControl(buttonAnimarUnir);
-        this._panel2.addControl(buttonAnimarDesmembrar);
-    };
-    Entities.prototype.addGlown = function (mesh) {
-        console.log("GLOWWWWWWW");
-        var materialAux = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["NodeMaterial"]("lightNodeMat", this._scene, { emitComments: false });
-        var loadedTextures = mesh.material.getActiveTextures();
-        var lightBaseColorTex;
-        var lightEmissiveTex;
-        for (var i = 0; i < loadedTextures.length; i++) {
-            if (loadedTextures[i].name.includes("(Base Color)")) {
-                lightBaseColorTex = loadedTextures[i];
-            }
-            else if (loadedTextures[i].name.includes("(Emissive)")) {
-                lightEmissiveTex = loadedTextures[i];
-            }
+        if (esEntities) {
+            this._buttonAnimar = buttonAnimar;
+            this._buttonAnimarOff = buttonAnimarOff;
+            this._buttonAnimarUnir = buttonAnimarUnir;
+            this._buttonAnimarDesmembrar = buttonAnimarDesmembrar;
         }
-        // build node material
-        // let NodeMaterialBlockAux = new BABYLON.NodeMaterialBlock('bloqueAux');
-        // materialAux._fragmentOutputNodes.push(NodeMaterialBlockAux);
-        // materialAux._vertexOutputNodes.push(NodeMaterialBlockAux);
-        materialAux.optimize();
-        materialAux.build(false);
-        mesh.material = materialAux;
-        // assign original textures to node material
-        var baseColor = materialAux.getBlockByName("baseColorTexture");
-        var emissiveColor = materialAux.getBlockByName("emissiveTexture");
-        baseColor.texture = lightBaseColorTex;
-        emissiveColor.texture = lightEmissiveTex;
-        // get shader values to drive glow
-        var glowMask = materialAux.getBlockByName("glowMask");
-        // set up glow layer post effect
-        var gl = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["GlowLayer"]("glow", this._scene);
-        gl.intensity = 1.25;
-        // set up material to use glow layer
-        gl.referenceMeshToUseItsOwnMaterial(mesh);
-        // enable glow mask to render only emissive into glow layer, and then disable glow mask
-        gl.onBeforeRenderMeshToEffect.add(function () {
-            glowMask.value = 1.0;
-        });
-        gl.onAfterRenderMeshToEffect.add(function () {
-            glowMask.value = 0.0;
-        });
-        // this._oldMesh?this._gl.addExcludedMesh((<BABYLON.AbstractMesh>this._oldMesh)) : null;
-        // this._gl.addIncludedOnlyMesh((<BABYLON.AbstractMesh>mesh));
+        panel.addControl(buttonAnimar);
+        panel.addControl(buttonAnimarOff);
+        panel.addControl(buttonAnimarUnir);
+        panel.addControl(buttonAnimarDesmembrar);
     };
     Entities.prototype.movementButtons = function (mesh, pointerInfo) {
-        console.log("POINTERUP: " + babylonjs__WEBPACK_IMPORTED_MODULE_0__["PointerEventTypes"].POINTERUP);
-        console.log(pointerInfo.type);
         var escena = this._scene;
         this._buttonAnimar.onPointerDownObservable.clear();
         this._buttonAnimar.onPointerDownObservable.add(function (eventData, eventState) {
@@ -821,15 +772,48 @@ var Objects = /** @class */ (function () {
         scene.meshes.forEach(function (element) {
             if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('cocheDaVinci')) {
                 shadow.addShadowCaster(element);
-                //console.log(element.name);
             }
         });
     };
     Objects.prototype.addHangar = function (scene, shadow) {
+        // scene.meshes.forEach( element => {
+        // 	if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Hangar')) {
+        // 		shadow.addShadowCaster(element);
+        // 		//console.log(element.name);
+        // 	}
+        // })
+    };
+    Objects.prototype.addMarco = function (scene, shadow) {
         scene.meshes.forEach(function (element) {
-            if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('Hangar')) {
+            if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('Marco')) {
                 shadow.addShadowCaster(element);
-                //console.log(element.name);
+                //console.log(element.name + ": " + element.position);
+                element.position = element.position.add(new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Vector3"](14, 0, 0));
+                //console.log(element.name + ": " + element.position);
+            }
+        });
+    };
+    Objects.prototype.addCatapulta = function (scene, shadow) {
+        scene.meshes.forEach(function (element) {
+            if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('Catapulta')) {
+                shadow.addShadowCaster(element);
+                //element.setAbsolutePosition((new BABYLON.Vector3(10, 0, 10).add(element.absolutePosition)))
+            }
+        });
+    };
+    Objects.prototype.addDraga = function (scene, shadow) {
+        scene.meshes.forEach(function (element) {
+            if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('Draga')) {
+                shadow.addShadowCaster(element);
+                //element.setAbsolutePosition((new BABYLON.Vector3(-10, 0, 10).add(element.absolutePosition)))
+            }
+        });
+    };
+    Objects.prototype.addBallesta = function (scene, shadow) {
+        scene.meshes.forEach(function (element) {
+            if (babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].HasTags(element) && babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].GetTags(element, true).includes('Ballesta')) {
+                shadow.addShadowCaster(element);
+                //element.setAbsolutePosition((new BABYLON.Vector3(10, 0, -10)).add(element.absolutePosition))
             }
         });
     };
@@ -902,10 +886,11 @@ var AssetsLoader = /** @class */ (function () {
             // { id:"cube", type:"mesh", url:"./assets/objects/", file:"cube.glb", tag:"init"},
             // { id:"coche", type:"mesh", url:"./assets/objects/", file:"uploads_files_2792345_Koenigsegg.glb", tag:"init"},
             //{ id:"modelo", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"init"},
-            //{ id:"cocheDaVinci", type:"mesh", url:"./assets/objects/", file:"CocheDaVinci.glb", tag:"init"},
-            { id: "cocheDaVinci3", type: "mesh", url: "./assets/objects/", file: "CocheDaVinci2.2.glb", tag: "init" },
-            //{ id:"cubo", type:"mesh", url:"./assets/objects/", file:"cuboPrueba.glb", tag:"init"},
-            { id: "hangar", type: "mesh", url: "./assets/objects/", file: "Hangar.glb", tag: "init" }
+            { id: "catapulta", type: "mesh", url: "./assets/objects/", file: "catapultaDaVinci.glb", tag: "init" },
+            { id: "draga", type: "mesh", url: "./assets/objects/", file: "dragaDaVinci.glb", tag: "init" },
+            { id: "ballesta", type: "mesh", url: "./assets/objects/", file: "ballestaDaVinci.glb", tag: "init" },
+            { id: "cocheDaVinci", type: "mesh", url: "./assets/objects/", file: "CocheDaVinci2.3.glb", tag: "init" },
+            { id: "marco", type: "mesh", url: "./assets/objects/", file: "marco2aux.glb", tag: "init" },
         ];
         this._assetsLoaded = 0;
         this._scene = scene;
@@ -924,6 +909,18 @@ var AssetsLoader = /** @class */ (function () {
                 if (task.name.includes("hangar")) {
                     _this.addHangarTag(task);
                 }
+                if (task.name.includes("marco")) {
+                    _this.addMarcoTag(task);
+                }
+                if (task.name.includes("catapulta")) {
+                    _this.addCatapultaTag(task);
+                }
+                if (task.name.includes("draga")) {
+                    _this.addDragaTag(task);
+                }
+                if (task.name.includes("ballesta")) {
+                    _this.addBallestaTag(task);
+                }
                 _this._assetsLoaded++;
                 console.log("mesh loaded:", task);
                 // task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
@@ -939,19 +936,47 @@ var AssetsLoader = /** @class */ (function () {
         this._assetsManager.load();
     };
     AssetsLoader.prototype.addcocheDaVinciTag = function (task) {
-        console.log("DA VINCI CARE");
+        //console.log("DA VINCI CARE");
         for (var i = 0; i < task.loadedMeshes.length; i++) {
             //console.log(task.loadedMeshes[i].name);
             var element = task.loadedMeshes[i];
             babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'cocheDaVinci');
         }
-        console.log("DA VINCI CARE FINITO");
+        //console.log("DA VINCI CARE FINITO");
     };
     AssetsLoader.prototype.addHangarTag = function (task) {
         for (var i = 0; i < task.loadedMeshes.length; i++) {
             //console.log(task.loadedMeshes[i].name);
             var element = task.loadedMeshes[i];
             babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'Hangar');
+        }
+    };
+    AssetsLoader.prototype.addMarcoTag = function (task) {
+        for (var i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            var element = task.loadedMeshes[i];
+            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'Marco');
+        }
+    };
+    AssetsLoader.prototype.addCatapultaTag = function (task) {
+        for (var i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            var element = task.loadedMeshes[i];
+            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'Catapulta');
+        }
+    };
+    AssetsLoader.prototype.addDragaTag = function (task) {
+        for (var i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            var element = task.loadedMeshes[i];
+            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'Draga');
+        }
+    };
+    AssetsLoader.prototype.addBallestaTag = function (task) {
+        for (var i = 0; i < task.loadedMeshes.length; i++) {
+            //console.log(task.loadedMeshes[i].name);
+            var element = task.loadedMeshes[i];
+            babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(element, 'Ballesta');
         }
     };
     return AssetsLoader;
@@ -965,10 +990,10 @@ var AssetsLoader = /** @class */ (function () {
 /*!************************************!*\
   !*** ./src/descripcionPiezas.json ***!
   \************************************/
-/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, default */
+/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("[[\"A1\",\"Algo\"],[\"A2\",\"Algo\"],[\"A3\",\"Algo\"],[\"A4\",\"Algo\"],[\"A5\",\"Algo\"],[\"A6\",\"Algo\"],[\"A7\",\"Algo\"],[\"A8\",\"Algo\"],[\"A9\",\"Algo\"],[\"A10\",\"Algo\"],[\"A11\",\"Algo\"],[\"A12\",\"Algo\"],[\"A13\",\"Algo\"],[\"A14\",\"Algo\"],[\"A15\",\"Algo\"],[\"A16\",\"Algo\"],[\"A18\",\"Algo\"],[\"A19\",\"Algo\"],[\"A20\",\"Algo\"],[\"A21\",\"Algo\"],[\"A22\",\"Algo\"],[\"A23\",\"Algo\"],[\"A24\",\"Algo\"],[\"A25\",\"Algo\"],[\"A26\",\"Algo\"],[\"BALLESTA1\",\"Algo\"],[\"ballesta2\",\"Algo\"],[\"ballesta3M\",\"Algo\"],[\"ballesta4\",\"Algo\"],[\"ballesta5\",\"Algo\"],[\"ballesta6\",\"Algo\"],[\"ballesta7\",\"Algo\"],[\"BASE-MOT\",\"Algo\"],[\"CUÑA1\",\"Algo\"],[\"CUÑA2\",\"Algo\"],[\"EJE-RD\",\"Algo\"],[\"EJE-RI\",\"Algo\"],[\"EJE_MI\",\"Algo\"],[\"FRENO1\",\"Algo\"],[\"FRENO2\",\"Algo\"],[\"FRENO3\",\"Algo\"],[\"FRENO4\",\"Algo\"],[\"FRENO5\",\"Algo\"],[\"MD1\",\"Algo\"],[\"MD2\",\"Algo\"],[\"MD3\",\"Algo\"],[\"MI1\",\"Algo\"],[\"MI2\",\"Algo\"],[\"MI3\",\"Algo\"],[\"SUPERIOR1\",\"Algo\"],[\"SUPERIOR2\",\"Algo\"],[\"SUPERIOR3\",\"Algo\"],[\"SUPERIOR4\",\"Algo\"],[\"SUPERIOR5\",\"Algo\"],[\"SUPERIOR6\",\"Algo\"],[\"SUSP1\",\"Algo\"],[\"SUSP1-R1\",\"Algo\"],[\"SUSP1-R2\",\"Algo\"],[\"SUSP2\",\"Algo\"],[\"SUSP2-R1\",\"Algo\"],[\"SUSP2-R2\",\"Algo\"],[\"SUSP3\",\"Algo\"],[\"SUSP3-R1\",\"Algo\"],[\"SUSP3-R2\",\"Algo\"],[\"SUSP4\",\"Algo\"],[\"SUSP4-R1\",\"Algo\"],[\"SUSP4-R2.01\",\"Algo\"],[\"TENSOR1\",\"Algo\"],[\"TENSOR2\",\"Algo\"],[\"TENSOR3\",\"Algo\"],[\"TENSOR4\",\"Algo\"],[\"VARA1\",\"Algo\"],[\"VARA2\",\"Algo\"],[\"VARA3\",\"Algo\"],[\"VARA4\",\"Algo\"],[\"VARA5\",\"Algo\"],[\"VARA6\",\"Algo\"],[\"EJE-MD\",\"Algo\"],[\"LEVA1\",\"Algo\"],[\"LEVA2\",\"Algo\"],[\"LEVA3\",\"Algo\"],[\"LEVA4\",\"Algo\"],[\"LEVA5\",\"Algo\"],[\"LEVA6\",\"Algo\"],[\"LEVA7\",\"Algo\"],[\"LEVA8\",\"Algo\"],[\"MD4-ENGRANAJE\",\"Algo\"],[\"MD5\",\"Algo\"],[\"MD6\",\"Algo\"],[\"LEVA9\",\"Algo\"],[\"MI4-ENGRANAJE\",\"Algo\"],[\"MI5\",\"Algo\"],[\"MI6\",\"Algo\"],[\"ANGULAR1\",\"Algo\"],[\"ANGULAR2\",\"Algo\"],[\"ANGULAR3\",\"Algo\"],[\"ANGULAR4\",\"Algo\"],[\"EJE-A1\",\"Algo\"],[\"JAULA1\",\"Algo\"],[\"JAULA2\",\"Algo\"],[\"PIÑON1\",\"Algo\"],[\"ANGULAR5\",\"Algo\"],[\"ANGULAR6\",\"Algo\"],[\"ANGULAR7\",\"Algo\"],[\"ANGULAR8\",\"Algo\"],[\"EJE-A2\",\"Algo\"],[\"JAULA3\",\"Algo\"],[\"JAULA4\",\"Algo\"],[\"PIÑON2\",\"Algo\"],[\"RD-DIENT1\",\"Algo\"],[\"RD-DIENT2\",\"Algo\"],[\"RD-DIENT3\",\"Algo\"],[\"RD-DIENT4\",\"Algo\"],[\"RD-GOMA\",\"Algo\"],[\"RD-ROD1\",\"Algo\"],[\"RD-ROD2\",\"Algo\"],[\"RD1\",\"Algo\"],[\"RD10\",\"Algo\"],[\"RD11\",\"Algo\"],[\"RD12\",\"Algo\"],[\"RD2\",\"Algo\"],[\"RD3\",\"Algo\"],[\"RD4\",\"Algo\"],[\"RD5\",\"Algo\"],[\"RD6\",\"Algo\"],[\"RD7.01\",\"Algo\"],[\"RD8\",\"Algo\"],[\"RD9\",\"Algo\"],[\"RD_RAD1\",\"Algo\"],[\"RD_RAD2\",\"Algo\"],[\"RD_RAD3\",\"Algo\"],[\"RD_RAD4\",\"Algo\"],[\"RD_RAD5\",\"Algo\"],[\"RD_RAD6\",\"Algo\"],[\"RD_RAD7\",\"Algo\"],[\"RD_RAD8.01\",\"Algo\"],[\"RI-ROD1\",\"Algo\"],[\"RI-ROD2\",\"Algo\"],[\"RI1\",\"Algo\"],[\"RI10\",\"Algo\"],[\"RI11\",\"Algo\"],[\"RI12\",\"Algo\"],[\"RI2\",\"Algo\"],[\"RI3\",\"Algo\"],[\"RI4\",\"Algo\"],[\"RI5\",\"Algo\"],[\"RI6\",\"Algo\"],[\"RI7\",\"Algo\"],[\"RI8\",\"Algo\"],[\"RI9\",\"Algo\"],[\"RI_DIENT1\",\"Algo\"],[\"RI_DIENT2\",\"Algo\"],[\"RI_DIENT3\",\"Algo\"],[\"RI_DIENT4\",\"Algo\"],[\"RI_GOMA\",\"Algo\"],[\"RI_RAD1\",\"Algo\"],[\"RI_RAD2\",\"Algo\"],[\"RI_RAD3\",\"Algo\"],[\"RI_RAD4\",\"Algo\"],[\"RI_RAD5\",\"Algo\"],[\"RI_RAD6\",\"Algo\"],[\"RI_RAD7\",\"Algo\"],[\"RI_RAD8\",\"Algo\"],[\"RT1\",\"Algo\"],[\"RT10\",\"Algo\"],[\"RT11\",\"Algo\"],[\"RT12\",\"Algo\"],[\"RT2\",\"Algo\"],[\"RT3\",\"Algo\"],[\"RT4\",\"Algo\"],[\"RT5\",\"Algo\"],[\"RT6\",\"Algo\"],[\"RT7\",\"Algo\"],[\"RT8\",\"Algo\"],[\"RT9\",\"Algo\"],[\"RT_GOMA\",\"Algo\"],[\"RT_RAD1\",\"Algo\"],[\"RT_RAD2\",\"Algo\"],[\"RT_RAD3\",\"Algo\"],[\"RT_RAD4\",\"Algo\"],[\"RT_RAD5\",\"Algo\"],[\"RT_RAD6\",\"Algo\"],[\"RT_RAD7\",\"Algo\"],[\"RT_RAD8\",\"Algo\"],[\"RT_ROD1\",\"Algo\"],[\"BALLESTA1-SIM\",\"Algo\"],[\"DIREC1\",\"Algo\"],[\"DIREC2\",\"Algo\"],[\"DIREC3\",\"Algo\"],[\"EJE-DIRECCION\",\"Algo\"],[\"EJE_RT\",\"Algo\"]]");
+module.exports = JSON.parse("[[\"fuentes\",\"Wikipedia\"],[\"COCHE\",\"La máquina está accionada por dos resortes simétricos. Si bien un resorte sería suficiente para mover el dispositivo, dos resortes simétricos probablemente parecían una solución más 'lógicamente perfecta'. Leonardo era muy consciente de que la fuerza motriz proporcionada por los resortes disminuye significativamente cuando se desenrollan. Para ofrecer un movimiento suave y estable, la máquina cuenta con un volante, como se usa en los relojes. El mecanismo de control es bastante complejo y le permite seguir automáticamente una ruta pre-programada. La máquina también cuenta con un mecanismo similar a un diferencial que también permite ajustar el ángulo de giro. \"],[\"fuentes2\",\"https://filanaval.blogspot.com/2011/07/leonardo-da-vinci-draga.html\"],[\"DRAGA\",\"Una draga excavadora que se podía usar para limpiar el fondo de los canales. Los cubos actuaban unos tras otro, permitiendo descargar automáticamente en un depósito especial de flotadores el almacenaje del material recogido. Este principio es igual a las dragas modernas.\"],[\"fuentes3\",\"http://www.acceda.com/host/alumnosinvestigadores/ed2016/pdf/02.pdf\"],[\"CATAPULTA\",\"Este  diseño  particular utiliza un resorte de dos hojas para producir una gran cantidad de energı́a, que  impulsa  proyectiles  de  piedra  o  materiales  incendiarios  a  grandes  distancias  [...].  Una  palanca  actúa  sobre  un  eje  con  un  trinquete  que  recoge  una  cuerda,  doblando  las  hojas,  y  generando  una  gran  tensión  en  ellas,  tensión  que  se  libera  cuando  se  suelta  la  sujeción  del  trinquete,  levantando  el  brazo  que  sostiene  el  proyectil.\"],[\"fuentes4\",\"https://blogs.ua.es/cienciaytecnologiadelxvi/2013/01/03/la-ballesta-gigante/\"],[\"BALLESTA\",\"[...] Este instrumento destaca por sus grandes dimensiones: el arco tenía una abertura de 24 metros y se sujetaba sobre un tronco de unos 23 metros de largo y 1,2 metros de grosor.\"]]");
 
 /***/ }),
 
@@ -987,14 +1012,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var babylonjs_loaders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! babylonjs-loaders */ "./node_modules/babylonjs-loaders/babylonjs.loaders.min.js");
 /* harmony import */ var babylonjs_loaders__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(babylonjs_loaders__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _addObjects__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./addObjects */ "./src/addObjects.ts");
-/* harmony import */ var _assets_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets-loader */ "./src/assets-loader.ts");
+/* harmony import */ var babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! babylonjs-gui */ "./node_modules/babylonjs-gui/babylon.gui.min.js");
+/* harmony import */ var babylonjs_gui__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _assets_loader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets-loader */ "./src/assets-loader.ts");
 
 
  //Para que funcionen los loaders
 
 
+
 var MyScene = /** @class */ (function () {
     function MyScene(canvasElement) {
+        this._lightArray = [];
+        this._meshes = [];
         this._vrEnable = true;
         // Create canvas and engine.
         this._canvas = document.getElementById(canvasElement);
@@ -1016,8 +1046,8 @@ var MyScene = /** @class */ (function () {
         // else
         this.createCamera();
         //this.createCamera3();
-        this.createBasicLight();
-        this._assetsLoader = new _assets_loader__WEBPACK_IMPORTED_MODULE_4__["default"](this._scene);
+        //this.createLight();
+        this._assetsLoader = new _assets_loader__WEBPACK_IMPORTED_MODULE_5__["default"](this._scene);
         this._assetsLoader.loadAssets(function () { return _this.createElements(); });
         //console.log("Has pasao")
         if (this._vrEnable) {
@@ -1052,6 +1082,35 @@ var MyScene = /** @class */ (function () {
             //})
         }
     };
+    MyScene.prototype.createElements = function () {
+        console.log("createElements");
+        this.createGround();
+        this.createLightBalanceo();
+        // this.createAndPositionWTurbines();
+        // this.animateWTurbines();
+        // this.createAndPositionBombas();
+        // this.animateBombas();
+        // this.createAndPositionTurbinas();
+        // this.animateTurbinas();
+        this.createEnvironment();
+        // Objects.Objects.prototype.initializeInteractiveParts();
+        var coche = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addCocheDaVinci(this._scene, this._shadowGenerator);
+        var hangar = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addHangar(this._scene, this._shadowGenerator);
+        var marco = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addMarco(this._scene, this._shadowGenerator);
+        var ballesta = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addBallesta(this._scene, this._shadowGenerator);
+        var catapulta = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addCatapulta(this._scene, this._shadowGenerator);
+        var draga = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addDraga(this._scene, this._shadowGenerator);
+        // Objects.Objects.prototype.animateDoor(this._scene)
+        //this.createGUI();
+        console.log("ASSETS LOADED");
+        console.log(this._scene.animationGroups);
+        this.animations(2, this._scene, false);
+        this.animations(1, this._scene, false);
+        //this.createCamera2();
+        //this.createBasicLight();
+        if (this._vrEnable)
+            this.addXRSupport();
+    };
     MyScene.prototype.addXRSupport = function () {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
             var _a, e_1;
@@ -1060,30 +1119,72 @@ var MyScene = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
-                        console.log("Environment: " + this._environment.ground);
-                        console.log("Suelo: " + this._ground);
+                        // console.log("Environment: " + this._environment.ground)
+                        // console.log("Suelo: " + this._ground)
                         _a = this;
                         return [4 /*yield*/, this._scene.createDefaultXRExperienceAsync({
                                 floorMeshes: [this._ground]
                             })];
                     case 1:
+                        // console.log("Environment: " + this._environment.ground)
+                        // console.log("Suelo: " + this._ground)
                         _a._xrHelper = _b.sent();
-                        console.log("Ready XR");
+                        // console.log("Ready XR")
                         //this.controlPointer();
+                        // this._xrHelper.baseExperience.onStateChangedObservable.add((eventData: BABYLON.WebXRState, eventState: BABYLON.EventState)=>{
+                        //     console.log("Todas las Camaras: " + this._scene.activeCameras)
+                        //     this._scene.activeCameras = (<BABYLON.Camera[]>this._scene.activeCameras).filter((value: BABYLON.Camera, index: number, array: BABYLON.Camera[]) => {
+                        //         return value.name!="SecondCamera";
+                        //     })
+                        //     console.log("Todas las Camaras 2: " + this._scene.activeCameras)
+                        //     return eventData;
+                        // })
+                        // this._xrHelper.baseExperience.onInitialXRPoseSetObservable.add((cameraXR: BABYLON.WebXRCamera, eventState: BABYLON.EventState)=>{
+                        //     //console.log("Camara XR: " + cameraXR)
+                        //     this.addSecondSight(this._scene)
+                        // })
                         this._xrHelper.input.onControllerAddedObservable.add(function (controller) {
                             // future safe
-                            if (controller.onMeshLoadedObservable) {
-                                controller.onMeshLoadedObservable.addOnce(function (rootMesh) {
-                                    _this._shadowGenerator.addShadowCaster(rootMesh, true);
+                            controller.onMotionControllerInitObservable.addOnce(function (motionController) {
+                                motionController.onModelLoadedObservable.addOnce(function () {
+                                    _this._shadowGenerator.addShadowCaster(motionController.rootMesh, true);
                                 });
-                            }
-                            else {
-                                controller.onMotionControllerInitObservable.addOnce(function (motionController) {
-                                    motionController.onModelLoadedObservable.addOnce(function () {
-                                        _this._shadowGenerator.addShadowCaster(motionController.rootMesh, true);
+                                if (motionController.handness === 'left') {
+                                    var xr_ids = motionController.getComponentIds();
+                                    var xbuttonComponent_1 = motionController.getComponent(xr_ids[3]); //x-button
+                                    xbuttonComponent_1.onButtonStateChangedObservable.add(function () {
+                                        if (xbuttonComponent_1.pressed) {
+                                            _this.animations(1, _this._scene, false);
+                                        }
                                     });
-                                });
-                            }
+                                    var ybuttonComponent_1 = motionController.getComponent(xr_ids[4]); //y-button
+                                    ybuttonComponent_1.onButtonStateChangedObservable.add(function () {
+                                        if (ybuttonComponent_1.pressed) {
+                                            _this.animations(2, _this._scene);
+                                        }
+                                    });
+                                }
+                                if (motionController.handness === 'right') {
+                                    var xr_ids = motionController.getComponentIds();
+                                    var abuttonComponent_1 = motionController.getComponent(xr_ids[3]); //a-button
+                                    abuttonComponent_1.onButtonStateChangedObservable.add(function () {
+                                        if (abuttonComponent_1.pressed) {
+                                            _this.animations(3, _this._scene);
+                                        }
+                                    });
+                                    var bbuttonComponent_1 = motionController.getComponent(xr_ids[4]); //b-button
+                                    bbuttonComponent_1.onButtonStateChangedObservable.add(function () {
+                                        if (bbuttonComponent_1.pressed) {
+                                            _this.animations(4, _this._scene);
+                                        }
+                                    });
+                                }
+                            });
+                            // if (this._controller==undefined) {
+                            //     console.log(this._controller)
+                            //     this._controller=controller;
+                            //     console.log(this._controller)
+                            // }
                         });
                         return [3 /*break*/, 3];
                     case 2:
@@ -1097,29 +1198,6 @@ var MyScene = /** @class */ (function () {
             });
         });
     };
-    MyScene.prototype.createElements = function () {
-        console.log("createElements");
-        this.createGround();
-        // this.createAndPositionWTurbines();
-        // this.animateWTurbines();
-        // this.createAndPositionBombas();
-        // this.animateBombas();
-        // this.createAndPositionTurbinas();
-        // this.animateTurbinas();
-        this.createEnvironment();
-        // Objects.Objects.prototype.initializeInteractiveParts();
-        var coche = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addCocheDaVinci(this._scene, this._shadowGenerator);
-        var hangar = _addObjects__WEBPACK_IMPORTED_MODULE_3__["Objects"].prototype.addHangar(this._scene, this._shadowGenerator);
-        // Objects.Objects.prototype.animateDoor(this._scene)
-        //this.createGUI();
-        console.log("ASSETS LOADED");
-        console.log(this._scene.animationGroups);
-        this.animations(1, this._scene, false);
-        //this.createCamera2();
-        //this.createBasicLight();
-        if (this._vrEnable)
-            this.addXRSupport();
-    };
     MyScene.prototype.createCamera = function () {
         //this._camera  = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.7, 12, new BABYLON.Vector3(0, 0, 0), this._scene);
         // this._camera.wheelPrecision = 20; 
@@ -1130,7 +1208,7 @@ var MyScene = /** @class */ (function () {
         // inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
         // inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
         // this._camera.attachControl(this._canvas, false);
-        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCamera"]('Camera', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 2, 0), this._scene);
+        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCamera"]('Camera', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](3, 1.5, 0), this._scene);
         var inputManager = this._camera.inputs;
         inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCameraMouseInput"]());
         //inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
@@ -1139,8 +1217,9 @@ var MyScene = /** @class */ (function () {
         walkableCamera.keysUpward = [];
         inputManager.add(walkableCamera);
         this._camera.attachControl();
-        this._camera.speed = 0.1;
-        this._camera.checkCollisions = true;
+        this._camera.speed = 0.2;
+        //this.addSecondSight(this._scene)
+        //(<BABYLON.FreeCamera>this._camera).checkCollisions = true;
     };
     MyScene.prototype.createCamera3 = function () {
         var box = babylonjs__WEBPACK_IMPORTED_MODULE_1__["MeshBuilder"].CreateBox("box", { size: 1 }, this._scene);
@@ -1162,8 +1241,8 @@ var MyScene = /** @class */ (function () {
         this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["WebXRCamera"]('Camera', this._scene, this._sessionManager);
         this._camera.attachControl();
     };
-    MyScene.prototype.createBasicLight = function () {
-        this._light = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["DirectionalLight"]('light1', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](1, -1, -1), this._scene);
+    MyScene.prototype.createLight = function () {
+        this._light = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["DirectionalLight"]('light', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](1, -1, -1), this._scene);
         this._light.position = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 10, 10);
         var aux = this;
         this._scene.registerBeforeRender(function () {
@@ -1172,6 +1251,62 @@ var MyScene = /** @class */ (function () {
         this._shadowGenerator = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["ShadowGenerator"](1024, this._light);
         this._shadowGenerator.usePercentageCloserFiltering = true;
         this._shadowGenerator.bias = 0.00001;
+    };
+    MyScene.prototype.createLightBalanceo = function () {
+        var lightScene = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["DirectionalLight"]('light1', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, -1, 0), this._scene);
+        lightScene.position = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 10, 0);
+        var aux = this;
+        // this._scene.registerBeforeRender(function () {
+        //     lightScene.position = aux._camera.position;
+        // });
+        console.log("Intensidad: " + lightScene.intensity);
+        lightScene.intensity = 0.5;
+        // Create light
+        // var lightPoint = new BABYLON.PointLight("light", new BABYLON.Vector3(3, 7, 2), this._scene);
+        // lightPoint.intensity = 0.7;
+        // lightPoint.setEnabled(false);
+        this._light = lightScene;
+        this._shadowGenerator = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["ShadowGenerator"](1024, this._light);
+        this._shadowGenerator.usePercentageCloserFiltering = true;
+        this._shadowGenerator.bias = 0.00001;
+        //Light direction coche 
+        var lightSpot1 = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["SpotLight"]("LightSpot1", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](5.6, 5, 0), new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, -1, 0), Math.PI / 2, 50, this._scene);
+        lightSpot1.diffuse = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        lightSpot1.specular = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        var lightSpot4 = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["SpotLight"]("LightSpot4", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](-1.55, 5, 0), new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, -1, 0), Math.PI / 2, 50, this._scene);
+        lightSpot4.diffuse = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        lightSpot4.specular = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        var lightSpot2 = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["SpotLight"]("LightSpot2", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 6, 7), new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, -1, 0), Math.PI / 2, 50, this._scene);
+        lightSpot2.diffuse = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        lightSpot2.specular = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        var lightSpot3 = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["SpotLight"]("LightSpot3", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 6, -7), new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, -1, 0), Math.PI / 2, 50, this._scene);
+        lightSpot3.diffuse = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        lightSpot3.specular = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        var lightSpot4 = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["SpotLight"]("LightSpot4", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 5, 0), new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, -1, -1), Math.PI / 2, 50, this._scene);
+        lightSpot4.diffuse = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        lightSpot4.specular = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        console.log(this._scene.lights);
+        // Move light in the scene
+        // var curTime = 0;
+        // this._scene.onBeforeRenderObservable.add(()=>{
+        //     curTime+=this._engine.getDeltaTime();
+        //     lightPoint.position.x = Math.sin(curTime/1000)*5
+        // })
+        // // Press space to swich lightmap mode
+        // var mode = 0;
+        // document.onkeydown = (e: KeyboardEvent)=>{
+        //     var keyCode = e.key;
+        //     if (keyCode === " ") {
+        //         mode = ++mode%3;
+        //         if(mode == 1){
+        //             this._light.lightmapMode = BABYLON.Light.LIGHTMAP_SPECULAR;
+        //         }else if(mode == 2){
+        //             this._light.lightmapMode = BABYLON.Light.LIGHTMAP_SHADOWSONLY;
+        //         }else{
+        //             this._light.lightmapMode = BABYLON.Light.LIGHTMAP_DEFAULT;
+        //         }
+        //     }
+        // }
     };
     MyScene.prototype.createEnvironment = function () {
         this._environment = this._scene.createDefaultEnvironment();
@@ -1283,55 +1418,7 @@ var MyScene = /** @class */ (function () {
             _this._engine.resize();
         });
     };
-    MyScene.prototype.deg2rad = function (degree) {
-        return degree * Math.PI / 180;
-    };
-    // animateWTurbines():void{
-    //     this._scene.onBeforeRenderObservable.add(() => {
-    //         this._scene.getMeshesByTags("wturbine && animar", function (ct:BABYLON.AbstractMesh) { 
-    //             ct.getChildMeshes()[1].rotate(BABYLON.Axis.Y, -0.05, BABYLON.Space.LOCAL);
-    //             if(Number(ct.name.charAt(8))%2 == 1) //SOLO LAS IMPARES
-    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.005, BABYLON.Space.LOCAL);
-    //         });
-    //     })
-    // }
-    // animateBombas():void{
-    //     this._scene.onBeforeRenderObservable.add(() => {
-    //         this._scene.getMeshesByTags("bomba && animar", function (ct:BABYLON.AbstractMesh) { 
-    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
-    //                 //mat.emissiveColor = BABYLON.Color3.Red(); //4573D5
-    //                 //mat.wireframe=true;
-    //         });
-    //     })
-    // }
-    // animateTurbinas():void{
-    //     this._scene.onBeforeRenderObservable.add(() => {
-    //         this._scene.getMeshesByTags("turbina && animar", function (ct:BABYLON.AbstractMesh) { 
-    //                 ct.getChildMeshes()[0].rotate(BABYLON.Axis.Y, -0.03, BABYLON.Space.LOCAL);
-    //         });
-    //     })
-    // }
-    // createAnimation(){
-    //     const frameRate = 10;
-    //     const xRotate = new BABYLON.Animation("xRotate", "rotation.x", frameRate, 
-    //             BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-    //     const keyFrames = []; 
-    //     keyFrames.push({ frame: 0, value: 2 });
-    //     keyFrames.push({ frame: frameRate,  value: -2  });
-    //     keyFrames.push({ frame: 2 * frameRate, value: 2 });
-    //     xRotate.setKeys(keyFrames);
-    //     return xRotate;
-    // }
-    // addAnimatedCube(){
-    //     const box = BABYLON.MeshBuilder.CreateBox("box", {});
-    //     console.log("box",box);
-    //     box.position.x = 2;
-    //     const frameRate = 10;
-    //     const xrotation = this.createAnimation();
-    //     box.animations.push(xrotation);
-    //     this._scene.beginAnimation(box, 0, 2 * frameRate, true);
-    // }
-    MyScene.prototype.animations = function (modo, escena, unirDesmembrar) {
+    MyScene.prototype.animations = function (modo, escena, unirDesmembrar, mesh) {
         switch (modo) {
             case 1:
                 escena.animationGroups.forEach(function (element) {
@@ -1396,10 +1483,109 @@ var MyScene = /** @class */ (function () {
                     }
                 });
                 break;
+            case 5:
+                console.log("contrario");
+                //console.log("-----------------------------------------------------")
+                var aux_1 = [];
+                var yaHeActuado_1 = false;
+                mesh === null || mesh === void 0 ? void 0 : mesh.animations.forEach(function (value, index, array) {
+                    console.log(value);
+                    if ((value.name.includes('desmembrar') || value.name.includes('unir')) && unirDesmembrar) {
+                        aux_1.push(value.name);
+                    }
+                    else if (!(value.name.includes('desmembrar') || value.name.includes('unir'))) {
+                        aux_1.push(value.name);
+                    }
+                });
+                escena.animationGroups.forEach(function (element) {
+                    yaHeActuado_1 = false;
+                    if ((element.name.includes('desmembrar') || element.name.includes('unir')) && !unirDesmembrar) {
+                    }
+                    else {
+                        //console.log("Aqui entro ")
+                        if (undefined != element.targetedAnimations.find(function (value) { return undefined != aux_1.find(function (value2) { return value2 === value.animation.name; }); })) {
+                            //console.log("He encontrado algo")
+                            if (element.isPlaying && !yaHeActuado_1) {
+                                element.pause();
+                                yaHeActuado_1 = true;
+                            }
+                            else if (!yaHeActuado_1) {
+                                element.play();
+                                yaHeActuado_1 = true;
+                            }
+                        }
+                    }
+                });
+                break;
             default:
                 console.error("No existe el modo: " + modo);
                 break;
         }
+    };
+    MyScene.prototype.addSecondSight = function (scene) {
+        if (scene.activeCameras.length === 0) {
+            scene.activeCameras.push(scene.activeCamera);
+        }
+        var secondCamera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCamera"]("SecondCamera", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 0, -10), scene);
+        //secondCamera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+        secondCamera.layerMask = 0x20000000;
+        scene.activeCameras.push(secondCamera);
+        var plano;
+        plano = babylonjs__WEBPACK_IMPORTED_MODULE_1__["Mesh"].CreatePlane("plane", 5, scene);
+        plano.position = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](2, 0, 0);
+        plano.addRotation(0, 0, 2);
+        plano.billboardMode = babylonjs__WEBPACK_IMPORTED_MODULE_1__["Mesh"].BILLBOARDMODE_ALL;
+        var aux = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["StandardMaterial"]("aux", scene);
+        aux.emissiveColor = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        plano.material = aux;
+        // plano.layerMask = 0x20000000;
+        // plano.freezeWorldMatrix();
+        this._meshes.push(plano);
+        var secondSight = babylonjs__WEBPACK_IMPORTED_MODULE_1__["Mesh"].MergeMeshes(this._meshes);
+        secondSight.name = "secondSight";
+        secondSight.layerMask = 0x20000000;
+        var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["AdvancedDynamicTexture"].CreateForMesh(secondSight);
+        var buttonAnimar = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Button"].CreateSimpleButton("animar", "Animar");
+        buttonAnimar.height = "20px";
+        buttonAnimar.width = "120px";
+        buttonAnimar.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonAnimar.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Control"].VERTICAL_ALIGNMENT_TOP;
+        buttonAnimar.color = "blue";
+        buttonAnimar.background = "white";
+        var buttonAnimarOff = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Button"].CreateSimpleButton("inanimar", "No animar");
+        buttonAnimarOff.height = "20px";
+        buttonAnimarOff.width = "120px";
+        buttonAnimarOff.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonAnimarOff.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Control"].VERTICAL_ALIGNMENT_TOP;
+        buttonAnimarOff.color = "blue";
+        buttonAnimarOff.background = "white";
+        var buttonAnimarUnir = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Button"].CreateSimpleButton("unir", "Ensamblar");
+        buttonAnimarUnir.height = "20px";
+        buttonAnimarUnir.width = "120px";
+        buttonAnimarUnir.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
+        buttonAnimarUnir.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Control"].VERTICAL_ALIGNMENT_TOP;
+        buttonAnimarUnir.color = "blue";
+        buttonAnimarUnir.background = "white";
+        var buttonAnimarDesmembrar = babylonjs_gui__WEBPACK_IMPORTED_MODULE_4__["Button"].CreateSimpleButton("desmembrar", "Desensamblar");
+        buttonAnimarDesmembrar.height = 0.5;
+        buttonAnimarDesmembrar.width = 1;
+        // buttonAnimarDesmembrar.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        // buttonAnimarDesmembrar.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        buttonAnimarDesmembrar.fontSize = 120;
+        buttonAnimarDesmembrar.color = "blue";
+        buttonAnimarDesmembrar.background = "white";
+        advancedTexture.addControl(buttonAnimar);
+        advancedTexture.addControl(buttonAnimarOff);
+        advancedTexture.addControl(buttonAnimarUnir);
+        advancedTexture.addControl(buttonAnimarDesmembrar);
+        scene.onBeforeRenderObservable.add(function () {
+            plano.rotate(babylonjs__WEBPACK_IMPORTED_MODULE_1__["Axis"].Y, -0.03, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Space"].LOCAL);
+        });
+        //(<BABYLON.Mesh>secondSight).freezeWorldMatrix();
+        var mat = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["StandardMaterial"]("emissive mat", scene);
+        mat.checkReadyOnlyOnce = true;
+        mat.emissiveColor = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
+        secondSight.material = mat;
     };
     return MyScene;
 }());
