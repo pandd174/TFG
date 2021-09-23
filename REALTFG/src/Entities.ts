@@ -2,6 +2,7 @@ import * as BABYLON from 'babylonjs';
 import * as GUI from 'babylonjs-gui';
 import * as myScene from './my-scene';
 import descripcionPiezas from "./descripcionPiezas.json"; 
+import { TextBlock } from 'babylonjs-gui/2D/controls/textBlock';
 
 export default class Entities {
 
@@ -12,18 +13,32 @@ export default class Entities {
     private _buttonAnimarOff = new GUI.Button;
     private _buttonAnimarUnir = new GUI.Button;
     private _buttonAnimarDesmembrar = new GUI.Button;
+    private _buttonAnimar3D:GUI.MeshButton3D;
+    private _buttonAnimarOff3D:GUI.MeshButton3D;
+    private _buttonAnimarUnir3D:GUI.MeshButton3D;
+    private _buttonAnimarDesmembrar3D:GUI.MeshButton3D;
     private _panel1:GUI.StackPanel = new GUI.StackPanel;
     private _panel2:GUI.StackPanel = new GUI.StackPanel;
     private _textBlock:GUI.TextBlock//[] = new Array(new GUI.TextBlock);
     private _picker = new GUI.ColorPicker;
     private _oldMesh: BABYLON.Nullable<BABYLON.AbstractMesh>;
     private _gl: BABYLON.GlowLayer;
+    private _cube: BABYLON.Mesh;
 
     constructor(scene : BABYLON.Scene) {
         this._scene = scene;
         this._gl = new BABYLON.GlowLayer("glow", scene);
-        this.createPanel();
+        // this._cube = BABYLON.Mesh.CreateBox("caja", 1, scene);
+        // this._cube.position.y -= 2;
+        // this._cube.position.z += 5;
+        //BABYLON.Tags.AddTagsTo(this._cube, "cube")
+        this.createPanel3D();
+
     }
+
+    // public getCube():BABYLON.Mesh {
+    //     return this._cube;
+    // }
 
     listenToEvents(): void{
         this.addClickSelectObject();
@@ -39,7 +54,8 @@ export default class Entities {
                 this.addTextOver(mesh);
                 const parent = this.getParent(mesh); //Obtenemos el mesh root
                 //this.createPicker(parent);
-                this.movementButtons(parent, evt);
+                //this.movementButtons(parent, evt);
+                this.movementButtons3D(parent, evt);
             //     if(evt.event['pointerId'] === 1 && evt.event.button === 0
             //     || evt.event['pointerId'] === 201 // 201 -> Oculus Quest 2 (Mando 1)
             //     || evt.event['pointerId'] === 200) // 200 -> Oculus Quest 2 (Mando 1)
@@ -63,7 +79,7 @@ export default class Entities {
                 //     this.animar(parent)
                 const parent = this.getParent(mesh); //Obtenemos el mesh root
                 //this.createPicker(parent);
-                this.movementButtons(parent, evt);
+                //this.movementButtons(parent, evt);
                 if (parent!=null)
                     myScene.default.prototype.animations(5, this._scene, false, parent);
                 this._oldMesh = mesh;
@@ -155,6 +171,77 @@ export default class Entities {
     }
 
 
+    createPanel3D():void{
+        // GUI
+
+        // Create the 3D UI manager
+        var manager = new GUI.GUI3DManager(this._scene);
+    
+        // Create a horizontal stack panel
+        // var panel = new GUI.StackPanel3D();
+        // panel.margin = 0.02;
+      
+        // manager.addControl(panel);
+        // panel.position.z = -1.5;
+    
+        // Let's add some buttons!
+        // var addButton = function() {
+        //     var button = new GUI.Button3D("orientation");
+        //     panel.addControl(button);
+        //     button.onPointerUpObservable.add(function(){
+        //         panel.isVertical = !panel.isVertical;
+        //     });   
+            
+        //     var text1 = new GUI.TextBlock();
+        //     text1.text = "change orientation";
+        //     text1.color = "white";
+        //     text1.fontSize = 24;
+        //     button.content = text1;  
+        // }
+    
+        // addButton();    
+        // addButton();
+        // addButton();
+
+        //HACER EL 3D
+
+        var panel1 = new GUI.StackPanel3D();
+        panel1.isVertical = true; //(3,1.5,0)
+        panel1.position.x=1;
+        manager.addControl(panel1);
+        
+        var plano = BABYLON.Mesh.CreatePlane("plane0", 1, this._scene);
+        plano.position.z = 1.5;
+        plano.position.x = 2.5;
+        var button = new GUI.MeshButton3D(plano, "descripcion");
+        BABYLON.Tags.AddTagsTo(plano, "botones3D")
+        console.log("tras anadir tag")
+        console.log(this._scene.getMeshesByTags("botones3D"))
+        //console.log(this._scene)
+        var textBlock = new GUI.TextBlock();
+        textBlock.textWrapping = GUI.TextWrapping.WordWrap;
+        textBlock.paddingTop = "10px";
+        textBlock.paddingLeft = "10px";
+        textBlock.paddingRight = "10px"
+        textBlock.paddingBottom = "10px";
+        textBlock.resizeToFit = true;
+        //textBlock.lineSpacing = "5px";
+        textBlock.fontSize = "16px";
+        textBlock.color = "white";
+        textBlock.text = "Descripcion";
+        button.content = textBlock;
+        this._textBlock = (textBlock);
+    
+        panel1.addControl(button);
+
+        var panel2 = new GUI.StackPanel3D();
+        panel2.isVertical = true;
+        manager.addControl(panel2);
+
+        this.createKeys3D(panel2, true);
+    }
+
+
     createPanel():void{
         // GUI
 
@@ -163,7 +250,7 @@ export default class Entities {
         var panel1 = new GUI.StackPanel();
         panel1.width = "400px";
         panel1.isVertical = true;
-        panel1.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        panel1.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         panel1.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         advancedTexture.addControl(panel1);
 
@@ -171,7 +258,7 @@ export default class Entities {
         sv.background = "grey";
         sv.width = "400px";
         sv.height = "400px";
-        sv.paddingRight = "30%"
+        //sv.paddingRight = "50%"
     
         panel1.addControl(sv);
         
@@ -203,6 +290,8 @@ export default class Entities {
         this._panel1 = (panel1);
         this._panel2 = (panel2);
         this.createKeys(this._panel2, true);
+        // BABYLON.Tags.AddTagsTo(panel1, "panel")
+        // BABYLON.Tags.AddTagsTo(panel2, "panel")
     }
 
     createKeys(panel:GUI.StackPanel, esEntities?:Boolean|false):void{
@@ -263,6 +352,59 @@ export default class Entities {
         panel.addControl(buttonAnimarDesmembrar);
     }
 
+    createKeys3D(panel:GUI.StackPanel3D, esEntities?:Boolean|false):void{
+        // GUI
+        var plano1 = BABYLON.Mesh.CreatePlane("plane1", 1, this._scene);
+        plano1.position.z = 1.5;
+        plano1.position.x = 3.5;
+        var buttonAnimar = new GUI.MeshButton3D(plano1, "animar");
+        var textoAnimar = new GUI.TextBlock("animar", "Animar")
+        textoAnimar.color = "blue";
+        buttonAnimar.content = textoAnimar;
+        // buttonAnimar.background = "white";
+
+        var plano2 = BABYLON.Mesh.CreatePlane("plane2", 1, this._scene);
+        plano2.position.z = 1.5;
+        plano2.position.x = 3.5;
+        var buttonAnimarOff = new GUI.MeshButton3D(plano2, "inanimar");
+        var textoAnimarOff = new GUI.TextBlock("inanimar", "No animar")
+        textoAnimarOff.color = "blue";
+        buttonAnimar.content = textoAnimarOff;
+        // buttonAnimarOff.background = "white";
+        
+        var plano3 = BABYLON.Mesh.CreatePlane("plane3", 1, this._scene);
+        plano3.position.z = 1.5;
+        plano3.position.x = 3.5;
+        var buttonAnimarUnir = new GUI.MeshButton3D(plano3, "unir");
+        var textoAnimarUnir = new GUI.TextBlock("unir","Ensamblar")
+        textoAnimarUnir.color = "blue";
+        buttonAnimarUnir.content = textoAnimarUnir;
+        // buttonAnimarUnir.background = "white";
+
+        var plano4 = BABYLON.Mesh.CreatePlane("plane4", 1, this._scene);
+        plano4.position.z = 1.5;
+        plano4.position.x = 3.5;
+        var buttonAnimarDesmembrar = new GUI.MeshButton3D(plano4, "desmembrar");
+        var textoAnimarDesmembrar = new GUI.TextBlock("desmembrar", "Desensamblar")
+        textoAnimarDesmembrar.color = "blue";
+        buttonAnimarDesmembrar.content = textoAnimarDesmembrar;
+        // buttonAnimarDesmembrar.background = "white";
+
+        if (esEntities) {
+            this._buttonAnimar3D = buttonAnimar;
+            this._buttonAnimarOff3D = buttonAnimarOff;
+            this._buttonAnimarUnir3D = buttonAnimarUnir;
+            this._buttonAnimarDesmembrar3D = buttonAnimarDesmembrar;
+        }
+        BABYLON.Tags.AddTagsTo(plano1, "botones3D")
+        BABYLON.Tags.AddTagsTo(plano2, "botones3D")
+        BABYLON.Tags.AddTagsTo(plano3, "botones3D")
+        BABYLON.Tags.AddTagsTo(plano4, "botones3D")
+        panel.addControl(buttonAnimar);
+        panel.addControl(buttonAnimarOff);
+        panel.addControl(buttonAnimarUnir);
+        panel.addControl(buttonAnimarDesmembrar);
+    }
 
     private movementButtons(mesh:BABYLON.AbstractMesh, pointerInfo:any):void {
         let escena = this._scene;
@@ -286,5 +428,33 @@ export default class Entities {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
             myScene.default.prototype.animations(3, escena);
         });
+    }
+
+    private movementButtons3D(mesh:BABYLON.AbstractMesh, pointerInfo:any):void {
+        let escena = this._scene;
+        this._buttonAnimar3D.onPointerDownObservable.clear()
+        this._buttonAnimar3D.onPointerDownObservable.add(function(eventData: GUI.Vector3WithInfo, eventState: BABYLON.EventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            myScene.default.prototype.animations(1, escena);
+        });
+        this._buttonAnimarOff3D.onPointerDownObservable.clear()
+        this._buttonAnimarOff3D.onPointerDownObservable.add(function(eventData: GUI.Vector3WithInfo, eventState: BABYLON.EventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            myScene.default.prototype.animations(2, escena);
+        });
+        this._buttonAnimarUnir3D.onPointerDownObservable.clear()
+        this._buttonAnimarUnir3D.onPointerDownObservable.add(function(eventData: GUI.Vector3WithInfo, eventState: BABYLON.EventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            myScene.default.prototype.animations(4, escena);
+        });
+        this._buttonAnimarDesmembrar3D.onPointerDownObservable.clear()
+        this._buttonAnimarDesmembrar3D.onPointerDownObservable.add(function(eventData: GUI.Vector3WithInfo, eventState: BABYLON.EventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            myScene.default.prototype.animations(3, escena);
+        });
+    }
+
+    public getButtons3D ():GUI.Button3D[] {
+        return [this._buttonAnimar3D, this._buttonAnimarOff3D, this._buttonAnimarUnir3D, this._buttonAnimarDesmembrar3D];
     }
 }

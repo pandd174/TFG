@@ -15,9 +15,9 @@ export default class AssetsLoader {
             // { id:"cube", type:"mesh", url:"./assets/objects/", file:"cube.glb", tag:"init"},
             // { id:"coche", type:"mesh", url:"./assets/objects/", file:"uploads_files_2792345_Koenigsegg.glb", tag:"init"},
             //{ id:"modelo", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"init"},
-            { id:"catapulta", type:"mesh", url:"./assets/objects/", file:"catapultaDaVinci.glb", tag:"init"},
-            { id:"draga", type:"mesh", url:"./assets/objects/", file:"dragaDaVinci.glb", tag:"init"},
-            { id:"ballesta", type:"mesh", url:"./assets/objects/", file:"ballestaDaVinci.glb", tag:"init"},
+            // { id:"catapulta", type:"mesh", url:"./assets/objects/", file:"catapultaDaVinci.glb", tag:"init"},
+            // { id:"draga", type:"mesh", url:"./assets/objects/", file:"dragaDaVinci.glb", tag:"init"},
+            //{ id:"ballesta", type:"mesh", url:"./assets/objects/", file:"ballestaDaVinci.glb", tag:"init"},
             { id:"cocheDaVinci", type:"mesh", url:"./assets/objects/", file:"CocheDaVinci2.3.glb", tag:"init"},
             { id:"marco", type:"mesh", url:"./assets/objects/", file:"marco2aux.glb", tag:"init"},
             //{ id:"hangar", type:"mesh", url:"./assets/objects/", file:"Hangar.glb", tag:"init"}

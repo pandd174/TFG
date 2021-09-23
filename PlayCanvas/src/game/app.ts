@@ -95,19 +95,19 @@ export class App {
 		// this.addTweenEntity(cube,"rotate")
 
 		// //Add entity coche
-		// const coche = Objects.prototype.addPlayCanvasCoche();
-		// this.app.root.addChild(coche);
+		const coche = Objects.prototype.addPlayCanvasCoche(this.app);
+		this.app.root.addChild(coche);
 		// this.addTweenEntity(coche,"rotate")
 		// //var entities = coche.find('name', 'Scene');
-		// var ruedas = coche.children[0].children[2].find(function (node) {
-		// 	// abajo habria que poner el nombre de las partes a manejar
-		// 	return node.name.includes("R");
-		// });
-		// console.log("Coche: " + coche.children[0].children[2].children[0].children.push.name);
+		var ruedas = coche.children[0].children[2].find(function (node) {
+			// abajo habria que poner el nombre de las partes a manejar
+			return node.name.includes("R");
+		});
+		console.log("Coche: " + coche.children[0].children[2].children[0].children.push.name);
 		// ruedas.forEach( element => {
-		// 	element.setLocalPosition(10,0.5,10);
+		// 	element.setLocalPosition(10,3.5,-10);
 		// 	var aux = element as any;
-		// 	//this.addTweenEntity(aux,"rotate 60")
+		// 	this.addTweenEntity(aux,"rotate 60")
 
 		// })
 		// //coche.children[0].children[2].children[0] es la rueda FL (Frontal Left)

@@ -876,35 +876,35 @@ var MyScene = /** @class */ (function () {
         var _this = this;
         this._scene = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["Scene"](this._engine);
         this._sessionManager = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["WebXRSessionManager"](this._scene);
-        if (this._sessionManager.isSessionSupportedAsync('immersive-vr') && this._vrEnable)
-            this.createCameraXR();
-        else
-            this.createCamera();
+        // if (this._sessionManager.isSessionSupportedAsync('immersive-vr') && this._vrEnable)
+        //     this.createCameraXR();
+        // else
+        this.createCamera();
         this.createBasicLight();
         this._assetsLoader = new _assets_loader__WEBPACK_IMPORTED_MODULE_3__["default"](this._scene);
         this._assetsLoader.loadAssets(function () { return _this.createElements(); });
-        if (this._vrEnable) {
-            var vrHelper = this._scene.createDefaultVRExperience();
-            var leftHand = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreateBox("", 0.1, this._scene);
-            leftHand.scaling.z = 2;
-            var rightHand = leftHand.clone();
-            var head = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreateBox("", 0.2, this._scene);
-            this._scene.onBeforeRenderObservable.add(function () {
-                // Left and right hand position/rotation
-                if (vrHelper.webVRCamera.leftController) {
-                    leftHand.position = vrHelper.webVRCamera.leftController.devicePosition.clone();
-                    leftHand.rotationQuaternion = vrHelper.webVRCamera.leftController.deviceRotationQuaternion.clone();
-                }
-                if (vrHelper.webVRCamera.rightController) {
-                    rightHand.position = vrHelper.webVRCamera.rightController.devicePosition.clone();
-                    rightHand.rotationQuaternion = vrHelper.webVRCamera.rightController.deviceRotationQuaternion.clone();
-                }
-                // Head position/rotation
-                head.position = vrHelper.webVRCamera.devicePosition.clone();
-                head.rotationQuaternion = vrHelper.webVRCamera.deviceRotationQuaternion.clone();
-                head.position.z = 2;
-            });
-        }
+        // if (this._vrEnable) {
+        //     var vrHelper = this._scene.createDefaultVRExperience();
+        //     var leftHand = BABYLON.Mesh.CreateBox("",0.1, this._scene)
+        //     leftHand.scaling.z = 2;
+        //     var rightHand = leftHand.clone()
+        //     var head = BABYLON.Mesh.CreateBox("",0.2, this._scene) 
+        //     this._scene.onBeforeRenderObservable.add(()=>{
+        //         // Left and right hand position/rotation
+        //         if(vrHelper.webVRCamera.leftController){
+        //             leftHand.position = vrHelper.webVRCamera.leftController.devicePosition.clone()
+        //             leftHand.rotationQuaternion = vrHelper.webVRCamera.leftController.deviceRotationQuaternion.clone()
+        //         }
+        //         if(vrHelper.webVRCamera.rightController){
+        //             rightHand.position = vrHelper.webVRCamera.rightController.devicePosition.clone()
+        //             rightHand.rotationQuaternion = vrHelper.webVRCamera.rightController.deviceRotationQuaternion.clone()
+        //         }
+        //         // Head position/rotation
+        //         head.position = vrHelper.webVRCamera.devicePosition.clone()
+        //         head.rotationQuaternion = vrHelper.webVRCamera.deviceRotationQuaternion.clone()
+        //         head.position.z = 2;
+        //     })
+        // }
     };
     MyScene.prototype.createElements = function () {
         console.log("createElements");

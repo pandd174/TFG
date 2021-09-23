@@ -168,16 +168,16 @@ FlyCamera.prototype.onMouseUp = function (event) {
 };
 
 FlyCamera.prototype.selectObject =function(pos){
-    console.log("Llego a la linea 167, pos: ", pos);
+    //console.log("Llego a la linea 167, pos: ", pos);
     var result;
     if (pos)
         result=this.doRaycast(pos.x,pos.y);
     else
         result=this.doRaycast(this.app.mouse._lastX,this.app.mouse._lastY);
-    console.log("Llego a la linea 169, result: ", result);
+    //console.log("Llego a la linea 169, result: ", result);
     if(result && result.entity){        
         if(result.entity.model?.meshInstances.length > 0){
-            console.log("Llego a la linea 115");
+            //console.log("Llego a la linea 115");
             for(let i=0; i < result.entity.model.meshInstances.length ; i++ ){
                 const ray = this.createRay(pos);  
                 let intersectResult = new pc.Vec3();   

@@ -65,7 +65,9 @@ export class Objects {
 			asset: asset.resource.model,
 			castShadows: true
 		});
-		entity.setLocalPosition(10,0.5,10);
+		entity.setLocalPosition(6,4.5,-18);
+		const pca = pc as any;
+		entity.rotate(new pc.Vec3(0, 90, 0), 5.0, pca.Linear)
 		return entity;
 	}
 
@@ -73,16 +75,16 @@ export class Objects {
 	addPlayCanvasCasa(appAux:pc.Application){
 		var asset:pc.Asset = appAux.assets.find("casa");
 		const entity = new pc.Entity("playCanvasCube");
-		// entity.addComponent("model", {
-		// 	type: "asset",
-		// 	asset: asset.resource.model,
-		// 	castShadows: true
-		// });
-		entity.addComponent("render", {
+		entity.addComponent("model", {
 			type: "asset",
 			asset: asset.resource.model,
 			castShadows: true
 		});
+		// entity.addComponent("render", {
+		// 	type: "asset",
+		// 	asset: asset.resource.model,
+		// 	castShadows: true
+		// });
 		entity.setLocalPosition(0,0,0);
 
 		// Tejados
@@ -104,7 +106,10 @@ export class Objects {
             console.log("Entidad casa: " + entity.children);
             //var tejados = new Array<pc.MeshInstance>(), luces = new Array<pc.MeshInstance>(), ventanas = new Array<pc.MeshInstance>();
             entity.model.meshInstances.forEach( element => {
-                this.createPhysicalShape("box", element.node.getPosition().x, element.node.getPosition().y, element.node.getPosition().z, appAux, element.node.name);
+				// las 2 líneas inmediatamente inferiores son la caja generada en aabb
+                let aux = this.createPhysicalShape("box", element.node.getPosition().x, element.node.getPosition().y, element.node.getPosition().z, appAux, element.node.name);
+				(<pc.ModelComponent>aux.model).material = this.createMaterial(pc.Color.WHITE, pc.Color.RED, "RED", true, 0);
+				(<pc.ModelComponent>aux.model).hide()
 				this.interactiveParts.forEach(elementInteractive => {
 					elementInteractive.name.forEach(name => {
 						if (element.node.name.toLowerCase().includes(name)) {

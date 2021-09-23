@@ -134,17 +134,39 @@ export default class MyScene {
             // console.log("Ready XR")
             //this.controlPointer();
             // this._xrHelper.baseExperience.onStateChangedObservable.add((eventData: BABYLON.WebXRState, eventState: BABYLON.EventState)=>{
-            //     console.log("Todas las Camaras: " + this._scene.activeCameras)
+                console.log("Todas las Camaras: " + this._scene.activeCameras)
             //     this._scene.activeCameras = (<BABYLON.Camera[]>this._scene.activeCameras).filter((value: BABYLON.Camera, index: number, array: BABYLON.Camera[]) => {
             //         return value.name!="SecondCamera";
             //     })
             //     console.log("Todas las Camaras 2: " + this._scene.activeCameras)
             //     return eventData;
             // })
-            // this._xrHelper.baseExperience.onInitialXRPoseSetObservable.add((cameraXR: BABYLON.WebXRCamera, eventState: BABYLON.EventState)=>{
-            //     //console.log("Camara XR: " + cameraXR)
-            //     this.addSecondSight(this._scene)
-            // })
+            this._xrHelper.baseExperience.onInitialXRPoseSetObservable.add((cameraXR: BABYLON.WebXRCamera, eventState: BABYLON.EventState)=>{
+                // console.log("Camara XR: " + cameraXR)
+                // this.addSecondSight(this._scene)
+                // let cube = this._scene.getMeshesByTags("cube")[0];
+                // let paneles = this._scene.getMeshesByTags("panel");
+                // paneles.forEach((element) => {
+                //     element.parent = cameraXR;
+                // })
+                // cube.parent = cameraXR;
+                let botones = this._scene.getMeshesByTags("botones3D");
+                console.log("Entro" + botones)
+                botones.forEach((element) => {
+                    console.log("linkear: " + element)
+                    element.parent = cameraXR;
+                })
+            })
+            this._xrHelper.baseExperience.onStateChangedObservable.add((eventData: BABYLON.WebXRState, eventState: BABYLON.EventState) => {
+                if (eventData===BABYLON.WebXRState.EXITING_XR) {
+                    let botones = this._scene.getMeshesByTags("botones3D");
+                    console.log("Entro" + botones)
+                    botones.forEach((element) => {
+                        console.log("linkear: " + element)
+                        element.parent = this._camera;
+                    })
+                }
+            })
             this._xrHelper.input.onControllerAddedObservable.add((controller) => {
                 // future safe
                 controller.onMotionControllerInitObservable.addOnce((motionController) => {
@@ -559,7 +581,7 @@ export default class MyScene {
         
         plano = BABYLON.Mesh.CreatePlane("plane", 5, scene);
         plano.position = new BABYLON.Vector3(2,0,0)
-        plano.addRotation(0,0,2)
+        //plano.addRotation(0,0,2)
         plano.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
 		var aux = new BABYLON.StandardMaterial("aux",scene);
 		aux.emissiveColor = new BABYLON.Color3(1,1,1);
@@ -631,10 +653,10 @@ export default class MyScene {
 
 		//(<BABYLON.Mesh>secondSight).freezeWorldMatrix();
 		
-		var mat = new BABYLON.StandardMaterial("emissive mat",scene);
-		mat.checkReadyOnlyOnce = true;
-		mat.emissiveColor = new BABYLON.Color3(1,1,1);
+		// var mat = new BABYLON.StandardMaterial("emissive mat",scene);
+		// mat.checkReadyOnlyOnce = true;
+		// mat.emissiveColor = new BABYLON.Color3(1,1,1);
 		
-		(<BABYLON.Mesh>secondSight).material = mat;
+		// (<BABYLON.Mesh>secondSight).material = mat;
 	}
 }

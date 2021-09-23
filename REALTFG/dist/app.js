@@ -484,8 +484,15 @@ var Entities = /** @class */ (function () {
         this._picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"];
         this._scene = scene;
         this._gl = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["GlowLayer"]("glow", scene);
-        this.createPanel();
+        // this._cube = BABYLON.Mesh.CreateBox("caja", 1, scene);
+        // this._cube.position.y -= 2;
+        // this._cube.position.z += 5;
+        //BABYLON.Tags.AddTagsTo(this._cube, "cube")
+        this.createPanel3D();
     }
+    // public getCube():BABYLON.Mesh {
+    //     return this._cube;
+    // }
     Entities.prototype.listenToEvents = function () {
         this.addClickSelectObject();
     };
@@ -500,7 +507,8 @@ var Entities = /** @class */ (function () {
                 _this.addTextOver(mesh);
                 var parent_1 = _this.getParent(mesh); //Obtenemos el mesh root
                 //this.createPicker(parent);
-                _this.movementButtons(parent_1, evt);
+                //this.movementButtons(parent, evt);
+                _this.movementButtons3D(parent_1, evt);
                 //     if(evt.event['pointerId'] === 1 && evt.event.button === 0
                 //     || evt.event['pointerId'] === 201 // 201 -> Oculus Quest 2 (Mando 1)
                 //     || evt.event['pointerId'] === 200) // 200 -> Oculus Quest 2 (Mando 1)
@@ -524,7 +532,7 @@ var Entities = /** @class */ (function () {
                 //     this.animar(parent)
                 var parent_2 = _this.getParent(mesh); //Obtenemos el mesh root
                 //this.createPicker(parent);
-                _this.movementButtons(parent_2, evt);
+                //this.movementButtons(parent, evt);
                 if (parent_2 != null)
                     _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(5, _this._scene, false, parent_2);
                 _this._oldMesh = mesh;
@@ -608,20 +616,77 @@ var Entities = /** @class */ (function () {
             // }
         }
     };
+    Entities.prototype.createPanel3D = function () {
+        // GUI
+        // Create the 3D UI manager
+        var manager = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["GUI3DManager"](this._scene);
+        // Create a horizontal stack panel
+        // var panel = new GUI.StackPanel3D();
+        // panel.margin = 0.02;
+        // manager.addControl(panel);
+        // panel.position.z = -1.5;
+        // Let's add some buttons!
+        // var addButton = function() {
+        //     var button = new GUI.Button3D("orientation");
+        //     panel.addControl(button);
+        //     button.onPointerUpObservable.add(function(){
+        //         panel.isVertical = !panel.isVertical;
+        //     });   
+        //     var text1 = new GUI.TextBlock();
+        //     text1.text = "change orientation";
+        //     text1.color = "white";
+        //     text1.fontSize = 24;
+        //     button.content = text1;  
+        // }
+        // addButton();    
+        // addButton();
+        // addButton();
+        //HACER EL 3D
+        var panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel3D"]();
+        panel1.isVertical = true; //(3,1.5,0)
+        panel1.position.x = 1;
+        manager.addControl(panel1);
+        var plano = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane0", 1, this._scene);
+        plano.position.z = 1.5;
+        plano.position.x = 2.5;
+        var button = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano, "descripcion");
+        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano, "botones3D");
+        console.log("tras anadir tag");
+        console.log(this._scene.getMeshesByTags("botones3D"));
+        //console.log(this._scene)
+        var textBlock = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
+        textBlock.textWrapping = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextWrapping"].WordWrap;
+        textBlock.paddingTop = "10px";
+        textBlock.paddingLeft = "10px";
+        textBlock.paddingRight = "10px";
+        textBlock.paddingBottom = "10px";
+        textBlock.resizeToFit = true;
+        //textBlock.lineSpacing = "5px";
+        textBlock.fontSize = "16px";
+        textBlock.color = "white";
+        textBlock.text = "Descripcion";
+        button.content = textBlock;
+        this._textBlock = (textBlock);
+        panel1.addControl(button);
+        var panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel3D"]();
+        panel2.isVertical = true;
+        manager.addControl(panel2);
+        this.createKeys3D(panel2, true);
+    };
     Entities.prototype.createPanel = function () {
         // GUI
         var advancedTexture = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["AdvancedDynamicTexture"].CreateFullscreenUI("UI");
         var panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"]();
         panel1.width = "400px";
         panel1.isVertical = true;
-        panel1.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_RIGHT;
+        panel1.horizontalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].HORIZONTAL_ALIGNMENT_CENTER;
         panel1.verticalAlignment = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Control"].VERTICAL_ALIGNMENT_CENTER;
         advancedTexture.addControl(panel1);
         var sv = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ScrollViewer"]();
         sv.background = "grey";
         sv.width = "400px";
         sv.height = "400px";
-        sv.paddingRight = "30%";
+        //sv.paddingRight = "50%"
         panel1.addControl(sv);
         var textBlock = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
         textBlock.textWrapping = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextWrapping"].WordWrap;
@@ -646,6 +711,8 @@ var Entities = /** @class */ (function () {
         this._panel1 = (panel1);
         this._panel2 = (panel2);
         this.createKeys(this._panel2, true);
+        // BABYLON.Tags.AddTagsTo(panel1, "panel")
+        // BABYLON.Tags.AddTagsTo(panel2, "panel")
     };
     Entities.prototype.createKeys = function (panel, esEntities) {
         // GUI
@@ -688,6 +755,55 @@ var Entities = /** @class */ (function () {
         panel.addControl(buttonAnimarUnir);
         panel.addControl(buttonAnimarDesmembrar);
     };
+    Entities.prototype.createKeys3D = function (panel, esEntities) {
+        // GUI
+        var plano1 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane1", 1, this._scene);
+        plano1.position.z = 1.5;
+        plano1.position.x = 3.5;
+        var buttonAnimar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano1, "animar");
+        var textoAnimar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("animar", "Animar");
+        textoAnimar.color = "blue";
+        buttonAnimar.content = textoAnimar;
+        // buttonAnimar.background = "white";
+        var plano2 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane2", 1, this._scene);
+        plano2.position.z = 1.5;
+        plano2.position.x = 3.5;
+        var buttonAnimarOff = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano2, "inanimar");
+        var textoAnimarOff = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("inanimar", "No animar");
+        textoAnimarOff.color = "blue";
+        buttonAnimar.content = textoAnimarOff;
+        // buttonAnimarOff.background = "white";
+        var plano3 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane3", 1, this._scene);
+        plano3.position.z = 1.5;
+        plano3.position.x = 3.5;
+        var buttonAnimarUnir = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano3, "unir");
+        var textoAnimarUnir = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("unir", "Ensamblar");
+        textoAnimarUnir.color = "blue";
+        buttonAnimarUnir.content = textoAnimarUnir;
+        // buttonAnimarUnir.background = "white";
+        var plano4 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane4", 1, this._scene);
+        plano4.position.z = 1.5;
+        plano4.position.x = 3.5;
+        var buttonAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano4, "desmembrar");
+        var textoAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("desmembrar", "Desensamblar");
+        textoAnimarDesmembrar.color = "blue";
+        buttonAnimarDesmembrar.content = textoAnimarDesmembrar;
+        // buttonAnimarDesmembrar.background = "white";
+        if (esEntities) {
+            this._buttonAnimar3D = buttonAnimar;
+            this._buttonAnimarOff3D = buttonAnimarOff;
+            this._buttonAnimarUnir3D = buttonAnimarUnir;
+            this._buttonAnimarDesmembrar3D = buttonAnimarDesmembrar;
+        }
+        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano1, "botones3D");
+        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano2, "botones3D");
+        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano3, "botones3D");
+        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano4, "botones3D");
+        panel.addControl(buttonAnimar);
+        panel.addControl(buttonAnimarOff);
+        panel.addControl(buttonAnimarUnir);
+        panel.addControl(buttonAnimarDesmembrar);
+    };
     Entities.prototype.movementButtons = function (mesh, pointerInfo) {
         var escena = this._scene;
         this._buttonAnimar.onPointerDownObservable.clear();
@@ -710,6 +826,32 @@ var Entities = /** @class */ (function () {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
             _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(3, escena);
         });
+    };
+    Entities.prototype.movementButtons3D = function (mesh, pointerInfo) {
+        var escena = this._scene;
+        this._buttonAnimar3D.onPointerDownObservable.clear();
+        this._buttonAnimar3D.onPointerDownObservable.add(function (eventData, eventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(1, escena);
+        });
+        this._buttonAnimarOff3D.onPointerDownObservable.clear();
+        this._buttonAnimarOff3D.onPointerDownObservable.add(function (eventData, eventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(2, escena);
+        });
+        this._buttonAnimarUnir3D.onPointerDownObservable.clear();
+        this._buttonAnimarUnir3D.onPointerDownObservable.add(function (eventData, eventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(4, escena);
+        });
+        this._buttonAnimarDesmembrar3D.onPointerDownObservable.clear();
+        this._buttonAnimarDesmembrar3D.onPointerDownObservable.add(function (eventData, eventState) {
+            // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
+            _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(3, escena);
+        });
+    };
+    Entities.prototype.getButtons3D = function () {
+        return [this._buttonAnimar3D, this._buttonAnimarOff3D, this._buttonAnimarUnir3D, this._buttonAnimarDesmembrar3D];
     };
     return Entities;
 }());
@@ -886,9 +1028,9 @@ var AssetsLoader = /** @class */ (function () {
             // { id:"cube", type:"mesh", url:"./assets/objects/", file:"cube.glb", tag:"init"},
             // { id:"coche", type:"mesh", url:"./assets/objects/", file:"uploads_files_2792345_Koenigsegg.glb", tag:"init"},
             //{ id:"modelo", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"init"},
-            { id: "catapulta", type: "mesh", url: "./assets/objects/", file: "catapultaDaVinci.glb", tag: "init" },
-            { id: "draga", type: "mesh", url: "./assets/objects/", file: "dragaDaVinci.glb", tag: "init" },
-            { id: "ballesta", type: "mesh", url: "./assets/objects/", file: "ballestaDaVinci.glb", tag: "init" },
+            // { id:"catapulta", type:"mesh", url:"./assets/objects/", file:"catapultaDaVinci.glb", tag:"init"},
+            // { id:"draga", type:"mesh", url:"./assets/objects/", file:"dragaDaVinci.glb", tag:"init"},
+            //{ id:"ballesta", type:"mesh", url:"./assets/objects/", file:"ballestaDaVinci.glb", tag:"init"},
             { id: "cocheDaVinci", type: "mesh", url: "./assets/objects/", file: "CocheDaVinci2.3.glb", tag: "init" },
             { id: "marco", type: "mesh", url: "./assets/objects/", file: "marco2aux.glb", tag: "init" },
         ];
@@ -1132,17 +1274,39 @@ var MyScene = /** @class */ (function () {
                         // console.log("Ready XR")
                         //this.controlPointer();
                         // this._xrHelper.baseExperience.onStateChangedObservable.add((eventData: BABYLON.WebXRState, eventState: BABYLON.EventState)=>{
-                        //     console.log("Todas las Camaras: " + this._scene.activeCameras)
+                        console.log("Todas las Camaras: " + this._scene.activeCameras);
                         //     this._scene.activeCameras = (<BABYLON.Camera[]>this._scene.activeCameras).filter((value: BABYLON.Camera, index: number, array: BABYLON.Camera[]) => {
                         //         return value.name!="SecondCamera";
                         //     })
                         //     console.log("Todas las Camaras 2: " + this._scene.activeCameras)
                         //     return eventData;
                         // })
-                        // this._xrHelper.baseExperience.onInitialXRPoseSetObservable.add((cameraXR: BABYLON.WebXRCamera, eventState: BABYLON.EventState)=>{
-                        //     //console.log("Camara XR: " + cameraXR)
-                        //     this.addSecondSight(this._scene)
-                        // })
+                        this._xrHelper.baseExperience.onInitialXRPoseSetObservable.add(function (cameraXR, eventState) {
+                            // console.log("Camara XR: " + cameraXR)
+                            // this.addSecondSight(this._scene)
+                            // let cube = this._scene.getMeshesByTags("cube")[0];
+                            // let paneles = this._scene.getMeshesByTags("panel");
+                            // paneles.forEach((element) => {
+                            //     element.parent = cameraXR;
+                            // })
+                            // cube.parent = cameraXR;
+                            var botones = _this._scene.getMeshesByTags("botones3D");
+                            console.log("Entro" + botones);
+                            botones.forEach(function (element) {
+                                console.log("linkear: " + element);
+                                element.parent = cameraXR;
+                            });
+                        });
+                        this._xrHelper.baseExperience.onStateChangedObservable.add(function (eventData, eventState) {
+                            if (eventData === babylonjs__WEBPACK_IMPORTED_MODULE_1__["WebXRState"].EXITING_XR) {
+                                var botones = _this._scene.getMeshesByTags("botones3D");
+                                console.log("Entro" + botones);
+                                botones.forEach(function (element) {
+                                    console.log("linkear: " + element);
+                                    element.parent = _this._camera;
+                                });
+                            }
+                        });
                         this._xrHelper.input.onControllerAddedObservable.add(function (controller) {
                             // future safe
                             controller.onMotionControllerInitObservable.addOnce(function (motionController) {
@@ -1533,7 +1697,7 @@ var MyScene = /** @class */ (function () {
         var plano;
         plano = babylonjs__WEBPACK_IMPORTED_MODULE_1__["Mesh"].CreatePlane("plane", 5, scene);
         plano.position = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](2, 0, 0);
-        plano.addRotation(0, 0, 2);
+        //plano.addRotation(0,0,2)
         plano.billboardMode = babylonjs__WEBPACK_IMPORTED_MODULE_1__["Mesh"].BILLBOARDMODE_ALL;
         var aux = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["StandardMaterial"]("aux", scene);
         aux.emissiveColor = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
@@ -1582,10 +1746,10 @@ var MyScene = /** @class */ (function () {
             plano.rotate(babylonjs__WEBPACK_IMPORTED_MODULE_1__["Axis"].Y, -0.03, babylonjs__WEBPACK_IMPORTED_MODULE_1__["Space"].LOCAL);
         });
         //(<BABYLON.Mesh>secondSight).freezeWorldMatrix();
-        var mat = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["StandardMaterial"]("emissive mat", scene);
-        mat.checkReadyOnlyOnce = true;
-        mat.emissiveColor = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Color3"](1, 1, 1);
-        secondSight.material = mat;
+        // var mat = new BABYLON.StandardMaterial("emissive mat",scene);
+        // mat.checkReadyOnlyOnce = true;
+        // mat.emissiveColor = new BABYLON.Color3(1,1,1);
+        // (<BABYLON.Mesh>secondSight).material = mat;
     };
     return MyScene;
 }());
