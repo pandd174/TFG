@@ -473,22 +473,21 @@ var _descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__
 
 
 var Entities = /** @class */ (function () {
-    function Entities(scene) {
+    function Entities(scene, camera, xrHelper) {
         this._button = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
         this._buttonAnimar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
         this._buttonAnimarOff = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
         this._buttonAnimarUnir = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
         this._buttonAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Button"];
+        this._button3D = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"];
         this._panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"];
         this._panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel"];
         this._picker = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["ColorPicker"];
         this._scene = scene;
         this._gl = new babylonjs__WEBPACK_IMPORTED_MODULE_0__["GlowLayer"]("glow", scene);
-        // this._cube = BABYLON.Mesh.CreateBox("caja", 1, scene);
-        // this._cube.position.y -= 2;
-        // this._cube.position.z += 5;
-        //BABYLON.Tags.AddTagsTo(this._cube, "cube")
-        this.createPanel3D();
+        this._camera = camera;
+        //this.createPanel3D();
+        this.create3DButtonsGUI(xrHelper);
     }
     // public getCube():BABYLON.Mesh {
     //     return this._cube;
@@ -595,7 +594,7 @@ var Entities = /** @class */ (function () {
             if (_descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_3.name == obj[index][0]; })) {
                 descripcion = _descripcionPiezas_json__WEBPACK_IMPORTED_MODULE_3__.find(function (value, index, obj) { return parent_3.name == obj[index][0]; })[1];
             }
-            this._button.textBlock.text = parent_3.name;
+            this._button.textBlock.text = mesh.name;
             this._textBlock.text = descripcion;
             var position = parent_3.getAbsolutePosition();
             this._plane.position.x = position.x;
@@ -616,62 +615,130 @@ var Entities = /** @class */ (function () {
             // }
         }
     };
-    Entities.prototype.createPanel3D = function () {
-        // GUI
-        // Create the 3D UI manager
+    //scene lo de aqui abajoD
+    Entities.prototype.create3DButtonsGUI = function (xrHelper) {
+        var _this = this;
+        console.log("create3DButtonsGUI");
+        //3D GUI
         var manager = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["GUI3DManager"](this._scene);
-        // Create a horizontal stack panel
-        // var panel = new GUI.StackPanel3D();
-        // panel.margin = 0.02;
-        // manager.addControl(panel);
-        // panel.position.z = -1.5;
-        // Let's add some buttons!
-        // var addButton = function() {
-        //     var button = new GUI.Button3D("orientation");
-        //     panel.addControl(button);
-        //     button.onPointerUpObservable.add(function(){
-        //         panel.isVertical = !panel.isVertical;
-        //     });   
-        //     var text1 = new GUI.TextBlock();
-        //     text1.text = "change orientation";
-        //     text1.color = "white";
-        //     text1.fontSize = 24;
-        //     button.content = text1;  
-        // }
-        // addButton();    
-        // addButton();
-        // addButton();
-        //HACER EL 3D
-        var panel1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel3D"]();
-        panel1.isVertical = true; //(3,1.5,0)
-        panel1.position.x = 1;
-        manager.addControl(panel1);
-        var plano = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane0", 1, this._scene);
-        plano.position.z = 1.5;
-        plano.position.x = 2.5;
-        var button = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano, "descripcion");
-        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano, "botones3D");
-        console.log("tras anadir tag");
-        console.log(this._scene.getMeshesByTags("botones3D"));
+        this._manager = manager;
+        var panelTexto = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["CylinderPanel"]();
+        panelTexto.margin = 0.1;
+        panelTexto.radius = 23;
+        panelTexto.rows = 1;
+        manager.addControl(panelTexto);
+        var button1 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"]("texto");
+        panelTexto.addControl(button1);
+        button1.isVisible = true;
         //console.log(this._scene)
+        var sv = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["Container"]();
+        //sv.background = "grey";
+        sv.width = "260px";
+        sv.height = "250px";
+        //sv.paddingRight = "50%"
         var textBlock = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]();
         textBlock.textWrapping = babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextWrapping"].WordWrap;
+        // textBlock.widthInPixels = 250;
+        // textBlock.heightInPixels = 250;
         textBlock.paddingTop = "10px";
         textBlock.paddingLeft = "10px";
         textBlock.paddingRight = "10px";
         textBlock.paddingBottom = "10px";
         textBlock.resizeToFit = true;
         //textBlock.lineSpacing = "5px";
-        textBlock.fontSize = "16px";
+        textBlock.fontSize = "12px";
         textBlock.color = "white";
         textBlock.text = "Descripcion";
-        button.content = textBlock;
         this._textBlock = (textBlock);
-        panel1.addControl(button);
-        var panel2 = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["StackPanel3D"]();
-        panel2.isVertical = true;
-        manager.addControl(panel2);
-        this.createKeys3D(panel2, true);
+        sv.addControl(this._textBlock);
+        button1.content = sv;
+        this._button3D = button1;
+        panelTexto.addControl(button1);
+        panelTexto.position.x = 0.9;
+        panelTexto.position.z = -21;
+        var panel = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["CylinderPanel"]();
+        panel.margin = 0.1;
+        panel.radius = 23;
+        //panel.columns = 5;
+        panel.rows = 5;
+        //let scale = 0.3;
+        manager.addControl(panel);
+        /*
+        var button1 = new GUI.HolographicButton("orientation1");
+        panel.addControl(button1);
+        button1.text = "A";
+        button1.isVisible = true;
+        */
+        this.createKeys3DGUI(panel);
+        console.log("activeCamera: " + this._scene.activeCamera);
+        panelTexto.linkToTransformNode(this._scene.activeCamera);
+        panel.linkToTransformNode(this._scene.activeCamera);
+        if (xrHelper != null) {
+            console.log("---> xrHELPER != null");
+            xrHelper.baseExperience.sessionManager.onXRSessionInit.add(function () {
+                console.log("INIT SESSION webXR");
+                panelTexto.linkToTransformNode(xrHelper.baseExperience.camera);
+                panel.linkToTransformNode(xrHelper.baseExperience.camera);
+            });
+            xrHelper.baseExperience.sessionManager.onXRSessionEnded.add(function () {
+                console.log("END SESSION webXR");
+                panelTexto.linkToTransformNode(_this._camera);
+                panel.linkToTransformNode(_this._camera);
+            });
+        }
+        else {
+            console.log("SIN xrHelper!!");
+        }
+    };
+    Entities.prototype.createKeys3DGUI = function (panel) {
+        // GUI
+        var scale = 0.3;
+        var buttonAnimar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"]("animar");
+        // var textoAnimar = new GUI.TextBlock("animar", "Animar")
+        // textoAnimar.color = "blue";
+        // buttonAnimar.content = textoAnimar;
+        // buttonAnimar.background = "white";
+        buttonAnimar.text = "Animar";
+        buttonAnimar.isVisible = true;
+        var buttonAnimarOff = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"]("inanimar");
+        // var textoAnimarOff = new GUI.TextBlock("inanimar", "No animar")
+        // textoAnimarOff.color = "blue";
+        // buttonAnimar.content = textoAnimarOff;
+        // buttonAnimarOff.background = "white";
+        buttonAnimarOff.text = "No animar";
+        buttonAnimarOff.isVisible = true;
+        var buttonAnimarUnir = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"]("unir");
+        // var textoAnimarUnir = new GUI.TextBlock("unir","Ensamblar")
+        // textoAnimarUnir.color = "blue";
+        // buttonAnimarUnir.content = textoAnimarUnir;
+        // buttonAnimarUnir.background = "white";
+        buttonAnimarUnir.text = "Ensamblar";
+        buttonAnimarUnir.isVisible = true;
+        var buttonAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"]("desmembrar");
+        // var textoAnimarDesmembrar = new GUI.TextBlock("desmembrar", "Desensamblar")
+        // textoAnimarDesmembrar.color = "blue";
+        // buttonAnimarDesmembrar.content = textoAnimarDesmembrar;
+        // buttonAnimarDesmembrar.background = "white";
+        buttonAnimarDesmembrar.text = "Desensamblar";
+        buttonAnimarDesmembrar.isVisible = true;
+        var buttonHide = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["HolographicButton"]("hide");
+        buttonHide.text = "Ocultar";
+        buttonHide.isVisible = true;
+        this._buttonAnimar3D = buttonAnimar;
+        this._buttonAnimarOff3D = buttonAnimarOff;
+        this._buttonAnimarUnir3D = buttonAnimarUnir;
+        this._buttonAnimarDesmembrar3D = buttonAnimarDesmembrar;
+        this._buttonHide = buttonHide;
+        panel.addControl(buttonAnimar);
+        panel.addControl(buttonAnimarOff);
+        panel.addControl(buttonAnimarUnir);
+        panel.addControl(buttonAnimarDesmembrar);
+        panel.addControl(buttonHide);
+        panel.scaling.x = scale;
+        panel.scaling.y = scale;
+        //panel.position.y = 1;
+        panel.position.x = -0.9;
+        panel.position.z = -21;
     };
     Entities.prototype.createPanel = function () {
         // GUI
@@ -755,55 +822,6 @@ var Entities = /** @class */ (function () {
         panel.addControl(buttonAnimarUnir);
         panel.addControl(buttonAnimarDesmembrar);
     };
-    Entities.prototype.createKeys3D = function (panel, esEntities) {
-        // GUI
-        var plano1 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane1", 1, this._scene);
-        plano1.position.z = 1.5;
-        plano1.position.x = 3.5;
-        var buttonAnimar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano1, "animar");
-        var textoAnimar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("animar", "Animar");
-        textoAnimar.color = "blue";
-        buttonAnimar.content = textoAnimar;
-        // buttonAnimar.background = "white";
-        var plano2 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane2", 1, this._scene);
-        plano2.position.z = 1.5;
-        plano2.position.x = 3.5;
-        var buttonAnimarOff = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano2, "inanimar");
-        var textoAnimarOff = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("inanimar", "No animar");
-        textoAnimarOff.color = "blue";
-        buttonAnimar.content = textoAnimarOff;
-        // buttonAnimarOff.background = "white";
-        var plano3 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane3", 1, this._scene);
-        plano3.position.z = 1.5;
-        plano3.position.x = 3.5;
-        var buttonAnimarUnir = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano3, "unir");
-        var textoAnimarUnir = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("unir", "Ensamblar");
-        textoAnimarUnir.color = "blue";
-        buttonAnimarUnir.content = textoAnimarUnir;
-        // buttonAnimarUnir.background = "white";
-        var plano4 = babylonjs__WEBPACK_IMPORTED_MODULE_0__["Mesh"].CreatePlane("plane4", 1, this._scene);
-        plano4.position.z = 1.5;
-        plano4.position.x = 3.5;
-        var buttonAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["MeshButton3D"](plano4, "desmembrar");
-        var textoAnimarDesmembrar = new babylonjs_gui__WEBPACK_IMPORTED_MODULE_1__["TextBlock"]("desmembrar", "Desensamblar");
-        textoAnimarDesmembrar.color = "blue";
-        buttonAnimarDesmembrar.content = textoAnimarDesmembrar;
-        // buttonAnimarDesmembrar.background = "white";
-        if (esEntities) {
-            this._buttonAnimar3D = buttonAnimar;
-            this._buttonAnimarOff3D = buttonAnimarOff;
-            this._buttonAnimarUnir3D = buttonAnimarUnir;
-            this._buttonAnimarDesmembrar3D = buttonAnimarDesmembrar;
-        }
-        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano1, "botones3D");
-        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano2, "botones3D");
-        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano3, "botones3D");
-        babylonjs__WEBPACK_IMPORTED_MODULE_0__["Tags"].AddTagsTo(plano4, "botones3D");
-        panel.addControl(buttonAnimar);
-        panel.addControl(buttonAnimarOff);
-        panel.addControl(buttonAnimarUnir);
-        panel.addControl(buttonAnimarDesmembrar);
-    };
     Entities.prototype.movementButtons = function (mesh, pointerInfo) {
         var escena = this._scene;
         this._buttonAnimar.onPointerDownObservable.clear();
@@ -829,6 +847,7 @@ var Entities = /** @class */ (function () {
     };
     Entities.prototype.movementButtons3D = function (mesh, pointerInfo) {
         var escena = this._scene;
+        var auxThis = this;
         this._buttonAnimar3D.onPointerDownObservable.clear();
         this._buttonAnimar3D.onPointerDownObservable.add(function (eventData, eventState) {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
@@ -848,6 +867,18 @@ var Entities = /** @class */ (function () {
         this._buttonAnimarDesmembrar3D.onPointerDownObservable.add(function (eventData, eventState) {
             // while (pointerInfo.type!=BABYLON.PointerEventTypes.POINTERUP)
             _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.animations(3, escena);
+        });
+        this._buttonHide.onPointerDownObservable.clear();
+        this._buttonHide.onPointerDownObservable.add(function (eventData, eventState) {
+            auxThis._buttonAnimar3D.isVisible = !auxThis._buttonAnimar3D.isVisible;
+            auxThis._buttonAnimarOff3D.isVisible = !auxThis._buttonAnimarOff3D.isVisible;
+            auxThis._buttonAnimarUnir3D.isVisible = !auxThis._buttonAnimarUnir3D.isVisible;
+            auxThis._buttonAnimarDesmembrar3D.isVisible = !auxThis._buttonAnimarDesmembrar3D.isVisible;
+            auxThis._button3D.isVisible = !auxThis._button3D.isVisible;
+            if (auxThis._buttonHide.text == "Ocultar")
+                auxThis._buttonHide.text = "Aparecer";
+            else
+                auxThis._buttonHide.text = "Ocultar";
         });
     };
     Entities.prototype.getButtons3D = function () {
@@ -982,15 +1013,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', function () { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var myscene, entities;
+    var myscene, aux, entities;
     return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0:
                 myscene = new _my_scene__WEBPACK_IMPORTED_MODULE_2__["default"]('renderCanvas');
                 return [4 /*yield*/, myscene.createScene()];
             case 1:
-                _a.sent();
-                entities = new _Entities__WEBPACK_IMPORTED_MODULE_1__["default"](myscene.scene);
+                aux = _a.sent();
+                entities = new _Entities__WEBPACK_IMPORTED_MODULE_1__["default"](myscene.scene, aux[0], aux[1]);
                 entities.listenToEvents();
                 // Start render loop.
                 myscene.doRender();
@@ -1191,42 +1222,15 @@ var MyScene = /** @class */ (function () {
         //this.createLight();
         this._assetsLoader = new _assets_loader__WEBPACK_IMPORTED_MODULE_5__["default"](this._scene);
         this._assetsLoader.loadAssets(function () { return _this.createElements(); });
-        //console.log("Has pasao")
-        if (this._vrEnable) {
-            //this.addXRSupport();
-            //this._xrHelper =  this._scene.createDefaultVRExperience({});
-            //this._xrHelper.enableTeleportation({floorMeshes: [this._ground]});
-            // var leftHand = BABYLON.Mesh.CreateBox("",0.1, this._scene)
-            // leftHand.scaling.z = 2;
-            // var rightHand = leftHand.clone()
-            // var head = BABYLON.Mesh.CreateBox("",0.2, this._scene) 
-            // this._scene.onBeforeRenderObservable.add(()=>{
-            //     // Left and right hand position/rotation
-            //     if(this._xrHelper.input){
-            //         leftHand.position = this._xrHelper.webVRCamera.leftController.devicePosition.clone()
-            //         leftHand.rotationQuaternion = this._xrHelper.webVRCamera.leftController.deviceRotationQuaternion.clone()
-            //     }
-            //     if(this._xrHelper.input){
-            //         rightHand.position = this._xrHelper.webVRCamera.rightController.devicePosition.clone()
-            //         rightHand.rotationQuaternion = this._xrHelper.webVRCamera.rightController.deviceRotationQuaternion.clone()
-            //     }
-            // if(this._scene.activeCamera === vrHelper.vrDeviceOrientationCamera){
-            //     BABYLON.FreeCameraDeviceOrientationInput.WaitForOrientationChangeAsync(1000).then(()=>{
-            //         // Successfully received sensor input
-            //     }).catch(()=>{
-            //         alert("Device orientation camera is being used but no sensor is found, prompt user to enable in safari settings");
-            //     })
-            // }
-            // // Head position/rotation
-            // head.position = vrHelper.webVRCamera.devicePosition.clone()
-            // head.rotationQuaternion = vrHelper.webVRCamera.deviceRotationQuaternion.clone()
-            // head.position.z = 2;
-            //})
-        }
+        return [this._camera, this._xrHelper];
     };
     MyScene.prototype.createElements = function () {
         console.log("createElements");
         this.createGround();
+        if (this._vrEnable) {
+            console.log("vrENABLED");
+            /*await*/ this.addXRSupport();
+        }
         this.createLightBalanceo();
         // this.createAndPositionWTurbines();
         // this.animateWTurbines();
@@ -1250,8 +1254,6 @@ var MyScene = /** @class */ (function () {
         this.animations(1, this._scene, false);
         //this.createCamera2();
         //this.createBasicLight();
-        if (this._vrEnable)
-            this.addXRSupport();
     };
     MyScene.prototype.addXRSupport = function () {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
@@ -1372,39 +1374,28 @@ var MyScene = /** @class */ (function () {
         // inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
         // inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
         // this._camera.attachControl(this._canvas, false);
-        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCamera"]('Camera', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](3, 1.5, 0), this._scene);
+        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["UniversalCamera"]('Camera', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](3, 1.5, 0), this._scene);
         var inputManager = this._camera.inputs;
-        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCameraMouseInput"]());
-        //inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
-        var walkableCamera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FreeCameraKeyboardMoveInput"]();
-        walkableCamera.keysDownward = [];
-        walkableCamera.keysUpward = [];
-        inputManager.add(walkableCamera);
-        this._camera.attachControl();
+        inputManager.addMouse();
+        inputManager.addKeyboard();
+        // var walkableCamera = new BABYLON.FreeCameraKeyboardMoveInput();
+        // walkableCamera.keysDownward = [];
+        // walkableCamera.keysUpward = [];
+        // inputManager.add(walkableCamera)
+        this._camera.attachControl(this._canvas, true);
         this._camera.speed = 0.2;
         //this.addSecondSight(this._scene)
         //(<BABYLON.FreeCamera>this._camera).checkCollisions = true;
     };
-    MyScene.prototype.createCamera3 = function () {
-        var box = babylonjs__WEBPACK_IMPORTED_MODULE_1__["MeshBuilder"].CreateBox("box", { size: 1 }, this._scene);
-        // Parameters : name, position, scene
-        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FollowCamera"]("FollowCamera", new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 1, 2), this._scene);
-        var inputManager = this._camera.inputs;
-        inputManager.add(new babylonjs__WEBPACK_IMPORTED_MODULE_1__["FollowCameraPointersInput"]());
-        this._camera.target = box.position;
-        this._camera.radius = 10;
-        this._camera.heightOffset = 0;
-        this._camera.attachControl(this._canvas, true);
-    };
-    MyScene.prototype.createCameraXR = function () {
-        this._sessionManager.initializeSessionAsync('immersive-vr');
-        var referenceSpace = this._sessionManager.setReferenceSpaceTypeAsync();
-        var renderTarget = this._sessionManager.getWebXRRenderTarget();
-        var xrWebGLLayer = renderTarget.initializeXRLayerAsync(this._sessionManager.session);
-        this._sessionManager.runXRRenderLoop();
-        this._camera = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["WebXRCamera"]('Camera', this._scene, this._sessionManager);
-        this._camera.attachControl();
-    };
+    // createCameraXR():void{
+    //     this._sessionManager.initializeSessionAsync('immersive-vr');
+    //     const referenceSpace = this._sessionManager.setReferenceSpaceTypeAsync();
+    //     const renderTarget = this._sessionManager.getWebXRRenderTarget();
+    //     const xrWebGLLayer = renderTarget.initializeXRLayerAsync(this._sessionManager.session);
+    //     this._sessionManager.runXRRenderLoop();
+    //     this._camera = new BABYLON.WebXRCamera('Camera', this._scene, this._sessionManager);
+    //     this._camera.attachControl();
+    // }
     MyScene.prototype.createLight = function () {
         this._light = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["DirectionalLight"]('light', new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](1, -1, -1), this._scene);
         this._light.position = new babylonjs__WEBPACK_IMPORTED_MODULE_1__["Vector3"](0, 10, 10);

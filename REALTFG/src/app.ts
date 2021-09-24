@@ -1,11 +1,12 @@
 import Entities from './Entities';
 import MyScene from './my-scene'
+import * as BABYLON from 'babylonjs';
 window.addEventListener('DOMContentLoaded', async () => {
 
     let myscene = new MyScene('renderCanvas');
-    await myscene.createScene();
+    let aux = await myscene.createScene();
 
-    let entities = new Entities(myscene.scene);
+    let entities = new Entities(myscene.scene, (<BABYLON.UniversalCamera>aux[0]), (<BABYLON.WebXRDefaultExperience>aux[1]));
     entities.listenToEvents();
     
     // Start render loop.

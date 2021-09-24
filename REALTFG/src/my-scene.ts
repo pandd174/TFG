@@ -16,7 +16,7 @@ export default class MyScene {
     private _engine: BABYLON.Engine;
     private _scene: BABYLON.Scene;
     //private _camera: BABYLON.ArcRotateCamera;
-    private _camera: BABYLON.Camera;
+    private _camera: BABYLON.UniversalCamera;
     private _light: BABYLON.IShadowLight;
     private _lightArray: BABYLON.IShadowLight[] = [];
     private _assetsLoader: AssetsLoader;
@@ -51,45 +51,16 @@ export default class MyScene {
         
         this._assetsLoader = new AssetsLoader(this._scene);
         this._assetsLoader.loadAssets(()=>this.createElements());
-        //console.log("Has pasao")
-
-        if (this._vrEnable) {
-            //this.addXRSupport();
-            //this._xrHelper =  this._scene.createDefaultVRExperience({});
-            //this._xrHelper.enableTeleportation({floorMeshes: [this._ground]});
-            // var leftHand = BABYLON.Mesh.CreateBox("",0.1, this._scene)
-            // leftHand.scaling.z = 2;
-            // var rightHand = leftHand.clone()
-            // var head = BABYLON.Mesh.CreateBox("",0.2, this._scene) 
-            // this._scene.onBeforeRenderObservable.add(()=>{
-            //     // Left and right hand position/rotation
-            //     if(this._xrHelper.input){
-            //         leftHand.position = this._xrHelper.webVRCamera.leftController.devicePosition.clone()
-            //         leftHand.rotationQuaternion = this._xrHelper.webVRCamera.leftController.deviceRotationQuaternion.clone()
-            //     }
-            //     if(this._xrHelper.input){
-            //         rightHand.position = this._xrHelper.webVRCamera.rightController.devicePosition.clone()
-            //         rightHand.rotationQuaternion = this._xrHelper.webVRCamera.rightController.deviceRotationQuaternion.clone()
-            //     }
-                // if(this._scene.activeCamera === vrHelper.vrDeviceOrientationCamera){
-                //     BABYLON.FreeCameraDeviceOrientationInput.WaitForOrientationChangeAsync(1000).then(()=>{
-                //         // Successfully received sensor input
-                //     }).catch(()=>{
-                //         alert("Device orientation camera is being used but no sensor is found, prompt user to enable in safari settings");
-                //     })
-                // }
-        
-                // // Head position/rotation
-                // head.position = vrHelper.webVRCamera.devicePosition.clone()
-                // head.rotationQuaternion = vrHelper.webVRCamera.deviceRotationQuaternion.clone()
-                // head.position.z = 2;
-            //})
-        }
+        return [this._camera, this._xrHelper];
     }
 
     createElements():void{
         console.log("createElements");
         this.createGround();
+        if (this._vrEnable) {
+            console.log("vrENABLED")
+            /*await*/ this.addXRSupport();
+        }
         this.createLightBalanceo()
 
         // this.createAndPositionWTurbines();
@@ -120,8 +91,6 @@ export default class MyScene {
         
         //this.createCamera2();
         //this.createBasicLight();
-        if (this._vrEnable) 
-            this.addXRSupport();
     }
 
     async addXRSupport(): Promise<BABYLON.WebXRDefaultExperience> {
@@ -230,42 +199,29 @@ export default class MyScene {
         // inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
         // inputManager.add(new BABYLON.FreeCameraKeyboardMoveInput())
         // this._camera.attachControl(this._canvas, false);
-        this._camera = new BABYLON.FreeCamera('Camera', new BABYLON.Vector3(3,1.5,0), this._scene);
+        this._camera = new BABYLON.UniversalCamera('Camera', new BABYLON.Vector3(3,1.5,0), this._scene);
         var inputManager = this._camera.inputs;
-        inputManager.add(new BABYLON.FreeCameraMouseInput())
-        //inputManager.add(new BABYLON.FreeCameraMouseWheelInput())
-        var walkableCamera = new BABYLON.FreeCameraKeyboardMoveInput();
-        walkableCamera.keysDownward = [];
-        walkableCamera.keysUpward = [];
-        inputManager.add(walkableCamera)
-        this._camera.attachControl();
+        inputManager.addMouse()
+        inputManager.addKeyboard()
+        // var walkableCamera = new BABYLON.FreeCameraKeyboardMoveInput();
+        // walkableCamera.keysDownward = [];
+        // walkableCamera.keysUpward = [];
+        // inputManager.add(walkableCamera)
+        this._camera.attachControl(this._canvas, true);
         (<BABYLON.FreeCamera>this._camera).speed = 0.2;
         //this.addSecondSight(this._scene)
         //(<BABYLON.FreeCamera>this._camera).checkCollisions = true;
     }
 
-    createCamera3():void{
-        const box = BABYLON.MeshBuilder.CreateBox("box", {size: 1}, this._scene); 
-        // Parameters : name, position, scene
-        this._camera = new BABYLON.FollowCamera("FollowCamera", new BABYLON.Vector3(0, 1, 2), this._scene);
-        var inputManager = this._camera.inputs;
-        inputManager.add(new BABYLON.FollowCameraPointersInput());
-
-        (<BABYLON.FollowCamera>this._camera).target = box.position;
-        (<BABYLON.FollowCamera>this._camera).radius = 10;
-        (<BABYLON.FollowCamera>this._camera).heightOffset = 0;
-        this._camera.attachControl(this._canvas, true);
-    }
-
-    createCameraXR():void{
-        this._sessionManager.initializeSessionAsync('immersive-vr');
-        const referenceSpace = this._sessionManager.setReferenceSpaceTypeAsync();
-        const renderTarget = this._sessionManager.getWebXRRenderTarget();
-        const xrWebGLLayer = renderTarget.initializeXRLayerAsync(this._sessionManager.session);
-        this._sessionManager.runXRRenderLoop();
-        this._camera = new BABYLON.WebXRCamera('Camera', this._scene, this._sessionManager);
-        this._camera.attachControl();
-    }
+    // createCameraXR():void{
+    //     this._sessionManager.initializeSessionAsync('immersive-vr');
+    //     const referenceSpace = this._sessionManager.setReferenceSpaceTypeAsync();
+    //     const renderTarget = this._sessionManager.getWebXRRenderTarget();
+    //     const xrWebGLLayer = renderTarget.initializeXRLayerAsync(this._sessionManager.session);
+    //     this._sessionManager.runXRRenderLoop();
+    //     this._camera = new BABYLON.WebXRCamera('Camera', this._scene, this._sessionManager);
+    //     this._camera.attachControl();
+    // }
 
     createLight():void{
         this._light = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(1,-1,-1), this._scene);
