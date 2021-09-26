@@ -39,28 +39,28 @@ export default class MyScene {
         this._engine = new BABYLON.Engine(this._canvas, true);
     }
 
-    createScene() {
+    async createScene() {
         this._scene = new BABYLON.Scene(this._engine);
         this._sessionManager = new BABYLON.WebXRSessionManager(this._scene);
         // if (this._sessionManager.isSessionSupportedAsync('immersive-vr') && this._vrEnable)
             //this.createCameraXR();
         // else
-            this.createCamera();
+            await this.createCamera();
             //this.createCamera3();
         //this.createLight();
         
         this._assetsLoader = new AssetsLoader(this._scene);
-        this._assetsLoader.loadAssets(()=>this.createElements());
-        return [this._camera, this._xrHelper];
-    }
-
-    createElements():void{
-        console.log("createElements");
         this.createGround();
         if (this._vrEnable) {
             console.log("vrENABLED")
-            /*await*/ this.addXRSupport();
+            await this.addXRSupport();
         }
+        await this._assetsLoader.loadAssets(()=>this.createElements());
+        return [this._camera, this._xrHelper];
+    }
+
+    createElements(){
+        console.log("createElements");
         this.createLightBalanceo()
 
         // this.createAndPositionWTurbines();
@@ -258,21 +258,21 @@ export default class MyScene {
         this._shadowGenerator.bias = 0.00001;
 
 		//Light direction coche 
-        var lightSpot1 = new BABYLON.SpotLight("LightSpot1", new BABYLON.Vector3(5.6, 5, 0), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
+        var lightSpot1 = new BABYLON.SpotLight("LightSpot", new BABYLON.Vector3(5.6, 5, 0), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
         lightSpot1.diffuse = new BABYLON.Color3(1, 1, 1);
         lightSpot1.specular = new BABYLON.Color3(1, 1, 1);
-        var lightSpot4 = new BABYLON.SpotLight("LightSpot4", new BABYLON.Vector3(-1.55, 5, 0), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
-        lightSpot4.diffuse = new BABYLON.Color3(1, 1, 1);
-        lightSpot4.specular = new BABYLON.Color3(1, 1, 1);
-        var lightSpot2 = new BABYLON.SpotLight("LightSpot2", new BABYLON.Vector3(0, 6, 7), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
-        lightSpot2.diffuse = new BABYLON.Color3(1, 1, 1);
-        lightSpot2.specular = new BABYLON.Color3(1, 1, 1);
-        var lightSpot3 = new BABYLON.SpotLight("LightSpot3", new BABYLON.Vector3(0, 6, -7), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
-        lightSpot3.diffuse = new BABYLON.Color3(1, 1, 1);
-        lightSpot3.specular = new BABYLON.Color3(1, 1, 1);
-        var lightSpot4 = new BABYLON.SpotLight("LightSpot4", new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(0, -1, -1), Math.PI / 2, 50, this._scene);
-        lightSpot4.diffuse = new BABYLON.Color3(1, 1, 1);
-        lightSpot4.specular = new BABYLON.Color3(1, 1, 1);
+        // var lightSpot4 = new BABYLON.SpotLight("LightSpot4", new BABYLON.Vector3(-1.55, 5, 0), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
+        // lightSpot4.diffuse = new BABYLON.Color3(1, 1, 1);
+        // lightSpot4.specular = new BABYLON.Color3(1, 1, 1);
+        // var lightSpot2 = new BABYLON.SpotLight("LightSpot2", new BABYLON.Vector3(0, 6, 7), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
+        // lightSpot2.diffuse = new BABYLON.Color3(1, 1, 1);
+        // lightSpot2.specular = new BABYLON.Color3(1, 1, 1);
+        // var lightSpot3 = new BABYLON.SpotLight("LightSpot3", new BABYLON.Vector3(0, 6, -7), new BABYLON.Vector3(0, -1, 0), Math.PI / 2, 50, this._scene);
+        // lightSpot3.diffuse = new BABYLON.Color3(1, 1, 1);
+        // lightSpot3.specular = new BABYLON.Color3(1, 1, 1);
+        // var lightSpot4 = new BABYLON.SpotLight("LightSpot4", new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(0, -1, -1), Math.PI / 2, 50, this._scene);
+        // lightSpot4.diffuse = new BABYLON.Color3(1, 1, 1);
+        // lightSpot4.specular = new BABYLON.Color3(1, 1, 1);
 
         console.log(this._scene.lights)
     

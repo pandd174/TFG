@@ -53,6 +53,7 @@ export class Objects {
 		scene.meshes.forEach( element => {
 			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('cocheDaVinci')) {
 				shadow.addShadowCaster(element);
+				element.position = element.position.add(new BABYLON.Vector3(-1.25, 0, 0));
 			}
 		})
 	}
@@ -71,7 +72,7 @@ export class Objects {
 			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Marco')) {
 				shadow.addShadowCaster(element);
 				//console.log(element.name + ": " + element.position);
-				element.position = element.position.add(new BABYLON.Vector3(14, 0, 0));
+				element.position = element.position.add(new BABYLON.Vector3(-3, 0, 0));
 				//console.log(element.name + ": " + element.position);
 			}
 		})
@@ -81,7 +82,7 @@ export class Objects {
 		scene.meshes.forEach( element => {
 			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Catapulta')) {
 				shadow.addShadowCaster(element);
-				//element.setAbsolutePosition((new BABYLON.Vector3(10, 0, 10).add(element.absolutePosition)))
+				element.position = element.position.add(new BABYLON.Vector3(5.6, 0, 0));
 			}
 		})
 	}
@@ -90,7 +91,7 @@ export class Objects {
 		scene.meshes.forEach( element => {
 			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Draga')) {
 				shadow.addShadowCaster(element);
-				//element.setAbsolutePosition((new BABYLON.Vector3(-10, 0, 10).add(element.absolutePosition)))
+				element.position = element.position.add(new BABYLON.Vector3(0, 0, -7));
 			}
 		})
 	}
@@ -99,7 +100,7 @@ export class Objects {
 		scene.meshes.forEach( element => {
 			if (BABYLON.Tags.HasTags(element) && BABYLON.Tags.GetTags(element, true).includes('Ballesta')) {
 				shadow.addShadowCaster(element);
-				//element.setAbsolutePosition((new BABYLON.Vector3(10, 0, -10)).add(element.absolutePosition))
+				element.position = element.position.add(new BABYLON.Vector3(0, 0, 7));
 			}
 		})
 	}

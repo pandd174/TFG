@@ -52,8 +52,8 @@ export default class Entities {
             if((<BABYLON.PickingInfo>evt.pickInfo).hit && (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh && evt.event.button === 0){
                 let mesh = (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh;
                 //this.addGlown(<BABYLON.AbstractMesh>mesh);
-                this.addTextOver(mesh);
                 const parent = this.getParent(mesh); //Obtenemos el mesh root
+                this.addTextOver(mesh);
                 //this.createPicker(parent);
                 //this.movementButtons(parent, evt);
                 this.movementButtons3D(parent, evt);
@@ -72,7 +72,10 @@ export default class Entities {
             //    }
                 // if(this.isAnimable(parent))
                 //     this.animar(parent)
-                this._oldMesh = mesh;
+                if (mesh!=null && this._oldMesh?.id==mesh.id) 
+                    this._oldMesh = null;
+                else
+                    this._oldMesh = mesh;
             }
             if((<BABYLON.PickingInfo>evt.pickInfo).hit && (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh && evt.event.button === 2){
                 let mesh = (<BABYLON.PickingInfo>evt.pickInfo).pickedMesh;
@@ -125,8 +128,16 @@ export default class Entities {
     addTextOver(mesh:any){
         if (this._oldMesh?.id==mesh.id) {
             this._plane.setEnabled(!this._plane.isEnabled());
+            let light = this._scene.getLightByName("LightSpot")
+            light?.setEnabled(false);
         } else {
+            let light = this._scene.getLightByName("LightSpot")
+            light?.setEnabled(true);
             const parent = this.getParent(mesh);
+            if (BABYLON.Tags.HasTags(mesh) && (<string>BABYLON.Tags.GetTags(mesh, true)).includes("Foco")) {
+                (<BABYLON.SpotLight>light).position.x = mesh.getAbsolutePosition().x;
+                (<BABYLON.SpotLight>light).position.z = mesh.getAbsolutePosition().z;
+            }
             if(!this._plane){
                 this._plane = BABYLON.Mesh.CreatePlane("plane", 1, this._scene);
                 this._plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;

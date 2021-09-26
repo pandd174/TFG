@@ -15,9 +15,9 @@ export default class AssetsLoader {
             // { id:"cube", type:"mesh", url:"./assets/objects/", file:"cube.glb", tag:"init"},
             // { id:"coche", type:"mesh", url:"./assets/objects/", file:"uploads_files_2792345_Koenigsegg.glb", tag:"init"},
             //{ id:"modelo", type:"mesh", url:"./assets/objects/", file:"ejemplo_2_mod.glb", tag:"init"},
-            // { id:"catapulta", type:"mesh", url:"./assets/objects/", file:"catapultaDaVinci.glb", tag:"init"},
-            // { id:"draga", type:"mesh", url:"./assets/objects/", file:"dragaDaVinci.glb", tag:"init"},
-            //{ id:"ballesta", type:"mesh", url:"./assets/objects/", file:"ballestaDaVinci.glb", tag:"init"},
+            { id:"catapulta", type:"mesh", url:"./assets/objects/", file:"catapultaDaVinci.glb", tag:"init"}, 
+            { id:"draga", type:"mesh", url:"./assets/objects/", file:"dragaDaVinci.glb", tag:"init"},
+            { id:"ballesta", type:"mesh", url:"./assets/objects/", file:"ballestaDaVinci.glb", tag:"init"},
             { id:"cocheDaVinci", type:"mesh", url:"./assets/objects/", file:"CocheDaVinci2.3.glb", tag:"init"},
             { id:"marco", type:"mesh", url:"./assets/objects/", file:"marco2aux.glb", tag:"init"},
             //{ id:"hangar", type:"mesh", url:"./assets/objects/", file:"Hangar.glb", tag:"init"}
@@ -65,6 +65,7 @@ export default class AssetsLoader {
             //console.log(task.loadedMeshes[i].name);
             const element = task.loadedMeshes[i];
             BABYLON.Tags.AddTagsTo(element, 'cocheDaVinci');
+            BABYLON.Tags.AddTagsTo(element, 'Foco');
         }
         //console.log("DA VINCI CARE FINITO");
     }
@@ -93,6 +94,7 @@ export default class AssetsLoader {
             //console.log(task.loadedMeshes[i].name);
             const element = task.loadedMeshes[i];
             BABYLON.Tags.AddTagsTo(element, 'Catapulta');
+            BABYLON.Tags.AddTagsTo(element, 'Foco');
         }
     }
 
@@ -102,6 +104,7 @@ export default class AssetsLoader {
             //console.log(task.loadedMeshes[i].name);
             const element = task.loadedMeshes[i];
             BABYLON.Tags.AddTagsTo(element, 'Draga');
+            BABYLON.Tags.AddTagsTo(element, 'Foco');
         }
     }
 
@@ -111,6 +114,7 @@ export default class AssetsLoader {
             //console.log(task.loadedMeshes[i].name);
             const element = task.loadedMeshes[i];
             BABYLON.Tags.AddTagsTo(element, 'Ballesta');
+            BABYLON.Tags.AddTagsTo(element, 'Foco');
         }
     }
 }
